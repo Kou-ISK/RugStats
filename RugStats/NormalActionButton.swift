@@ -8,19 +8,48 @@
 import SwiftUI
 
 struct NormalActionButton: View {
-    @State var timeline: [TimelineItem]
+    @Binding var timeline: [TimelineItem]
+    @State private var isPushed: Bool = false
     var teamName: String
     var actionName: String
     var gameTime: TimeInterval
-    
+
+    @State private var currentAction: TimelineItem? = nil
+
     var body: some View {
-        let count = timeline.count(where: {$0.actorName == teamName && $0.actionName == actionName})
-        Button("\(teamName) \(actionName) \(count)"){
-            timeline.append(TimelineItem(timestamp: Date(), gameTime: gameTime, actorName: teamName, actionName: actionName))
-        }.buttonStyle(.borderedProminent)
+        // アクションの数を表示
+        let count = timeline.count(where: { $0.actorName == teamName && $0.actionName == actionName })
+        
+        Button("\(teamName) \(actionName): \(count)") {
+            // 新規アクションを作成
+            currentAction = TimelineItem(timestamp: Date(), gameTime: gameTime, actorName: teamName, actionName: actionName)
+            // タイムラインに追加
+            if let action = currentAction {
+                timeline.append(action)
+                // currentActionがnilでない場合のみisPushedをtrueにする
+                isPushed = true
+            }
+        }
+        .buttonStyle(.borderedProminent)
+        .sheet(isPresented: Binding<Bool>(
+            get: { isPushed && currentAction != nil },
+            set: { newValue in
+                if !newValue {
+                    isPushed = false
+                }
+            }
+        )) {
+            // currentActionを直接渡す
+            if let action = currentAction {
+                NormalLabelView(targetAction: Binding<TimelineItem>(
+                    get: { action },
+                    set: { currentAction = $0 }
+                ), isPushed: isPushed)
+            }
+        }
     }
 }
 
 #Preview {
-    NormalActionButton(timeline: [], teamName: "チーム1", actionName: "トライ", gameTime: TimeInterval(100))
+    NormalActionButton(timeline: .constant([]), teamName: "チーム1", actionName: "トライ", gameTime: TimeInterval(100))
 }

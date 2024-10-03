@@ -15,15 +15,16 @@ struct NormalCodingView: View {
     
     var body: some View {
         VStack{
+            // アクションボタン
             ForEach(actionList, id:\.self){actionName in
                 HStack{
-                    NormalActionButton(timeline: gameInfo.timeline, teamName: gameInfo.team1Name, actionName: actionName, gameTime: gameTime)
+                    NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team1Name, actionName: actionName, gameTime: gameTime)
                     Spacer()
-                    NormalActionButton(timeline: gameInfo.timeline, teamName: gameInfo.team1Name, actionName: actionName, gameTime: gameTime)
+                    NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team2Name, actionName: actionName, gameTime: gameTime)
                 }
             }
-            // TODO テーブルが表示されない問題に対処する
-            NormalStatsView(timeline: gameInfo.timeline)
+            // スタッツを表示
+            NormalStatsView(timeline: $gameInfo.timeline)
         }
     }
 }
