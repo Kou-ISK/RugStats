@@ -16,7 +16,7 @@ final class GameItem {
     var fieldName: String
     var basicInfo: String
     
-    @Relationship var timeline: [TimelineItem]?
+    @Relationship var timeline: [TimelineItem]
     
     init(timestamp: Date, team1Name: String, team2Name: String) {
         self.timestamp = timestamp
@@ -24,6 +24,7 @@ final class GameItem {
         self.team2Name = team2Name
         self.fieldName = "未入力"
         self.basicInfo = team1Name + " vs. " + team2Name
+        self.timeline = []
     }
     
     init(timestamp: Date, team1Name: String, team2Name: String, fieldName: String, basicInfo: String) {
@@ -32,5 +33,6 @@ final class GameItem {
         self.team2Name = team2Name
         self.fieldName = fieldName
         self.basicInfo = basicInfo
+        self.timeline = []
     }
 }

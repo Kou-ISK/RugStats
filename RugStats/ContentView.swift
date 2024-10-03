@@ -13,7 +13,7 @@ struct ContentView: View {
     @Query private var gameList: [GameItem]
     
     var body: some View {
-        VStack {
+        NavigationStack{
             List{
                 NavigationLink(destination: StartCodingView(), label: {Text("分析する")})
                 NavigationLink(destination: StatsListView(gameList: gameList), label: {Text("ゲーム一覧")})

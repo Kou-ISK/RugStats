@@ -8,16 +8,31 @@
 import SwiftUI
 
 struct CodingView: View {
-    var game: GameItem
+    @State var game: GameItem
+    @State var gameTime: TimeInterval = TimeInterval(0)
+    @State private var isAdvanceMode: Bool = false
+    
     var body: some View {
         // ノーマルモードとアドバンスモードを切り替えられるようにする
         // ノーマルモードはスコアシート用のもののみ
-        // アドバンスモードはグラウンド、各種ボタン、各種ラベル
+        
         // エンハンスでは選手名を登録して簡単にスタッツを取れるようにするか？
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            if(isAdvanceMode){
+                // アドバンスモードはグラウンド、各種ボタン、各種ラベル
+            }else{
+                NormalCodingView(gameInfo: game, gameTime: gameTime)
+            }
+        }.toolbar{
+            ToolbarItem(placement: .topBarTrailing, content: {
+                Button(isAdvanceMode ? "ノーマル": "アドバンス"){
+                    isAdvanceMode.toggle()
+                }
+            })
+        }
     }
 }
 
 #Preview {
-    CodingView(game: GameItem(timestamp: Date(), team1Name: "チーム1", team2Name: "チーム2"))
+    CodingView(game: GameItem(timestamp: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦"))
 }

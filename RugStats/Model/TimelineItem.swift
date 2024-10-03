@@ -9,7 +9,8 @@ import Foundation
 import SwiftData
 
 @Model
-final class TimelineItem {
+final class TimelineItem: Identifiable {
+    var id = UUID()
     var timestamp: Date // 実際の時刻
     var gameTime: TimeInterval // 試合中断を加味した時間
     var actorName: String // チーム名 or 選手名が入る
@@ -24,11 +25,8 @@ final class TimelineItem {
     // アクション終了時のX座標
     var endYcoord: Int? // -10~110の範囲
     
-    @Relationship var game: GameItem
-    
     // CodingView初期描画時に初期化
-    init(game: GameItem, timestamp: Date, gameTime: TimeInterval, actorName: String, actionName: String) {
-        self.game = game
+    init(timestamp: Date, gameTime: TimeInterval, actorName: String, actionName: String) {
         self.timestamp = timestamp
         self.gameTime = gameTime
         self.actorName = actorName
