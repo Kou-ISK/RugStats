@@ -20,23 +20,18 @@ struct GameClockView: View {
     }
     
     var body: some View {
-        // ストップウォッチの表示(仮)
-        VStack{
+        // スタート/ストップボタン
+        HStack {
+            Button(action: {
+                if (isRunning){
+                    stopTimer()
+                }else{
+                    startTimer()
+                }
+            }){
+                Image(systemName: isRunning ? "pause.fill" : "play.fill")
+            }.font(.title)
             Text(formatTimeInterval(gameClock)).font(.title)
-            
-            // スタート/ストップボタン
-            HStack {
-                Button(action: {
-                    if (isRunning){
-                        stopTimer()
-                    }else{
-                        startTimer()
-                    }
-                }){
-                    Image(systemName: isRunning ? "pause.fill" : "play.fill")
-                }.font(.title)
-            }
-            .padding()
         }.onAppear {
             // 初期設定でタイマーを作動しないように
             resetTimer()

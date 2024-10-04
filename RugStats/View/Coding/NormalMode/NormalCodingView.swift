@@ -11,15 +11,18 @@ struct NormalCodingView: View {
     @Binding var gameInfo: GameItem
     @Binding var gameClock: TimeInterval // ストップウォッチの経過時間
     
-    var actionList = ["スクラム", "ラインアウト", "ペナルティ", "トライ", "コンバージョンキック", "ペナルティーゴール"]
+    var actionList = ["スクラム", "ラインアウト", "ペナルティ", "トライ", "コンバージョンG", "PG"]
     
     var body: some View {
         VStack {
             // アクションボタン
+            HStack(alignment: .center){
+                Text(gameInfo.team1Name).font(.title3)
+                Text(gameInfo.team2Name).font(.title3)
+            }
             ForEach(actionList, id:\.self) { actionName in
-                HStack {
-                    NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team1Name, actionName: actionName, gameClock: gameClock)
-                    Spacer()
+                HStack(alignment: .center){
+                    NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team1Name, actionName: actionName, gameClock: gameClock).tint(.red)
                     NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team2Name, actionName: actionName, gameClock: gameClock)
                 }
             }
@@ -28,4 +31,8 @@ struct NormalCodingView: View {
             NormalStatsView(timeline: $gameInfo.timeline)
         }
     }
+}
+
+#Preview{
+    NormalCodingView(gameInfo: .constant(GameItem(timestamp: Date(), team1Name: "チーム1", team2Name: "チーム2")), gameClock: .constant(TimeInterval(800)))
 }

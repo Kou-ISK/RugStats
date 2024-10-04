@@ -21,7 +21,7 @@ struct NormalActionButton: View {
         // アクションの数を表示
         let count = timeline.count(where: { $0.actorName == teamName && $0.actionName == actionName })
         
-        Button("\(teamName) \(actionName): \(count)") {
+        Button("\(actionName): \(count)") {
             // 新規アクションを作成
             currentAction = TimelineItem(
                 timestamp: Date(),
