@@ -59,7 +59,7 @@ struct NormalStatsView: View {
                                     .frame(width: 100, alignment: .leading)
                                 Text(item.actionLabels.joined())
                                     .frame(width: 100, alignment: .leading)
-                                Text(formatTimeInterval(item.gameTime))
+                                Text(formatTimeInterval(item.gameClock))
                                     .frame(width: 100, alignment: .leading)
                                 Text(dateFormatter.string(from: item.timestamp))
                                     .frame(width: 150, alignment: .leading)

@@ -8,24 +8,49 @@
 import SwiftUI
 
 struct StatsListView: View {
+    @Environment(\.modelContext) private var modelContext
     @State var gameList: [GameItem]
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             Text("ゲーム一覧")
-            List(gameList, id:\.id){game in
-                NavigationLink(destination :{StatsView(game: game)}, label: {
-                    VStack{
-                        Text("\(game.team1Name) vs. \(game.team2Name)")
-                        Text("@\(game.fieldName)")
-                        Text("備考: \(game.basicInfo)")
+            List {
+                ForEach(gameList) { game in
+                    NavigationLink(destination: StatsView(game: game)) {
+                        VStack(alignment: .leading) {
+                            Text("\(game.team1Name) vs. \(game.team2Name)")
+                            Text("@\(game.fieldName)")
+                            Text("備考: \(game.basicInfo)")
+                        }
                     }
-                })
+                }
+                .onDelete(perform: deleteGame)
             }
+        }
+    }
+    
+    private func deleteGame(offsets: IndexSet) {
+        // offsetsから削除するアイテムを取得
+        offsets.map { gameList[$0] }.forEach { game in
+            // modelContextからゲームを削除
+            modelContext.delete(game)
+        }
+        
+        // gameListの更新
+        gameList.remove(atOffsets: offsets)
+        
+        do {
+            // モデルコンテキストの保存
+            try modelContext.save()
+        } catch {
+            print("削除エラー: \(error.localizedDescription)")
         }
     }
 }
 
 #Preview {
-    StatsListView(gameList: [GameItem(timestamp: Date(), team1Name: "チームA", team2Name: "チームB"), GameItem(timestamp: Date(), team1Name: "チームC", team2Name: "チームD")])
+    StatsListView(gameList: [
+        GameItem(timestamp: Date(), team1Name: "チームA", team2Name: "チームB"),
+        GameItem(timestamp: Date(), team1Name: "チームC", team2Name: "チームD")
+    ])
 }

@@ -14,9 +14,6 @@ struct StatsView: View {
             Text("\(game.team1Name) vs. \(game.team2Name)")
             // 仮で表を表示
             NormalStatsView(timeline: $game.timeline)
-        }.onAppear{
-            // デバッグプリント
-            print(game.timeline.first?.actionName)
         }
         // タブで表示を切り替える
         // 1. 一般的なスタッツを表形式で表示
