@@ -13,6 +13,7 @@ struct RugStatsApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             GameItem.self,
+            TimelineItem.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,8 +26,7 @@ struct RugStatsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().modelContainer(sharedModelContainer) // ここに移動
         }
-        .modelContainer(sharedModelContainer)
     }
 }

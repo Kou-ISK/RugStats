@@ -10,10 +10,10 @@ import SwiftUI
 struct NormalActionButton: View {
     @Environment(\.modelContext) private var modelContext
     @Binding var timeline: [TimelineItem]
-    @State private var isPushed: Bool = false
+    @State private var isLabelViewPresented: Bool = false
     var teamName: String
     var actionName: String
-    var gameTime: TimeInterval
+    var gameClock: TimeInterval
     
     @State private var currentAction: TimelineItem? = nil
     
@@ -23,43 +23,38 @@ struct NormalActionButton: View {
         
         Button("\(teamName) \(actionName): \(count)") {
             // 新規アクションを作成
-            currentAction = TimelineItem(timestamp: Date(), gameTime: gameTime, actorName: teamName, actionName: actionName)
+            currentAction = TimelineItem(
+                timestamp: Date(),
+                gameClock: gameClock,
+                actorName: teamName,
+                actionName: actionName
+            )
+            
             // タイムラインに追加
             if let action = currentAction {
                 timeline.append(action)
-                
-                // TODO modelContextに保存されるように修正
-                do {
-                    // SwiftDataのコンテキストに保存
-                    try modelContext.save()
-                } catch {
-                    print("Error saving: \(error.localizedDescription)")
-                }
-                
-                // currentActionがnilでない場合のみisPushedをtrueにする
-                isPushed = true
+                modelContext.insert(action)
+                // ラベルビューを表示する
+                isLabelViewPresented = true
             }
         }
         .buttonStyle(.borderedProminent)
-        .sheet(isPresented: Binding<Bool>(
-            get: { isPushed && currentAction != nil },
-            set: { newValue in
-                if !newValue {
-                    isPushed = false
-                }
-            }
-        )) {
+        .sheet(isPresented: $isLabelViewPresented) {
             // currentActionを直接渡す
             if let action = currentAction {
-                NormalLabelView(targetAction: Binding<TimelineItem>(
-                    get: { action },
-                    set: { currentAction = $0 }
-                ), isPushed: isPushed)
+                NormalLabelView(
+                    targetAction: Binding<TimelineItem>(
+                        get: { action },
+                        set: { currentAction = $0 }
+                    )
+                )
             }
         }
     }
 }
 
+
+
 #Preview {
-    NormalActionButton(timeline: .constant([]), teamName: "チーム1", actionName: "トライ", gameTime: TimeInterval(100))
+    NormalActionButton(timeline: .constant([]), teamName: "チーム1", actionName: "トライ", gameClock: TimeInterval(100))
 }
