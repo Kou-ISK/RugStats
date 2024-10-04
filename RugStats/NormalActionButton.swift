@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct NormalActionButton: View {
+    @Environment(\.modelContext) private var modelContext
     @Binding var timeline: [TimelineItem]
     @State private var isPushed: Bool = false
     var teamName: String
     var actionName: String
     var gameTime: TimeInterval
-
+    
     @State private var currentAction: TimelineItem? = nil
-
+    
     var body: some View {
         // アクションの数を表示
         let count = timeline.count(where: { $0.actorName == teamName && $0.actionName == actionName })
@@ -26,6 +27,15 @@ struct NormalActionButton: View {
             // タイムラインに追加
             if let action = currentAction {
                 timeline.append(action)
+                
+                // TODO modelContextに保存されるように修正
+                do {
+                    // SwiftDataのコンテキストに保存
+                    try modelContext.save()
+                } catch {
+                    print("Error saving: \(error.localizedDescription)")
+                }
+                
                 // currentActionがnilでない場合のみisPushedをtrueにする
                 isPushed = true
             }

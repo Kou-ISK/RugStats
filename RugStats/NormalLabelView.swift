@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NormalLabelView: View {
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Binding var targetAction: TimelineItem
     @State var isPushed: Bool
@@ -18,10 +19,17 @@ struct NormalLabelView: View {
             ForEach(zoneList, id:\.self){zone in
                 HStack{
                     ForEach(laneList, id:\.self){lane in
-                        Button("\(zone) \(lane)"){
+                        Button("\(zone)\n\(lane)"){
                             print("\(zone) \(lane)")
                             targetAction.actionLabels.append(zone)
                             targetAction.actionLabels.append(lane)
+                            
+                            // TODO modelContextに保存されるように修正
+                            do{
+                                try modelContext.save()
+                            }catch{
+                                print("Error: \(error.localizedDescription)")
+                            }
                             isPushed.toggle()
                             dismiss()
                         }.buttonStyle(.borderedProminent)
