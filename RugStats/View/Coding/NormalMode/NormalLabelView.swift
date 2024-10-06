@@ -10,31 +10,30 @@ import SwiftUI
 struct NormalLabelView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    
     @Binding var targetAction: TimelineItem
+    @State private var showSuccessFailurePrompt = false // キック成否の選択肢を表示するかどうかのフラグ
     
     var zoneList = ["敵陣22mイン", "敵陣22mアウト", "自陣22mアウト", "自陣22mイン"]
     var laneList = ["左", "中央", "右"]
     
     var body: some View {
-        VStack{
+        VStack {
             Text("フィールドポジションを選択").font(.title)
-            // TODO Viewがシンプルになるようにリファクタする
             GeometryReader { geometry in
                 let fieldWidth = geometry.size.width
                 let fieldHeight = geometry.size.height
                 let imageAspectRatio: CGFloat = 70 / 100 // 縦100m、横70mのフィールド
                 
-                // 画像が画面にフィットするように縦横比を維持してサイズ調整
                 let adjustedWidth = min(fieldWidth, fieldHeight * imageAspectRatio)
                 let adjustedHeight = adjustedWidth / imageAspectRatio
                 
                 ZStack {
-                    // グラウンド画像をアスペクト比を維持して画面にフィットさせる
                     Image("FieldPosition")
                         .resizable()
                         .aspectRatio(imageAspectRatio, contentMode: .fit)
                         .frame(width: adjustedWidth, height: adjustedHeight)
-                        .position(x: fieldWidth / 2, y: fieldHeight / 2) // 画像を中央に配置
+                        .position(x: fieldWidth / 2, y: fieldHeight / 2)
                     
                     // ボタンの配置（隙間なく敷き詰める）
                     VStack(spacing:0) { // スペーシングを0にして隙間をなくす
@@ -42,28 +41,44 @@ struct NormalLabelView: View {
                             HStack(spacing:0) { // スペーシングを0にして隙間をなくす
                                 ForEach(laneList, id: \.self) { lane in
                                     Button(action: {
-                                        print("\(zone) \(lane)")
                                         // ラベルを付与する
                                         targetAction.actionLabels.append(zone)
                                         targetAction.actionLabels.append(lane)
                                         
-                                        // modelContextに保存
-                                        saveLabel()
-                                        
-                                        // モーダルを閉じる
-                                        dismiss()}
-                                    ){
+                                        // コンバージョンGまたはPGなら成功/失敗の選択肢を表示
+                                        if targetAction.actionName == "コンバージョンG" || targetAction.actionName == "PG" {
+                                            showSuccessFailurePrompt = true
+                                        } else {
+                                            saveLabel() // 通常の保存処理
+                                            dismiss()
+                                        }
+                                    }) {
                                         Text("\(zone)\n\(lane)")
                                             .foregroundStyle(.black).font(.title2)
                                             .bold()
                                             .frame(maxWidth: adjustedWidth / CGFloat(laneList.count), maxHeight: adjustedHeight / CGFloat(zoneList.count))
                                     }.background(.gray).opacity(0.8).border(.white, width: 1)
-                                    
                                 }
                             }
                         }
                     }
                 }
+            }
+            .alert(isPresented: $showSuccessFailurePrompt) {
+                Alert(
+                    title: Text("ゴール成否"),
+                    message: Text("キックの結果を選択してください"),
+                    primaryButton: .default(Text("成功")) {
+                        targetAction.actionLabels.append("成功")
+                        saveLabel()
+                        dismiss()
+                    },
+                    secondaryButton: .destructive(Text("失敗")) {
+                        targetAction.actionLabels.append("失敗")
+                        saveLabel()
+                        dismiss()
+                    }
+                )
             }
         }
     }
