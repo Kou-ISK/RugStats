@@ -11,7 +11,18 @@ struct NormalCodingView: View {
     @Binding var gameInfo: GameItem
     @Binding var gameClock: TimeInterval // ストップウォッチの経過時間
     
-    var actionList = ["スクラム", "ラインアウト", "ペナルティ", "トライ", "コンバージョンG", "PG", "DG"]
+    // ローカライズされたアクション名のリスト
+        var actionList: [String] {
+            return [
+                NSLocalizedString("スクラム", comment: "Action: Scrum"),
+                NSLocalizedString("ラインアウト", comment: "Action: Lineout"),
+                NSLocalizedString("ペナルティ", comment: "Action: Penalty"),
+                NSLocalizedString("トライ", comment: "Action: Try"),
+                NSLocalizedString("コンバージョンG", comment: "Action: Conversion"),
+                NSLocalizedString("PG", comment: "Action: PG"),
+                NSLocalizedString("DG", comment: "Action: DG")
+            ]
+        }
     
     var body: some View {
         VStack {

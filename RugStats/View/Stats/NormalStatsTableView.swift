@@ -16,7 +16,7 @@ struct NormalStatsTableView: View {
         return formatter
     }()
     
-    // ゲームタイムをフォーマットする関数
+    // ゲームクロックをフォーマットする関数
     private func formatTimeInterval(_ time: TimeInterval) -> String {
         let minutes = Int(time) / 60
         let seconds = Int(time) % 60
@@ -39,7 +39,7 @@ struct NormalStatsTableView: View {
                     Text("ラベル")
                         .bold()
                         .frame(width: 100, alignment: .leading)
-                    Text("ゲームタイム")
+                    Text("ゲームクロック")
                         .bold()
                         .frame(width: 50, alignment: .leading)
                     Text("タイムスタンプ")

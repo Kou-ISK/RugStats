@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		78718A412CB24F2800B81579 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 78718A402CB24F2800B81579 /* Localizable.xcstrings */; };
 		789F558B2CAD773100320A03 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 789F558A2CAD773100320A03 /* README.md */; };
 		789F558D2CAD77D800320A03 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 789F558C2CAD77D100320A03 /* .gitignore */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		78718A402CB24F2800B81579 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		789F552F2CAD664600320A03 /* RugStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RugStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		789F55412CAD664700320A03 /* RugStatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RugStatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		789F554B2CAD664700320A03 /* RugStatsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RugStatsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				789F558C2CAD77D100320A03 /* .gitignore */,
+				78718A402CB24F2800B81579 /* Localizable.xcstrings */,
 				789F558A2CAD773100320A03 /* README.md */,
 				789F55312CAD664600320A03 /* RugStats */,
 				789F55442CAD664700320A03 /* RugStatsTests */,
@@ -201,6 +204,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 789F55262CAD664600320A03;
 			minimizedProjectReferenceProxies = 1;
@@ -222,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				789F558D2CAD77D800320A03 /* .gitignore in Resources */,
+				78718A412CB24F2800B81579 /* Localizable.xcstrings in Resources */,
 				789F558B2CAD773100320A03 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +344,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -395,6 +401,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

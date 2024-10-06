@@ -12,7 +12,7 @@ struct GameClockView: View {
     @Binding var timer: Timer?
     @Binding var isRunning: Bool
     
-    // ゲームタイムをフォーマットする関数
+    // ゲームクロックをフォーマットする関数
     private func formatTimeInterval(_ time: TimeInterval) -> String {
         let minutes = Int(time) / 60
         let seconds = Int(time) % 60
