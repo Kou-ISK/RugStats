@@ -14,7 +14,7 @@ struct StartCodingView: View {
     @State private var showCodingView = false
     
     var body: some View {
-        NavigationStack {
+
             VStack {
                 Text("基本情報入力")
                     .font(.title)
@@ -45,17 +45,13 @@ struct StartCodingView: View {
                 }) {
                     Text("分析開始")
                 }
+                .fullScreenCover(isPresented: $showCodingView) {
+                    CodingView(game: $newGame)
+                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(!isFormValid()) // フォームが有効でない場合は非活性にする
-                
-                // NavigationLinkの修正
-                NavigationLink(destination: CodingView(game: $newGame), isActive: $showCodingView) {
-                    EmptyView() // NavigationLinkはボタンを表示しないため、EmptyViewを使用
                 }
-            }
-            .padding()
         }
-    }
     
     // フォームの入力が全て有効かどうかを判定する関数
     private func isFormValid() -> Bool {
