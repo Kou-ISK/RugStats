@@ -41,7 +41,7 @@ struct NormalStatsView: View {
                         .frame(width: 100, alignment: .leading)
                     Text("ゲームタイム")
                         .bold()
-                        .frame(width: 100, alignment: .leading)
+                        .frame(width: 50, alignment: .leading)
                     Text("タイムスタンプ")
                         .bold()
                         .frame(width: 100, alignment: .leading)
@@ -57,14 +57,14 @@ struct NormalStatsView: View {
                                     .frame(width: 100, alignment: .leading)
                                 Text(item.actionName)
                                     .frame(width: 100, alignment: .leading)
-                                Text(item.actionLabels.joined())
+                                Text(item.actionLabels.joined(separator: "、"))
                                     .frame(width: 100, alignment: .leading)
                                 Text(formatTimeInterval(item.gameClock))
-                                    .frame(width: 100, alignment: .leading)
+                                    .frame(width: 50, alignment: .leading)
                                 Text(dateFormatter.string(from: item.timestamp))
-                                    .frame(width: 150, alignment: .leading)
+                                    .frame(width: 100, alignment: .leading)
                             }
-                            .padding(.vertical, 5)  // 各行に余白を追加
+                            Divider()
                         }
                     }
                 }
