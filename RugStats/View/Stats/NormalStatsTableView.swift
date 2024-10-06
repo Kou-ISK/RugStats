@@ -1,5 +1,5 @@
 //
-//  NormalStatsView.swift
+//  NormalStatsTableView.swift
 //  RugStats
 //
 //  Created by 井坂航 on 2024/10/03.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NormalStatsView: View {
+struct NormalStatsTableView: View {
     // DateFormatter はプロパティの初期化内で設定する
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -74,5 +74,5 @@ struct NormalStatsView: View {
 }
 
 #Preview {
-    NormalStatsView(timeline: .constant([]))
+    NormalStatsTableView(timeline: .constant([]))
 }
