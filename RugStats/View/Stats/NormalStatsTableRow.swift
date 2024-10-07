@@ -13,16 +13,15 @@ struct NormalStatsTableRow: View {
     @Binding var item: TimelineItem
     var body: some View {
         HStack {
-            EditableTextView(text: $item.actorName)
-                .frame(width: 100, alignment: .leading)
-            EditableTextView(text: $item.actionName)
-                .frame(width: 100, alignment: .leading)
+            EditableTextView(text: $item.actorName, width: 100)
+                .frame(alignment: .leading)
+            EditableTextView(text: $item.actionName, width: 100)
+                .frame(alignment: .leading)
             
-            // TODO ラベルをそれぞれ編集できるようにする
             VStack{
-                ForEach($item.actionLabels, id:\.self){$label in
-                    EditableTextView(text: $label)
-                        .frame(width: 100, alignment: .leading)
+                ForEach($item.actionLabels, id:\.id){$label in
+                    EditableTextView(text: $label.label, width: 100)
+                        .frame(alignment: .leading)
                 }
             }
             Text(formatTimeInterval(item.gameClock))

@@ -11,26 +11,25 @@ struct EditableTextView: View {
     @State private var isEditing: Bool = false
     @Binding var text: String
     
+    var width: CGFloat
+    
     // TODO 空文字でコミットできないようにする
     var body: some View {
-        VStack {
-            if isEditing {
-                TextField("入力", text: $text, onCommit: {
-                    // 編集終了時に呼ばれる
-                    isEditing = false
-                })
+        if isEditing {
+            TextField("入力", text: $text, onCommit: {
+                // 編集終了時に呼ばれる
+                isEditing = false
+            }).frame(width: width)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            } else {
-                Text(text)
-                    .onTapGesture {
-                        isEditing = true
-                    }
-            }
+        } else {
+            Text(text).frame(width: width)
+                .onTapGesture {
+                    isEditing = true
+                }
         }
-        .padding()
     }
 }
 
 #Preview {
-    EditableTextView(text: .constant("text"))
+    EditableTextView(text: .constant("text"), width: 100)
 }

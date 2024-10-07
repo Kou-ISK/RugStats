@@ -15,7 +15,7 @@ final class TimelineItem: Identifiable {
     var gameClock: TimeInterval // 試合中断を加味した時間
     var actorName: String // チーム名 or 選手名が入る
     var actionName: String
-    var actionLabels: [String] // より良いラベルの持ち方がないか検討する
+    var actionLabels: [ActionLabelItem]
     // アクション開始時のX座標
     var startXcoord: Int? // -5~75の範囲
     // アクション開始時のX座標

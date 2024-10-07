@@ -14,25 +14,6 @@ struct NormalLabelView: View {
     @Binding var targetAction: TimelineItem
     @State private var showSuccessFailurePrompt = false // キック成否の選択肢を表示するかどうかのフラグ
     
-    var zoneList: [String] {
-        return [
-            NSLocalizedString("Opp22m-GL", comment: "Zone: Opp22m-GL"),
-            NSLocalizedString("Halfway-Opp22m", comment: "Zone: Halfway-Opp22m"),
-            NSLocalizedString("22m-Halfway", comment: "Zone: 22m-Halfway"),
-            NSLocalizedString("GL-22m", comment: "Zone: GL-22m")
-        ]
-    }
-    
-    var laneList: [String] {
-        return [
-            NSLocalizedString("Left", comment: "Lane: Left"),
-            NSLocalizedString("Mid-Left", comment: "Lane: Mid-Left"),
-            NSLocalizedString("Middle", comment: "Lane: Middle"),
-            NSLocalizedString("Mid-Right", comment: "Lane: Mid-Right"),
-            NSLocalizedString("Right", comment: "Lane: Right")
-        ]
-    }
-    
     var body: some View {
         NavigationStack{
             Text("フィールドポジションを選択").font(.title)
@@ -58,19 +39,7 @@ struct NormalLabelView: View {
                                 HStack(spacing:0) { // スペーシングを0にして隙間をなくす
                                     ForEach(laneList, id: \.self) { lane in
                                         Button(action: {
-                                            // ラベルを付与する
-                                            targetAction.actionLabels.append(zone)
-                                            targetAction.actionLabels.append(lane)
-                                            
-                                            // コンバージョンG, PG, DGなら成功/失敗の選択肢を表示
-                                            if targetAction.actionName == NSLocalizedString("コンバージョンG", comment: "Action: Conversion") ||
-                                                targetAction.actionName == NSLocalizedString("PG", comment: "Action: PG") ||
-                                                targetAction.actionName == NSLocalizedString("DG", comment: "Action: DG") {
-                                                showSuccessFailurePrompt = true
-                                            } else {
-                                                saveLabel() // 通常の保存処理
-                                                dismiss()
-                                            }
+                                            handlePushLabelButton(zone: zone, lane: lane)
                                         }) {
                                             Text("\(zone)\n\(lane)")
                                                 .foregroundStyle(.black)
@@ -88,18 +57,34 @@ struct NormalLabelView: View {
                         title: Text("ゴール成否"),
                         message: Text("キックの結果を選択してください"),
                         primaryButton: .default(Text("成功")) {
-                            targetAction.actionLabels.append(NSLocalizedString("成功", comment: "キック: 成功"))
+                            targetAction.actionLabels.append(ActionLabelItem(label: NSLocalizedString("成功", comment: "キック: 成功")))
                             saveLabel()
                             dismiss()
                         },
                         secondaryButton: .destructive(Text("失敗")) {
-                            targetAction.actionLabels.append(NSLocalizedString("失敗", comment: "キック: 失敗"))
+                            targetAction.actionLabels.append(ActionLabelItem(label:NSLocalizedString("失敗", comment: "キック: 失敗")))
                             saveLabel()
                             dismiss()
                         }
                     )
                 }
             }
+        }
+    }
+    
+    private func handlePushLabelButton(zone: String, lane: String){
+        // ラベルを付与する
+        targetAction.actionLabels.append(ActionLabelItem(label: zone))
+        targetAction.actionLabels.append(ActionLabelItem(label:lane))
+        
+        // コンバージョンG, PG, DGなら成功/失敗の選択肢を表示
+        if targetAction.actionName == NSLocalizedString("コンバージョンG", comment: "Action: Conversion") ||
+            targetAction.actionName == NSLocalizedString("PG", comment: "Action: PG") ||
+            targetAction.actionName == NSLocalizedString("DG", comment: "Action: DG") {
+            showSuccessFailurePrompt = true
+        } else {
+            saveLabel() // 通常の保存処理
+            dismiss()
         }
     }
     
