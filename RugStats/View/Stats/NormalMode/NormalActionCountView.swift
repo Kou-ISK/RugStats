@@ -25,5 +25,5 @@ struct NormalActionCountView: View {
 }
 
 #Preview {
-    NormalActionCountView(game: .constant(GameItem(timestamp: Date(), team1Name: "チーム1", team2Name: "チーム2")))
+    NormalActionCountView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2")))
 }

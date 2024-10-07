@@ -284,6 +284,22 @@
         }
       }
     },
+    "キックオフ日時" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kick Off"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キックオフ日時"
+          }
+        }
+      }
+    },
     "キックの結果を選択してください" : {
       "localizations" : {
         "en" : {

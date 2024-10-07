@@ -27,5 +27,5 @@ struct NormalCodingView: View {
 }
 
 #Preview{
-    NormalCodingView(gameInfo: .constant(GameItem(timestamp: Date(), team1Name: "チーム1", team2Name: "チーム2")), gameClock: .constant(TimeInterval(800)))
+    NormalCodingView(gameInfo: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2")), gameClock: .constant(TimeInterval(800)))
 }

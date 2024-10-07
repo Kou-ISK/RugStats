@@ -50,7 +50,7 @@ struct StatsListView: View {
 
 #Preview {
     StatsListView(gameList: [
-        GameItem(timestamp: Date(), team1Name: "チームA", team2Name: "チームB"),
-        GameItem(timestamp: Date(), team1Name: "チームC", team2Name: "チームD")
+        GameItem(date: Date(), team1Name: "チームA", team2Name: "チームB"),
+        GameItem(date: Date(), team1Name: "チームC", team2Name: "チームD")
     ])
 }

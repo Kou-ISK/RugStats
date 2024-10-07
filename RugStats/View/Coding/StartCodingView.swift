@@ -10,7 +10,7 @@ import SwiftUI
 struct StartCodingView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @State private var newGame: GameItem = GameItem(timestamp: Date(), team1Name: "", team2Name: "")
+    @State private var newGame: GameItem = GameItem(date: Date(), team1Name: "", team2Name: "")
     @State private var showCodingView = false
     
     var body: some View {
@@ -26,6 +26,10 @@ struct StartCodingView: View {
                             Spacer()
                             TextField("例) YY大学", text: $newGame.team2Name)
                         }
+                    }
+                    
+                    Section{
+                        DatePicker("キックオフ日時", selection: $newGame.date).datePickerStyle(.automatic)
                     }
                     
                     Section(header: Text("グラウンド名を入力")) {

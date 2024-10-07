@@ -40,5 +40,5 @@ struct ScoreView: View {
 }
 
 #Preview {
-    CodingView(game: .constant(GameItem(timestamp: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦")))
+    CodingView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦")))
 }

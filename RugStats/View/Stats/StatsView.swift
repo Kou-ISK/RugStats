@@ -27,5 +27,5 @@ struct StatsView: View {
 }
 
 #Preview {
-    StatsView(game: GameItem(timestamp: Date(), team1Name: "チーム1", team2Name: "チーム2"))
+    StatsView(game: GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2"))
 }

@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class GameItem {
-    var timestamp: Date
+    var date: Date
     var team1Name: String
     var team2Name: String
     var fieldName: String
@@ -19,8 +19,8 @@ final class GameItem {
     @Relationship
     var timeline: [TimelineItem]
     
-    init(timestamp: Date, team1Name: String, team2Name: String) {
-        self.timestamp = timestamp
+    init(date: Date, team1Name: String, team2Name: String) {
+        self.date = date
         self.team1Name = team1Name
         self.team2Name = team2Name
         self.fieldName = ""
@@ -28,8 +28,8 @@ final class GameItem {
         self.timeline = []
     }
     
-    init(timestamp: Date, team1Name: String, team2Name: String, fieldName: String, basicInfo: String) {
-        self.timestamp = timestamp
+    init(date: Date, team1Name: String, team2Name: String, fieldName: String, basicInfo: String) {
+        self.date = date
         self.team1Name = team1Name
         self.team2Name = team2Name
         self.fieldName = fieldName
