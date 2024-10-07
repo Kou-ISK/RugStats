@@ -20,15 +20,15 @@ struct NormalStatsTableRow: View {
             
             VStack{
                 ForEach($item.actionLabels, id:\.id){$label in
-                    EditableTextView(text: $label.label, width: 100)
+                    EditableTextView(text: $label.label, width: 150)
                         .frame(alignment: .leading)
                 }
-            }
+            }.frame(minWidth: 150)
             Text(formatTimeInterval(item.gameClock))
-                .frame(width: 50, alignment: .leading)
+                .frame(width: 100, alignment: .leading)
             Text(dateFormatter.string(from: item.timestamp))
                 .frame(width: 100, alignment: .leading)
-        }.onChange(of: item.actorName) {
+        }.padding(0).onChange(of: item.actorName) {
             saveChanges()
         }
         .onChange(of: item.actionName) {

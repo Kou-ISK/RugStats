@@ -19,7 +19,7 @@ struct EditableTextView: View {
             TextField("入力", text: $text, onCommit: {
                 // 編集終了時に呼ばれる
                 isEditing = false
-            }).frame(width: width)
+            }).frame(minWidth: width)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
         } else {
             Text(text).frame(width: width)

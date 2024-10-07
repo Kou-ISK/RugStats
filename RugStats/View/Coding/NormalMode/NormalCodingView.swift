@@ -15,8 +15,8 @@ struct NormalCodingView: View {
         VStack {
             ForEach(actionList, id:\.self) { actionName in
                 HStack(alignment: .center){
-                    NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team1Name, actionName: actionName, gameClock: gameClock).tint(.red)
-                    NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team2Name, actionName: actionName, gameClock: gameClock)
+                    NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team1Name, actionName: actionName, gameClock: gameClock).tint(.pink)
+                    NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team2Name, actionName: actionName, gameClock: gameClock).tint(.indigo)
                 }
             }
             

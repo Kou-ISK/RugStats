@@ -20,16 +20,16 @@ struct NormalStatsTableView: View {
                 HStack {
                     Text("チーム")
                         .bold()
-                        .frame(width: 100, alignment: .leading)
+                        .frame(width: 100, alignment: .center)
                     Text("アクション")
                         .bold()
-                        .frame(width: 100, alignment: .leading)
+                        .frame(width: 100, alignment: .center)
                     Text("ラベル")
                         .bold()
-                        .frame(width: 100, alignment: .leading)
+                        .frame(minWidth: 150, alignment: .center)
                     Text("ゲームクロック")
                         .bold()
-                        .frame(width: 50, alignment: .leading)
+                        .frame(width: 100, alignment: .leading)
                     Text("タイムスタンプ")
                         .bold()
                         .frame(width: 100, alignment: .leading)
@@ -70,5 +70,5 @@ struct NormalStatsTableView: View {
 }
 
 #Preview {
-    NormalStatsTableView(timeline: .constant([]))
+    NormalStatsTableView(timeline: .constant([TimelineItem(timestamp: Date(), gameClock: TimeInterval(10), actorName: "チーム1", actionName: "トライ"), TimelineItem(timestamp: Date(), gameClock: TimeInterval(10), actorName: "チーム2", actionName: "トライ")]))
 }
