@@ -8,19 +8,43 @@
 import SwiftUI
 
 struct NormalStatsTableRow: View {
-    @State var item: TimelineItem
+    @Environment(\.modelContext) private var modelContext
+    
+    @Binding var item: TimelineItem
     var body: some View {
         HStack {
-            Text(item.actorName)
+            EditableTextView(text: $item.actorName)
                 .frame(width: 100, alignment: .leading)
-            Text(item.actionName)
+            EditableTextView(text: $item.actionName)
                 .frame(width: 100, alignment: .leading)
-            Text(item.actionLabels.joined(separator: "、"))
-                .frame(width: 100, alignment: .leading)
+            
+            // TODO ラベルをそれぞれ編集できるようにする
+            VStack{
+                ForEach($item.actionLabels, id:\.self){$label in
+                    EditableTextView(text: $label)
+                        .frame(width: 100, alignment: .leading)
+                }
+            }
             Text(formatTimeInterval(item.gameClock))
                 .frame(width: 50, alignment: .leading)
             Text(dateFormatter.string(from: item.timestamp))
                 .frame(width: 100, alignment: .leading)
+        }.onChange(of: item.actorName) {
+            saveChanges()
+        }
+        .onChange(of: item.actionName) {
+            saveChanges()
+        }
+        .onChange(of: item.actionLabels) {
+            saveChanges()
+        }
+    }
+    
+    private func saveChanges() {
+        do {
+            try modelContext.save()
+        } catch {
+            print("Failed to save changes: \(error.localizedDescription)")
         }
     }
     
@@ -41,5 +65,5 @@ struct NormalStatsTableRow: View {
 }
 
 #Preview {
-    NormalStatsTableRow(item: TimelineItem(timestamp: Date(), gameClock: TimeInterval(300), actorName: "チーム1", actionName: "トライ"))
+    NormalStatsTableRow(item: .constant(TimelineItem(timestamp: Date(), gameClock: TimeInterval(300), actorName: "チーム1", actionName: "トライ")))
 }
