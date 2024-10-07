@@ -15,10 +15,10 @@ struct StatsListView: View {
         NavigationStack {
             Text("ゲーム一覧")
             List {
-                ForEach(gameList) { game in
+                ForEach($gameList) { $game in
                     NavigationLink(destination: StatsView(game: game)) {
                         VStack(alignment: .leading) {
-                            Text("\(game.team1Name) vs. \(game.team2Name)")
+                            ScoreView(game: $game)
                             Text("@\(game.fieldName)")
                             Text("備考: \(game.basicInfo)")
                         }

@@ -10,29 +10,31 @@ import SwiftUI
 struct ScoreView: View {
     @Binding var game: GameItem
     
-    private func calculateScore(teamName: String)->Int{
-        let actions = game.timeline.filter({$0.actorName == teamName})
-        let tries = actions.count(where: {$0.actionName == NSLocalizedString("トライ", comment: "Action: Try")})
-        let conversions = actions.count(where: {
-            $0.actionName == NSLocalizedString("コンバージョンG", comment: "Action: Conversion") && $0.actionLabels.contains(NSLocalizedString("成功", comment: "キック: 成功"))
-        })
-        let penaltyGoals = actions.count(where: {
-            $0.actionName == NSLocalizedString("PG", comment: "Action: PG") && $0.actionLabels.contains(NSLocalizedString("成功", comment: "キック: 成功"))
-        })
-        let dropGoals = actions.count(where: {
-            $0.actionName == NSLocalizedString("DG", comment: "Action: DG") && $0.actionLabels.contains(NSLocalizedString("成功", comment: "キック: 成功"))
-        })
-        return tries * 5 + conversions * 2 + penaltyGoals * 3 + dropGoals * 3
+    // チームごとのアクションを集計してスコアを計算する関数
+    private func calculateScore(for teamName: String) -> Int {
+        let actions = game.timeline.filter { $0.actorName == teamName }
+        
+        // 各アクションとその対応する得点
+        let scoreMapping: [(action: String, label: String?, points: Int)] = [
+            ("トライ", nil, 5),
+            ("コンバージョンG", "成功", 2),
+            ("PG", "成功", 3),
+            ("DG", "成功", 3)
+        ]
+        
+        return scoreMapping.reduce(0) { total, scoreItem in
+            total + actions.count(where: { action in
+                action.actionName == NSLocalizedString(scoreItem.action, comment: "") &&
+                (scoreItem.label == nil || action.actionLabels.contains { $0.label == NSLocalizedString(scoreItem.label!, comment: "") })
+            }) * scoreItem.points
+        }
     }
     
     var body: some View {
-        VStack {
-            Text("\(String(calculateScore(teamName: game.team1Name))) - \(String(calculateScore(teamName: game.team2Name)))").font(.title).bold()
-            HStack{
-                Text(game.team1Name).font(.title3)
-                Text(game.team2Name).font(.title3)
-            }
-            Divider()
+        HStack {
+            Text(game.team1Name).font(.title3)
+            Text("\(String(calculateScore(for: game.team1Name))) - \(String(calculateScore(for: game.team2Name)))").font(.title).bold()
+            Text(game.team2Name).font(.title3)
         }
     }
 }
