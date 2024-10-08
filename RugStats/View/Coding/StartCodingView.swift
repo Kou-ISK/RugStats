@@ -22,9 +22,9 @@ struct StartCodingView: View {
                 Form {
                     Section(header: Text("チーム名を入力")) {
                         HStack {
-                            TextField("例) XX大学", text: $newGame.team1Name)
+                            TextField("例) XX大学", text: $newGame.team1.teamName)
                             Spacer()
-                            TextField("例) YY大学", text: $newGame.team2Name)
+                            TextField("例) YY大学", text: $newGame.team2.teamName)
                         }
                     }
                     
@@ -59,7 +59,7 @@ struct StartCodingView: View {
     
     // フォームの入力が全て有効かどうかを判定する関数
     private func isFormValid() -> Bool {
-        return !newGame.team1Name.isEmpty && !newGame.team2Name.isEmpty && !newGame.fieldName.isEmpty && !newGame.basicInfo.isEmpty
+        return !newGame.team1.teamName.isEmpty && !newGame.team2.teamName.isEmpty && !newGame.fieldName.isEmpty && !newGame.basicInfo.isEmpty
     }
     
     private func createNewGame() {

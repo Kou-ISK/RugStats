@@ -32,9 +32,9 @@ struct ScoreView: View {
     
     var body: some View {
         HStack {
-            Text(game.team1Name).font(.title3)
-            Text("\(String(calculateScore(for: game.team1Name))) - \(String(calculateScore(for: game.team2Name)))").font(.title).bold()
-            Text(game.team2Name).font(.title3)
+            Text(game.team1.teamName).font(.title3)
+            Text("\(String(calculateScore(for: game.team1.teamName))) - \(String(calculateScore(for: game.team2.teamName)))").font(.title).bold()
+            Text(game.team2.teamName).font(.title3)
         }
     }
 }

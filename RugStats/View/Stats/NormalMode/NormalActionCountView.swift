@@ -15,9 +15,9 @@ struct NormalActionCountView: View {
             return VStack{
                 ForEach(actionList, id:\.self){action in
                     HStack{
-                        Text(String(actions.count(where: {$0.actionName == action && $0.actorName == game.team1Name})))
+                        Text(String(actions.count(where: {$0.actionName == action && $0.actorName == game.team1.teamName})))
                         Text(action)
-                        Text(String(actions.count(where: {$0.actionName == action && $0.actorName == game.team2Name})))
+                        Text(String(actions.count(where: {$0.actionName == action && $0.actorName == game.team2.teamName})))
                     }
                 }
             }
