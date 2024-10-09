@@ -17,6 +17,7 @@ struct ContentView: View {
             List{
                 NavigationLink(destination: StartCodingView(), label: {Text("分析する")})
                 NavigationLink(destination: StatsListView(gameList: gameList), label: {Text("ゲーム一覧")})
+                NavigationLink(destination: AdvanceModeSettingView(), label: {Text("アドバンスモード設定")})
             }
         }
     }
