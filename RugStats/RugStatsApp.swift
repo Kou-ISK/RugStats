@@ -13,7 +13,8 @@ struct RugStatsApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             GameItem.self,
-            TimelineItem.self
+            TimelineItem.self,
+            TeamItem.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

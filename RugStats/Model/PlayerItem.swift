@@ -12,7 +12,6 @@ import SwiftData
 final class PlayerItem: Identifiable {
     var id = UUID()
     var name: String
-    var playerColor: ColorItem?
     
     init(name: String) {
         self.name = name

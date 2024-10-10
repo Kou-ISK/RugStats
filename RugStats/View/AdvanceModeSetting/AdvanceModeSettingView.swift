@@ -13,8 +13,11 @@ struct AdvanceModeSettingView: View {
             VStack{
                 NavigationLink("チームプリセット作成", destination: CreateTeamPresetView())
                 
-                // TODO 遷移先画面を作成
+                // TODO: 遷移先画面を作成
                 NavigationLink("アクションプリセット作成", destination: EmptyView())
+                
+                // TODO: プリセット一覧画面を作成
+                NavigationLink("プリセット確認", destination: EmptyView())
             }
         }
     }
