@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct AdvanceModeSettingView: View {    
+struct AdvanceModeSettingView: View {
+    @State var teamList: [TeamItem]
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -17,12 +19,12 @@ struct AdvanceModeSettingView: View {
                 NavigationLink("アクションプリセット作成", destination: EmptyView())
                 
                 // TODO: プリセット一覧画面を作成
-                NavigationLink("プリセット確認", destination: EmptyView())
+                NavigationLink("チームプリセット確認", destination: TeamPresetListView(teamList: $teamList))
             }
         }
     }
 }
 
 #Preview {
-    AdvanceModeSettingView()
+    AdvanceModeSettingView(teamList: [TeamItem(name: "チーム")])
 }

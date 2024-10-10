@@ -50,6 +50,11 @@ struct CreateTeamPresetView: View {
                     newTeam.teamColor = newTeamColor
                 }
                 modelContext.insert(newTeam)
+                do{
+                    try modelContext.save()
+                }catch{
+                    print(error.localizedDescription)
+                }
                 dismiss()
             }
         }
