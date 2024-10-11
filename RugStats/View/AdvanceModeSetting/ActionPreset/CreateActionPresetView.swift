@@ -1,0 +1,67 @@
+//
+//  CreateActionPresetView.swift
+//  RugStats
+//
+//  Created by 井坂航 on 2024/10/11.
+//
+
+import SwiftUI
+
+struct CreateActionPresetView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var newActionPreset: ActionPresetItem = ActionPresetItem(presetName: "", actions: [])
+    @State private var newActionName: String = ""
+    
+    
+    var body: some View {
+        NavigationStack{
+            VStack{
+                TextField("プリセット名", text: $newActionPreset.presetName)
+                // TODO: アクション追加、一覧表示のUI修正
+                Section("アクション一覧"){
+                    HStack{
+                        // アクション追加用のフィールド
+                        TextField("アクション名", text: $newActionName)
+                            .padding()
+                        
+                        // アクションを追加するボタン
+                        Button(action: {
+                            addAction()
+                        }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
+                    }
+                    List($newActionPreset.actions, id:\.id) { $action in
+                        NavigationLink(destination: CreateLabelForPresetActionView(action: $action), label: {Text(action.actionName)})
+                    }
+                }
+                
+                Button("新規プリセット作成"){
+                    modelContext.insert(newActionPreset)
+                    do{
+                        try modelContext.save()
+                    }catch{
+                        print(error.localizedDescription)
+                    }
+                    dismiss()
+                }
+            }
+        }
+    }
+    
+    // 新しい選手をチームに追加する関数
+    private func addAction() {
+        guard !newActionName.isEmpty else { return }
+        let newAction: ActionLabelPresetItem = ActionLabelPresetItem(actionName: newActionName, labelSet: [])
+        
+        // 新しい選手をチームに追加
+        newActionPreset.actions.append(newAction)
+        
+        // 入力フィールドをリセット
+        newActionName = ""
+    }
+}
+
+#Preview {
+    CreateActionPresetView()
+}

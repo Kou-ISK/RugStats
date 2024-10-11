@@ -10,15 +10,17 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    
     @Query private var gameList: [GameItem]
     @Query private var teamList: [TeamItem]
+    @Query private var actionPresetList: [ActionPresetItem]
     
     var body: some View {
         NavigationStack{
             List{
                 NavigationLink(destination: StartCodingView(), label: {Text("分析する")})
                 NavigationLink(destination: StatsListView(gameList: gameList), label: {Text("ゲーム一覧")})
-                NavigationLink(destination: AdvanceModeSettingView(teamList: teamList), label: {Text("アドバンスモード設定")})
+                NavigationLink(destination: AdvanceModeSettingView(actionPresetList: actionPresetList, teamList: teamList), label: {Text("アドバンスモード設定")})
             }
         }
     }
