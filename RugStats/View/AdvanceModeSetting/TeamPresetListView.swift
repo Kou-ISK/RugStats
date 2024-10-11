@@ -12,11 +12,12 @@ struct TeamPresetListView: View {
     var body: some View {
         VStack{
             List($teamList, id:\.id){$team in
-                HStack{
-                    Text(team.name)
-                    // TODO: 円のサイズを変更
-                    Circle().fill(Color(CGColor(red: team.teamColor?.red ?? 0, green: team.teamColor?.green ?? 0, blue: team.teamColor?.blue ?? 0, alpha: team.teamColor?.alpha ?? 0)))
-                }
+                NavigationLink(destination: {TeamPresetView(team: $team)}, label: {
+                    HStack{
+                        Text(team.name)
+                        Circle().fill(Color(CGColor(red: team.teamColor?.red ?? 0, green: team.teamColor?.green ?? 0, blue: team.teamColor?.blue ?? 0, alpha: team.teamColor?.alpha ?? 0))).frame(width: 20)
+                    }
+                })
             }
         }
     }

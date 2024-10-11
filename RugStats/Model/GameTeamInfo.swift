@@ -8,9 +8,6 @@
 import Foundation
 import SwiftData
 
-import Foundation
-import SwiftData
-
 @Model
 final class GameTeamInfo: Identifiable {
     var teamName: String
