@@ -16,12 +16,21 @@ struct ContentView: View {
     @Query private var actionPresetList: [ActionPresetItem]
     
     var body: some View {
-        NavigationStack{
-            List{
-                NavigationLink(destination: StartCodingView(), label: {Text("分析する")})
-                NavigationLink(destination: StatsListView(gameList: gameList), label: {Text("ゲーム一覧")})
-                NavigationLink(destination: AdvanceModeSettingView(actionPresetList: actionPresetList, teamList: teamList), label: {Text("アドバンスモード設定")})
-            }
+        TabView{
+            StartCodingView()
+                .tabItem {
+                    Label("分析する", systemImage: "hand.tap")
+                }
+            
+            StatsListView(gameList: gameList)
+                .tabItem {
+                    Label("ゲーム一覧", systemImage: "list.bullet")
+                }
+            
+            AdvanceModeSettingView(actionPresetList: actionPresetList, teamList: teamList)
+                .tabItem {
+                    Label("アドバンスモード設定", systemImage: "gear")
+                }
         }
     }
 }
