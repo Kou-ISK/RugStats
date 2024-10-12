@@ -11,7 +11,7 @@ struct TeamPresetView: View {
     @Environment(\.modelContext) private var modelContext
     
     @Binding var team: TeamItem
-    @State private var currentColor: CGColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
+    @State private var currentColor: Color = Color(.white)
     
     var body: some View {
         VStack{
@@ -27,6 +27,7 @@ struct TeamPresetView: View {
         }
         .onDisappear{
             // 画面遷移時に保存
+            saveCurrentColor()
             do {
                 try modelContext.save()
             }catch{
@@ -36,7 +37,16 @@ struct TeamPresetView: View {
     }
     
     private func setCurrentColor(){
-        currentColor = CGColor(red: team.teamColor?.red ?? 0, green: team.teamColor?.green ?? 0, blue: team.teamColor?.blue ?? 0, alpha: team.teamColor?.alpha ?? 0)
+        currentColor = Color(cgColor: CGColor(red: team.teamColor?.red ?? 0, green: team.teamColor?.green ?? 0, blue: team.teamColor?.blue ?? 0, alpha: team.teamColor?.alpha ?? 0))
+    }
+    
+    private func saveCurrentColor(){
+        // RGB 成分を取得
+        if let rgb = currentColor.toRGB(){
+            // ColorItem を作成
+            let newTeamColor = ColorItem(red: rgb.red, green: rgb.green, blue: rgb.blue, alpha:rgb.alpha)
+            team.teamColor = newTeamColor
+        }
     }
 }
 

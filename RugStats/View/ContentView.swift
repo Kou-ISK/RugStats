@@ -17,7 +17,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView{
-            StartCodingView()
+            StartCodingView(teamPresetList: teamList, actionPresetList: actionPresetList)
                 .tabItem {
                     Label("分析する", systemImage: "hand.tap")
                 }

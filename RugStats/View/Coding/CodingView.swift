@@ -11,7 +11,9 @@ struct CodingView: View {
     @Environment(\.dismiss) private var dismiss // 画面を閉じるための環境変数
     
     @Binding var game: GameItem
+    @Binding var isAdvanceModeAvailable: Bool
     
+    var actionPresetList: [ActionPresetItem]
     @State var gameClock: TimeInterval = TimeInterval(0)
     @State private var showBackAlert: Bool = false
     @State private var isAdvanceMode: Bool = false
@@ -19,7 +21,6 @@ struct CodingView: View {
     @State private var timer: Timer? = nil // ストップウォッチ用のタイマー
     @State private var isRunning: Bool = false // ストップウォッチの状態
     
-    // TODO 戻るボタン押下時にalertを表示する
     var body: some View {
         // ノーマルモードとアドバンスモードを切り替えられるようにする
         // ノーマルモードはスコアシート用のもののみ
@@ -31,7 +32,7 @@ struct CodingView: View {
                 ScoreView(game: $game)
                 
                 if(isAdvanceMode){
-                    // アドバンスモードはグラウンド、各種ボタン、各種ラベル
+                    AdvancedCodingView(gameInfo: $game, gameClock: $gameClock, actionPresetList: actionPresetList)
                 }else{
                     NormalCodingView(gameInfo: $game, gameClock: $gameClock)
                 }
@@ -50,7 +51,7 @@ struct CodingView: View {
                 ToolbarItem(placement: .topBarTrailing, content: {
                     Button(isAdvanceMode ? "ノーマル": "アドバンス"){
                         isAdvanceMode.toggle()
-                    }.disabled(true)
+                    }.disabled(!isAdvanceModeAvailable)
                 })
             }
             .alert(isPresented: $showBackAlert) {
@@ -68,5 +69,5 @@ struct CodingView: View {
 }
 
 #Preview {
-    CodingView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦")))
+    CodingView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦")), isAdvanceModeAvailable: .constant(true), actionPresetList: [ActionPresetItem(presetName: "プリセット", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelItem(label: "ラベル")])])])
 }

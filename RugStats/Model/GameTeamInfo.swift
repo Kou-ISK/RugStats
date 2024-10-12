@@ -11,6 +11,7 @@ import SwiftData
 @Model
 final class GameTeamInfo: Identifiable {
     var teamName: String
+    var teamColor: ColorItem?
     var players: [PlayerItem]
     
     // 背番号は常に1〜25とする

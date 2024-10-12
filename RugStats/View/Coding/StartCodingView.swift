@@ -10,8 +10,13 @@ import SwiftUI
 struct StartCodingView: View {
     @Environment(\.modelContext) private var modelContext
     
+    @State var teamPresetList: [TeamItem]
+    @State var actionPresetList: [ActionPresetItem]
+    
     @State private var newGame: GameItem = GameItem(date: Date(), team1Name: "", team2Name: "")
     @State private var showCodingView = false
+    
+    @State private var isAdvanceModeAvailable: Bool = false
     
     var body: some View {
         VStack {
@@ -20,10 +25,12 @@ struct StartCodingView: View {
             
             Form {
                 Section(header: Text("チーム名を入力")) {
-                    HStack {
-                        TextField("例) XX大学", text: $newGame.team1.teamName)
-                        Spacer()
-                        TextField("例) YY大学", text: $newGame.team2.teamName)
+                    // TODO: ビューの調整
+                    VStack{
+                        TeamPicker(newTeam:  $newGame.team1, teamPresetList: teamPresetList)
+                        TeamPicker(newTeam:  $newGame.team2, teamPresetList: teamPresetList)
+                        
+                        // TODO: GameTeamInfoのplayersをどこで設定するか考える
                     }
                 }
                 
@@ -43,13 +50,14 @@ struct StartCodingView: View {
             Button(action: {
                 if isFormValid() { // フォームが有効な場合に処理を行う
                     createNewGame()
+                    checkIsAdvancedModeAvailable() // アドバンスモードが有効に出来るか判定
                     showCodingView = true // フォームが有効な場合に遷移フラグを立てる
                 }
             }) {
                 Text("分析開始")
             }
             .fullScreenCover(isPresented: $showCodingView) {
-                CodingView(game: $newGame)
+                CodingView(game: $newGame, isAdvanceModeAvailable: $isAdvanceModeAvailable, actionPresetList: actionPresetList)
             }
             .buttonStyle(.borderedProminent)
             .disabled(!isFormValid()) // フォームが有効でない場合は非活性にする
@@ -69,8 +77,16 @@ struct StartCodingView: View {
             print("Error saving game: \(error.localizedDescription)")
         }
     }
+    
+    private func checkIsAdvancedModeAvailable(){
+        // アドバンスモードが有効にできるかを判定
+        // playersもしくはアクションボタンプリセットが存在する場合
+        if(!newGame.team1.players.isEmpty || !newGame.team2.players.isEmpty || !actionPresetList.isEmpty){
+            isAdvanceModeAvailable = true
+        }
+    }
 }
 
 #Preview {
-    StartCodingView()
+    StartCodingView(teamPresetList: [TeamItem(name: "チーム")], actionPresetList: [ActionPresetItem(presetName: "プリセット", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelItem(label: "ラベル")])])])
 }

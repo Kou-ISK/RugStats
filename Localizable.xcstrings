@@ -133,6 +133,9 @@
         }
       }
     },
+    "Hello, World!" : {
+
+    },
     "Left" : {
       "comment" : "Lane: Left",
       "localizations" : {
@@ -294,6 +297,9 @@
       }
     },
     "アドバンスモード設定" : {
+
+    },
+    "カスタムチーム名を入力" : {
 
     },
     "キックオフ日時" : {
@@ -637,6 +643,7 @@
       }
     },
     "例) XX大学" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -653,6 +660,7 @@
       }
     },
     "例) YY大学" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
