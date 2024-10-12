@@ -11,6 +11,8 @@ struct CreateActionPresetView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var actionPresetList: [ActionPresetItem]
+    
     @State private var newActionPreset: ActionPresetItem = ActionPresetItem(presetName: "", actions: [])
     @State private var newActionName: String = ""
     
@@ -37,6 +39,7 @@ struct CreateActionPresetView: View {
                 }
                 
                 Button("新規プリセット作成"){
+                    actionPresetList.append(newActionPreset)
                     modelContext.insert(newActionPreset)
                     do{
                         try modelContext.save()
@@ -63,5 +66,5 @@ struct CreateActionPresetView: View {
 }
 
 #Preview {
-    CreateActionPresetView()
+    CreateActionPresetView(actionPresetList: .constant([ActionPresetItem(presetName: "プリセット1", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelItem(label: "ラベル")])])]))
 }

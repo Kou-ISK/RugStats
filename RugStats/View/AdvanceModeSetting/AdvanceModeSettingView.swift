@@ -14,8 +14,6 @@ struct AdvanceModeSettingView: View {
     var body: some View {
         NavigationStack{
             List{
-                // TODO: アクション、チームプリセット作成時に画面に即時反映されない問題に対処
-                // この画面でStateとして管理している変数を渡す必要があるか
                 NavigationLink("アクションプリセット", destination: ActionPresetListView(actionPresetList: $actionPresetList))
                 NavigationLink("チームプリセット", destination: TeamPresetListView(teamList: $teamList))
             }

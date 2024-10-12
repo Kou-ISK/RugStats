@@ -22,7 +22,7 @@ struct TeamPresetListView: View {
                 }
             }.toolbar(content: {
                 ToolbarItem(placement: .bottomBar ,content: {
-                    NavigationLink(destination: CreateTeamPresetView(), label: {
+                    NavigationLink(destination: CreateTeamPresetView(teamList: $teamList), label: {
                         Image(systemName: "square.and.pencil")
                     })})
             })

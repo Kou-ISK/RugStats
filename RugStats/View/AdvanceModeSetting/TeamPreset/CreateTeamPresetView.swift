@@ -11,6 +11,8 @@ struct CreateTeamPresetView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var teamList: [TeamItem]
+    
     // 一時的にチームカラーを保持する変数
     @State private var currentColor: Color = Color(.white)
     @State private var newTeam: TeamItem = TeamItem(name: "")
@@ -49,6 +51,7 @@ struct CreateTeamPresetView: View {
                     let newTeamColor = ColorItem(red: rgb.red, green: rgb.green, blue: rgb.blue, alpha:rgb.alpha)
                     newTeam.teamColor = newTeamColor
                 }
+                teamList.append(newTeam)
                 modelContext.insert(newTeam)
                 do{
                     try modelContext.save()
@@ -75,5 +78,5 @@ struct CreateTeamPresetView: View {
 
 
 #Preview {
-    CreateTeamPresetView()
+    CreateTeamPresetView(teamList: .constant([TeamItem(name: "チーム")]))
 }
