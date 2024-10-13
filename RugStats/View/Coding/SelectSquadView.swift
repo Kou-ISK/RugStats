@@ -13,6 +13,7 @@ struct SelectSquadView: View {
     
     var body: some View {
         Text("出場メンバー選択")
+        // TODO: 背番号順にメンバーを選択する機能を追加
         HStack{
             List(presetTeam.players, id:\.id){player in
                 Text(player.name)
