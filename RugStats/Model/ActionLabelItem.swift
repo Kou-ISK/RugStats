@@ -12,6 +12,7 @@ import SwiftData
 final class ActionLabelItem: Identifiable {
     var id = UUID()
     var label: String
+    // TODO: categoryを追加するか検討
     
     init(label: String){
         self.label = label
