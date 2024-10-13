@@ -18,7 +18,6 @@ struct NormalCodingView: View {
         VStack {
             ForEach(actionList, id:\.self) { actionName in
                 HStack(alignment: .center){
-                    // TODO: ボタンの色をteam.teamColorにする
                     NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team1.teamName, actionName: actionName, gameClock: gameClock).tint(team1Color)
                     NormalActionButton(timeline: $gameInfo.timeline, teamName: gameInfo.team2.teamName, actionName: actionName, gameClock: gameClock).tint(team2Color)
                 }

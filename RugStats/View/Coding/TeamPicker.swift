@@ -11,24 +11,41 @@ struct TeamPicker: View {
     @Binding var newTeam: GameTeamInfo
     @State private var isCustomTeam:Bool = false
     
+    @State private var presetTeam: TeamItem?
+    
     var teamPresetList: [TeamItem]
     
     var body: some View {
-        // チームの選択または入力
-        HStack{
-            if isCustomTeam {
-                TextField("チーム名を入力", text: $newTeam.teamName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-            } else{
-                Picker("チーム名", selection: $newTeam.teamName) {
-                    ForEach(teamPresetList, id: \.self) { team in
-                        Text(team.name).tag(team.name)
+        VStack{
+            // チームの選択または入力
+            HStack{
+                if isCustomTeam {
+                    TextField("チーム名を入力", text: $newTeam.teamName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                } else{
+                    Picker("チーム名", selection: $newTeam.teamName) {
+                        ForEach(teamPresetList, id: \.self) { team in
+                            Text(team.name).tag(team.name)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .onChange(of: newTeam.teamName) { oldTeamName, newTeamName in
+                        if let selectedTeam = teamPresetList.first(where: { $0.name == newTeamName }) {
+                            // TeamItem.teamColorをGameTeamInfo.teamColorに設定
+                            newTeam.teamColor = selectedTeam.teamColor
+                            presetTeam = selectedTeam
+                        }
                     }
                 }
-                .pickerStyle(.menu)
-                // TODO: Teamを選択した時にTeamItem.teamColorをGameTeamInfo.teamColorに入れる
+                Toggle("カスタム入力", isOn: $isCustomTeam)
             }
-            Toggle("カスタムチーム名を入力", isOn: $isCustomTeam)
+            // NavigationLinkで画面遷移前にチームの更新を行う
+            NavigationLink(
+                destination: SelectSquadView(team: $newTeam, presetTeam: presetTeam ?? TeamItem(name: "デフォルト"))
+                    .disabled((presetTeam == nil))
+            ) {
+                Text("メンバー選択")
+            }
         }
     }
 }

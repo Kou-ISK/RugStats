@@ -25,12 +25,10 @@ struct StartCodingView: View {
             
             Form {
                 Section(header: Text("チーム名を入力")) {
-                    // TODO: ビューの調整
-                    VStack{
-                        TeamPicker(newTeam:  $newGame.team1, teamPresetList: teamPresetList)
-                        TeamPicker(newTeam:  $newGame.team2, teamPresetList: teamPresetList)
-                        
-                        // TODO: GameTeamInfoのplayersをどこで設定するか考える
+                    List{
+                        // TODO: ビューの調整
+                        TeamPicker(newTeam: $newGame.team1, teamPresetList: teamPresetList)
+                        TeamPicker(newTeam: $newGame.team2, teamPresetList: teamPresetList)
                     }
                 }
                 
