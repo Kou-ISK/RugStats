@@ -13,12 +13,14 @@ struct SelectSquadView: View {
     
     var body: some View {
         Text("出場メンバー選択")
-        List(presetTeam.players, id:\.id){player in
-            Text(player.name)
-        }
-        
-        List(team.players, id: \.id){player in
-            Text(player.name)
+        HStack{
+            List(presetTeam.players, id:\.id){player in
+                Text(player.name)
+            }
+            
+            List(team.players, id: \.id){player in
+                Text(player.name)
+            }
         }
     }
 }

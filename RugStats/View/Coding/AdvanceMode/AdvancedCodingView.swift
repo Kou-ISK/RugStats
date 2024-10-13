@@ -11,7 +11,7 @@ struct AdvancedCodingView: View {
     @Binding var gameInfo: GameItem
     @Binding var gameClock: TimeInterval // ストップウォッチの経過時間
     var actionPresetList: [ActionPresetItem]
-
+    
     var body: some View {
         // TODO: 実装
         Text("Hello, World!")
