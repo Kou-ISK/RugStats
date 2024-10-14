@@ -21,5 +21,5 @@ struct ActionPresetView: View {
 }
 
 #Preview {
-    ActionPresetView(actionPreset: .constant(ActionPresetItem(presetName: "プリセット名", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelItem(label: "ラベル")])])))
+    ActionPresetView(actionPreset: .constant(ActionPresetItem(presetName: "プリセット名", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelCategory(categoryName: "ラベル")])])))
 }

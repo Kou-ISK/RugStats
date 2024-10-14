@@ -86,5 +86,5 @@ struct StartCodingView: View {
 }
 
 #Preview {
-    StartCodingView(teamPresetList: [TeamItem(name: "チーム")], actionPresetList: [ActionPresetItem(presetName: "プリセット", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelItem(label: "ラベル")])])])
+    StartCodingView(teamPresetList: [TeamItem(name: "チーム")], actionPresetList: [ActionPresetItem(presetName: "プリセット", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelCategory(categoryName: "ラベル")])])])
 }

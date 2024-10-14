@@ -34,7 +34,7 @@ struct CreateActionPresetView: View {
                         }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
                     }
                     List($newActionPreset.actions, id:\.id) { $action in
-                        NavigationLink(destination: CreateLabelForPresetActionView(action: $action), label: {Text(action.actionName)})
+                        NavigationLink(destination: CreateLabelCategoryForPresetActionView(action: $action), label: {Text(action.actionName)})
                     }
                 }
                 
@@ -66,5 +66,5 @@ struct CreateActionPresetView: View {
 }
 
 #Preview {
-    CreateActionPresetView(actionPresetList: .constant([ActionPresetItem(presetName: "プリセット1", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelItem(label: "ラベル")])])]))
+    CreateActionPresetView(actionPresetList: .constant([ActionPresetItem(presetName: "プリセット1", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelCategory(categoryName: "ラベル")])])]))
 }

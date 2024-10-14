@@ -12,9 +12,9 @@ import SwiftData
 final class ActionLabelPresetItem{
     var id = UUID()
     var actionName: String
-    var labelSet: [ActionLabelItem]
+    var labelSet: [ActionLabelCategory]
     
-    init(actionName: String, labelSet: [ActionLabelItem]) {
+    init(actionName: String, labelSet: [ActionLabelCategory]) {
         self.actionName = actionName
         self.labelSet = labelSet
     }
