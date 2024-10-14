@@ -28,8 +28,8 @@ struct AdvancedCodingView: View {
                 HStack{
                     // TODO: コンポーネントを切り出して実装
                     // TODO: 開始と終了の2回押せるようにする
-                    Button(action: {}, label: {Text("\(action.actionName)")})
-                    Button(action: {}, label: {Text("\(action.actionName)")})
+                    AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorName: gameInfo.team1.teamName, action: action)
+                    AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorName: gameInfo.team2.teamName, action: action)
                 }
             }
         }.toolbar{

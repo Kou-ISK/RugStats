@@ -25,6 +25,7 @@ struct StartCodingView: View {
                 Section(header: Text("チーム名を入力")) {
                     List{
                         // TODO: ビューの調整
+                        // TODO: チームプリセット作成直後に反映されない問題に対処(teamPresetListに追加されていないのが原因だと思われる)
                         TeamPicker(newTeam: $newGame.team1, teamPresetList: teamPresetList)
                         TeamPicker(newTeam: $newGame.team2, teamPresetList: teamPresetList)
                     }
