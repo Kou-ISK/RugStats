@@ -19,10 +19,8 @@ struct StartCodingView: View {
     @State private var isAdvanceModeAvailable: Bool = false
     
     var body: some View {
-        VStack {
+        NavigationStack {
             Text("基本情報入力")
-                .font(.title)
-            
             Form {
                 Section(header: Text("チーム名を入力")) {
                     List{

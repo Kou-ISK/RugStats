@@ -21,7 +21,7 @@ struct ActionPresetListView: View {
                     })
                 }
             }.toolbar(content: {
-                ToolbarItem(placement: .bottomBar ,content: {
+                ToolbarItem(placement: .automatic ,content: {
                     NavigationLink(destination: CreateActionPresetView(actionPresetList: $actionPresetList), label: {
                         Image(systemName: "square.and.pencil")
                     })})

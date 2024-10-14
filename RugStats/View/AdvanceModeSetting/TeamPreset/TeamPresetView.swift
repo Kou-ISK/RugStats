@@ -14,15 +14,18 @@ struct TeamPresetView: View {
     @State private var currentColor: Color = Color(.white)
     
     var body: some View {
-        VStack{
-            HStack{
-                TextField("チーム名", text: $team.name)
-                ColorPicker("チームカラー", selection: $currentColor, supportsOpacity: true)
+        NavigationStack{
+            Form{
+                HStack{
+                    TextField("チーム名", text: $team.name).font(.title)
+                    ColorPicker("", selection: $currentColor, supportsOpacity: true)
+                }.padding(5)
+                List($team.players, id:\.id){$player in
+                    TextField("選手名", text: $player.name)
+                }
             }
-            List($team.players, id:\.id){$player in
-                TextField("選手名", text: $player.name)
-            }
-        }.onAppear{
+        }.navigationTitle("チーム情報")
+        .onAppear{
             setCurrentColor()
         }
         .onDisappear{
