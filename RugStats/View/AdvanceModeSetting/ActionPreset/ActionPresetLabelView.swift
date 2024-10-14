@@ -11,11 +11,10 @@ struct ActionPresetLabelView: View {
     @Binding var action: ActionLabelPresetItem
     
     var body: some View {
-        List($action.labelSet, id:\.id){$category in
-            TextField("カテゴリー", text: $category.categoryName)
-            List($category.labels, id:\.id){$label in
-                TextField("ラベル", text: $label.label)
-            }
+        ForEach($action.labelSet, id:\.id){$category in
+                TextField("カテゴリー", text: $category.categoryName)
+                List($category.labels, id:\.id){$label in
+                    TextField("ラベル", text: $label.label)}
         }
     }
 }
