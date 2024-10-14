@@ -24,8 +24,8 @@ struct NormalActionButton: View {
         Button("\(actionName): \(count)") {
             // 新規アクションを作成
             currentAction = TimelineItem(
-                timestamp: Date(),
-                gameClock: gameClock,
+                startTimestamp: Date(),
+                startGameClock: gameClock,
                 actorName: teamName,
                 actionName: actionName
             )

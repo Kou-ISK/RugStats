@@ -99,5 +99,5 @@ struct NormalLabelView: View {
 }
 
 #Preview {
-    NormalLabelView(targetAction: .constant(TimelineItem(timestamp: Date(), gameClock: TimeInterval(10), actorName: "チーム1", actionName: "トライ")))
+    NormalLabelView(targetAction: .constant(TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(10), actorName: "チーム1", actionName: "トライ")))
 }

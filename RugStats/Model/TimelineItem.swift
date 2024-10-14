@@ -11,8 +11,10 @@ import SwiftData
 @Model
 final class TimelineItem: Identifiable {
     var id = UUID()
-    var timestamp: Date // 実際の時刻
-    var gameClock: TimeInterval // 試合中断を加味した時間
+    var startTimestamp: Date // 実際の時刻
+    var endTimeSstamp: Date?
+    var startGameClock: TimeInterval // 試合中断を加味した時間
+    var endGameClock: TimeInterval? // アドバンスモードで使用
     var actorName: String // チーム名 or 選手名が入る
     var actionName: String
     var actionLabels: [ActionLabelItem]
@@ -26,9 +28,9 @@ final class TimelineItem: Identifiable {
     var endYcoord: Int? // -10~110の範囲
     
     // CodingView初期描画時に初期化
-    init(timestamp: Date, gameClock: TimeInterval, actorName: String, actionName: String) {
-        self.timestamp = timestamp
-        self.gameClock = gameClock
+    init(startTimestamp: Date, startGameClock: TimeInterval, actorName: String, actionName: String) {
+        self.startTimestamp = startTimestamp
+        self.startGameClock = startGameClock
         self.actorName = actorName
         self.actionName = actionName
         self.actionLabels = []

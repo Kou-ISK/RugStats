@@ -24,9 +24,9 @@ struct NormalStatsTableRow: View {
                         .frame(alignment: .leading)
                 }
             }.frame(minWidth: 150)
-            Text(formatTimeInterval(item.gameClock))
+            Text(formatTimeInterval(item.startGameClock))
                 .frame(width: 100, alignment: .leading)
-            Text(dateFormatter.string(from: item.timestamp))
+            Text(dateFormatter.string(from: item.startTimestamp))
                 .frame(width: 100, alignment: .leading)
         }.padding(0).onChange(of: item.actorName) {
             saveChanges()
@@ -64,5 +64,5 @@ struct NormalStatsTableRow: View {
 }
 
 #Preview {
-    NormalStatsTableRow(item: .constant(TimelineItem(timestamp: Date(), gameClock: TimeInterval(300), actorName: "チーム1", actionName: "トライ")))
+    NormalStatsTableRow(item: .constant(TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(300), actorName: "チーム1", actionName: "トライ")))
 }

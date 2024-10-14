@@ -42,7 +42,7 @@ struct NormalStatsTableView: View {
                 ScrollView([.vertical]) {
                     VStack(alignment: .leading){
                         // データ部分を作成
-                        ForEach($timeline.sorted(by: {$0.wrappedValue.timestamp < $1.wrappedValue.timestamp}), id: \.id) { $item in
+                        ForEach($timeline.sorted(by: {$0.wrappedValue.startTimestamp < $1.wrappedValue.startTimestamp}), id: \.id) { $item in
                             HStack{
                                 if isEditMode {
                                     Button(action: {
@@ -70,5 +70,5 @@ struct NormalStatsTableView: View {
 }
 
 #Preview {
-    NormalStatsTableView(timeline: .constant([TimelineItem(timestamp: Date(), gameClock: TimeInterval(10), actorName: "チーム1", actionName: "トライ"), TimelineItem(timestamp: Date(), gameClock: TimeInterval(10), actorName: "チーム2", actionName: "トライ")]))
+    NormalStatsTableView(timeline: .constant([TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(10), actorName: "チーム1", actionName: "トライ"), TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(10), actorName: "チーム2", actionName: "トライ")]))
 }
