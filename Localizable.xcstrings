@@ -136,6 +136,9 @@
         }
       }
     },
+    "Hello, World!" : {
+
+    },
     "Left" : {
       "comment" : "Lane: Left",
       "localizations" : {
@@ -637,6 +640,9 @@
           }
         }
       }
+    },
+    "ラベル追加" : {
+
     },
     "例) XXスタジアム" : {
       "localizations" : {

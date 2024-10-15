@@ -13,6 +13,7 @@ struct AdvancedActionButton: View {
     
     @State private var isClicked: Bool = false
     @State private var showLabelView: Bool = false
+    @State private var showFieldPositionView: Bool = false
     
     @State private var currentAction: TimelineItem = TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(), actorName: "", actionName: "")
     
@@ -24,25 +25,33 @@ struct AdvancedActionButton: View {
             // 初回クリック時
             if(!isClicked){
                 isClicked.toggle()
-                currentAction.startTimestamp = Date()
-                currentAction.startGameClock = gameClock
                 currentAction.actorName = actorName
                 currentAction.actionName = action.actionName
-                // TODO: フィールドポジション選択画面を表示
-                
+                // 時間を記録
+                currentAction.startTimestamp = Date()
+                currentAction.startGameClock = gameClock
+                // シート表示用のフラグをOnにする
+                showFieldPositionView = true
                 showLabelView = true
             }else{
                 isClicked.toggle()
-                // TODO: フィールドポジション選択画面を表示
+                // 時間を記録
+                currentAction.endTimeSstamp = Date()
+                currentAction.endGameClock = gameClock
                 // TODO: SwiftDataに保存
                 
+                // シート表示用のフラグをOnにする
+                showFieldPositionView = true
                 showLabelView = true
             }
         }.buttonStyle(.borderedProminent).tint(isClicked ? .gray : .orange) // TODO: 正常時はチームカラーを利用するようにする
-        .sheet(isPresented: $showLabelView){
-            // TODO: onClickでsheet表示
-            AdvancedLabelView(labelSet: action.labelSet)
-        }
+            .sheet(isPresented: $showFieldPositionView){
+                // TODO: AdvancedFieldPositionViewを実装
+                AdvancedFieldPositionView()
+            }
+            .sheet(isPresented: $showLabelView){
+                AdvancedLabelView(action: $currentAction, labelSet: action.labelSet)
+            }
     }
 }
 
