@@ -68,6 +68,9 @@
         }
       }
     },
+    "%@の攻撃方向" : {
+
+    },
     "22m-Halfway" : {
       "comment" : "Zone: 22m-Halfway",
       "localizations" : {
@@ -135,9 +138,6 @@
           }
         }
       }
-    },
-    "Hello, World!" : {
-
     },
     "Left" : {
       "comment" : "Lane: Left",
@@ -485,6 +485,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "タイムスタンプ"
+          }
+        }
+      }
+    },
+    "タップされた位置: X: %lld, Y: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "タップされた位置: X: %1$lld, Y: %2$lld"
           }
         }
       }
@@ -841,6 +851,9 @@
           }
         }
       }
+    },
+    "座標を入力" : {
+
     },
     "成功" : {
       "comment" : "キック: 成功",

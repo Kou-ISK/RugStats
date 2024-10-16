@@ -11,34 +11,36 @@ struct AdvancedLabelView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
-    @Binding var action:TimelineItem
+    @Binding var action: TimelineItem
     var labelSet: [ActionLabelCategory]
     
     var body: some View {
-        VStack{
-            NavigationStack{
-                ForEach(labelSet, id: \.id){category in
+        NavigationStack {
+            VStack {
+                ForEach(labelSet, id: \.id) { category in
                     Text(category.categoryName)
-                    ForEach(category.labels, id: \.id){label in
+                    ForEach(category.labels, id: \.id) { label in
                         Button(action: {
                             action.actionLabels.append(label)
-                        },label: {Text(label.label)})}
-                }
-            }
-            // TODO: NavigationStack上部に表示されない問題に対処する
-            .navigationTitle("ラベル追加")
-                .toolbar{
-                    ToolbarItem(placement: .topBarTrailing){
-                        Button("完了"){
-                            do{
-                                try modelContext.save()
-                            }catch{
-                                print(error.localizedDescription)
-                            }
-                            dismiss()
-                        }
+                        }, label: {
+                            Text(label.label)
+                        })
                     }
                 }
+            }
+            .navigationTitle("ラベル追加")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("完了") {
+                        do {
+                            try modelContext.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }

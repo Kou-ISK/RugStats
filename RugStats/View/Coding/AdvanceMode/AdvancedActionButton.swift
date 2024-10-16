@@ -47,7 +47,7 @@ struct AdvancedActionButton: View {
         }.buttonStyle(.borderedProminent).tint(isClicked ? .gray : .orange) // TODO: 正常時はチームカラーを利用するようにする
             .sheet(isPresented: $showFieldPositionView){
                 // TODO: AdvancedFieldPositionViewを実装
-                AdvancedFieldPositionView()
+                AdvancedFieldPositionView(action: $currentAction, isStartLocation: !isClicked)
             }
             .sheet(isPresented: $showLabelView){
                 AdvancedLabelView(action: $currentAction, labelSet: action.labelSet)
