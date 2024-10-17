@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AdvancedActionButton: View {
+    @Environment(\.modelContext) private var modelContext
+    
     @Binding var gameClock: TimeInterval // ストップウォッチの経過時間
     @Binding var timeline: [TimelineItem]
     
@@ -17,7 +19,7 @@ struct AdvancedActionButton: View {
     
     @State private var currentAction: TimelineItem = TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(), actorName: "", actionName: "")
     
-    var actorName: String
+    var actorInfo: GameTeamInfo
     var action: ActionLabelPresetItem
     
     var body: some View {
@@ -25,11 +27,15 @@ struct AdvancedActionButton: View {
             // 初回クリック時
             if(!isClicked){
                 isClicked.toggle()
-                currentAction.actorName = actorName
+                currentAction.actorName = actorInfo.teamName
                 currentAction.actionName = action.actionName
                 // 時間を記録
                 currentAction.startTimestamp = Date()
                 currentAction.startGameClock = gameClock
+                
+                // SwiftDataに追加
+                modelContext.insert(currentAction)
+                
                 // シート表示用のフラグをOnにする
                 showFieldPositionView = true
                 showLabelView = true
@@ -38,15 +44,21 @@ struct AdvancedActionButton: View {
                 // 時間を記録
                 currentAction.endTimeSstamp = Date()
                 currentAction.endGameClock = gameClock
-                // TODO: SwiftDataに保存
                 
+                timeline.append(currentAction)
+                // SwiftDataの対象を保存
+                do{
+                    try modelContext.save()
+                }catch{
+                    print(error.localizedDescription)
+                }
                 // シート表示用のフラグをOnにする
                 showFieldPositionView = true
                 showLabelView = true
             }
-        }.buttonStyle(.borderedProminent).tint(isClicked ? .gray : .orange) // TODO: 正常時はチームカラーを利用するようにする
+        }.buttonStyle(.borderedProminent)
+            .tint(!isClicked ? Color(CGColor(red: actorInfo.teamColor?.red ?? 0, green: actorInfo.teamColor?.green ?? 0, blue: actorInfo.teamColor?.blue ?? 0, alpha: actorInfo.teamColor?.alpha ?? 100)) : .gray)
             .sheet(isPresented: $showFieldPositionView){
-                // TODO: AdvancedFieldPositionViewを実装
                 AdvancedFieldPositionView(action: $currentAction, isStartLocation: !isClicked)
             }
             .sheet(isPresented: $showLabelView){
@@ -56,5 +68,5 @@ struct AdvancedActionButton: View {
 }
 
 #Preview {
-    AdvancedActionButton(gameClock: .constant(TimeInterval(100)), timeline: .constant([TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")]), actorName: "チーム1", action: ActionLabelPresetItem(actionName: "タックル", labelSet: [ActionLabelCategory(categoryName: "成否")]))
+    AdvancedActionButton(gameClock: .constant(TimeInterval(100)), timeline: .constant([TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")]), actorInfo: GameTeamInfo(teamName: "チーム1"), action: ActionLabelPresetItem(actionName: "タックル", labelSet: [ActionLabelCategory(categoryName: "成否")]))
 }

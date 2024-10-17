@@ -21,17 +21,18 @@ struct AdvancedCodingView: View {
     }
     
     var body: some View {
-        // TODO: 実装
         NavigationStack{
             ForEach(selectedActionPreset.actions, id:\.id){action in
                 // TODO: 個人スタッツ用のボタンセットを実装
                 HStack{
                     // TODO: コンポーネントを切り出して実装
                     // TODO: 開始と終了の2回押せるようにする
-                    AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorName: gameInfo.team1.teamName, action: action)
-                    AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorName: gameInfo.team2.teamName, action: action)
+                    AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorInfo: gameInfo.team1, action: action)
+                    AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorInfo: gameInfo.team2, action: action)
                 }
             }
+            
+            AdvancedStatsTableView(timeline: $gameInfo.timeline)
         }.toolbar{
             ToolbarItem(placement: .automatic){
                 Picker("プリセット", selection: $selectedActionPreset) {

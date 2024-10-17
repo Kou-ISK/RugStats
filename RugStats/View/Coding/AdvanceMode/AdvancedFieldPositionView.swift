@@ -19,9 +19,6 @@ struct AdvancedFieldPositionView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                // タップされた位置を表示
-                Text("タップされた位置: X: \(Int(tapLocation.x)), Y: \(Int(tapLocation.y))")
-                
                 GeometryReader { geometry in
                     let totalWidth = geometry.size.width // 全体の幅
                     let totalHeight = geometry.size.height // 全体の高さ
@@ -41,9 +38,18 @@ struct AdvancedFieldPositionView: View {
                         
                         VStack{
                             ZStack{
-                                Image(systemName: "arrowshape.up.fill").resizable().frame(width: 300, height: 500).foregroundStyle(.orange).opacity(0.3)
+                                Image(systemName: "arrowshape.up.fill").resizable().frame(width: 300, height: 500).foregroundStyle(.gray).opacity(0.2)
                                 Text("\(action.actorName)の攻撃方向").font(.title).bold().offset(y: 190)
                             }
+                        }
+                        
+                        // タップされた位置に点を表示
+                        if tapLocation != .zero {
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 30, height: 30) // 表示する点の大きさ
+                                .position(x: tapLocation.x * (imageWidth / 80) + 5 * (imageWidth / 80),
+                                          y: (110 - tapLocation.y) * (imageHeight / 120)) // タップされた場所に合わせて座標を調整
                         }
                         
                         // エリア背景（透明なタップ可能エリア）
@@ -73,6 +79,7 @@ struct AdvancedFieldPositionView: View {
                             action.endXcoord = Int(tapLocation.x)
                             action.endYcoord = Int(tapLocation.y)
                         }
+                        // SwiftDataに保存
                         do {
                             try modelContext.save()
                         } catch {

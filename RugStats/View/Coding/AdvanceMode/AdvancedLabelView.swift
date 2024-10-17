@@ -20,7 +20,10 @@ struct AdvancedLabelView: View {
                 ForEach(labelSet, id: \.id) { category in
                     Text(category.categoryName)
                     ForEach(category.labels, id: \.id) { label in
+                        // TODO: isClickedの状態によって見た目が変わるラベルボタンを作成する。
+                        // TODO: 完了ボタン押下時にisClicked == trueのラベルのみを追加する
                         Button(action: {
+                            // TODO: 削除
                             action.actionLabels.append(label)
                         }, label: {
                             Text(label.label)
@@ -32,6 +35,7 @@ struct AdvancedLabelView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("完了") {
+                        // SwiftDataに保存
                         do {
                             try modelContext.save()
                         } catch {
