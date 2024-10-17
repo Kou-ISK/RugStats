@@ -30,6 +30,8 @@ struct AdvancedStatsTableRow: View {
                 .frame(width: 100, alignment: .leading)
             Text(formatTimeInterval(item.startGameClock))
                 .frame(width: 100, alignment: .leading)
+            Text(formatTimeInterval(item.endGameClock))
+                .frame(width: 100, alignment: .leading)
             Text(dateFormatter.string(from: item.startTimestamp))
                 .frame(width: 100, alignment: .leading)
         }.padding(0).onChange(of: item.actorName) {
@@ -60,7 +62,8 @@ struct AdvancedStatsTableRow: View {
     }()
     
     // ゲームクロックをフォーマットする関数
-    private func formatTimeInterval(_ time: TimeInterval) -> String {
+    private func formatTimeInterval(_ time: TimeInterval?) -> String {
+        guard let time = time else { return "なし" }
         let minutes = Int(time) / 60
         let seconds = Int(time) % 60
         return String(format: "%02d:%02d", minutes, seconds)
