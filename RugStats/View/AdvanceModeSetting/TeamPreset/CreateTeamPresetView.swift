@@ -21,45 +21,47 @@ struct CreateTeamPresetView: View {
     @State private var newPlayerName: String = ""
     
     var body: some View {
-        VStack{
-            TextField("チーム名", text: $newTeam.name)
-            ColorPicker("チームカラー選択", selection: $currentColor, supportsOpacity: true)
-            
-            // TODO: 選手追加、選手一覧表示のUI修正
-            Section("選手一覧"){
-                // 現在のチームの選手リスト表示
-                HStack{
-                    // 選手追加用のフィールド
-                    TextField("新規選手名", text: $newPlayerName)
-                        .padding()
-                    
-                    // 選手を追加するボタン
-                    Button(action: {
-                        addPlayer()
-                    }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
+        NavigationStack{
+            VStack{
+                TextField("チーム名", text: $newTeam.name)
+                ColorPicker("チームカラー選択", selection: $currentColor, supportsOpacity: true)
+                
+                // TODO: 選手追加、選手一覧表示のUI修正
+                Section("選手一覧"){
+                    // 現在のチームの選手リスト表示
+                    HStack{
+                        // 選手追加用のフィールド
+                        TextField("新規選手名", text: $newPlayerName)
+                            .padding()
+                        
+                        // 選手を追加するボタン
+                        Button(action: {
+                            addPlayer()
+                        }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
+                    }
+                    List(newTeam.players, id:\.id) { player in
+                        Text(player.name)
+                    }
                 }
-                List(newTeam.players, id:\.id) { player in
-                    Text(player.name)
-                }
-            }
-            
-            
-            Button("新規チーム作成"){
-                // RGB 成分を取得
-                if let rgb = currentColor.toRGB(){
-                    // ColorItem を作成
-                    let newTeamColor = ColorItem(red: rgb.red, green: rgb.green, blue: rgb.blue, alpha:rgb.alpha)
-                    newTeam.teamColor = newTeamColor
-                }
-                teamList.append(newTeam)
-                modelContext.insert(newTeam)
-                do{
-                    try modelContext.save()
-                }catch{
-                    print(error.localizedDescription)
-                }
-                dismiss()
-            }
+                
+                
+                Button("新規チーム作成"){
+                    // RGB 成分を取得
+                    if let rgb = currentColor.toRGB(){
+                        // ColorItem を作成
+                        let newTeamColor = ColorItem(red: rgb.red, green: rgb.green, blue: rgb.blue, alpha:rgb.alpha)
+                        newTeam.teamColor = newTeamColor
+                    }
+                    teamList.append(newTeam)
+                    modelContext.insert(newTeam)
+                    do{
+                        try modelContext.save()
+                    }catch{
+                        print(error.localizedDescription)
+                    }
+                    dismiss()
+                }.buttonStyle(.borderedProminent)
+            }.padding().navigationTitle("チームプリセット作成")
         }
     }
     

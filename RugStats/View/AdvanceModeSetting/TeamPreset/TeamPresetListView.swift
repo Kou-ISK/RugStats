@@ -21,7 +21,8 @@ struct TeamPresetListView: View {
                         }
                     })
                 }
-            }.toolbar(content: {
+            }.navigationTitle("チームプリセット一覧")
+            .toolbar(content: {
                 ToolbarItem(placement: .automatic ,content: {
                     NavigationLink(destination: CreateTeamPresetView(teamList: $teamList), label: {
                         Image(systemName: "square.and.pencil")
