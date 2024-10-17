@@ -9,20 +9,55 @@ import SwiftUI
 
 struct StatsView: View {
     @State var game: GameItem
+    
+    // モードを定義
+    enum Mode: String, CaseIterable {
+        case normal = "ノーマル"
+        case advanced = "アドバンス"
+        case individual = "個人"
+        case graph = "グラフ"
+    }
+    
+    @State var currentMode: Mode = .normal // 現在のモードを保持
+    
     var body: some View {
-        VStack{
+        VStack {
+            // スコア表示
             ScoreView(game: $game)
-            NormalActionCountView(game: $game)
-            // 仮で表を表示
-            NormalStatsTableView(timeline: $game.timeline)
+            
+            // 選択されたモードに応じて表示を切り替える
+            switch currentMode {
+            case .normal:
+                // ノーマルモードで表示されるビュー
+                NormalActionCountView(game: $game)
+                NormalStatsTableView(timeline: $game.timeline)
+                
+            case .advanced:
+                // アドバンスモードで表示されるビュー
+                    AdvancedStatsTableView(timeline: $game.timeline)
+                
+            case .individual:
+                // TODO: 個人モードで表示されるビュー
+                Text("個人モード")
+                // TODO: 他の個人モード用のビューを追加
+                
+            case .graph:
+                // グラフモードで表示されるビュー
+                Text("グラフモード")
+                // グラフ表示用のビューを追加
+            }
         }
-        // タブで表示を切り替える
-        // 1. 一般的なスタッツを表形式で表示
-        // 2. スコアシートの形式で表示
-        // 3. スタッツをグラフ表示
-        // 4. 専門的なスタッツを表示(フィルターあり、座標あり)
-        
-        // 計算用のロジックはVMに切り出す
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                // Pickerを使ってモードを切り替える
+                Picker("表示モード", selection: $currentMode) {
+                    ForEach(Mode.allCases, id: \.self) { mode in
+                        Text(mode.rawValue).tag(mode)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle()) // セグメントスタイルのPickerを使用
+            }
+        }
     }
 }
 

@@ -43,39 +43,45 @@ struct AdvancedFieldPositionView: View {
                             }
                         }
                         
+                        // TODO: 正しく表示されるように修正
+                        // 始点の座標データが存在する場合に表示する
+                        if let startX = action.startXcoord, let startY = action.startYcoord {
+                            let startCirclePosition = calculatePosition(xCoord: startX, yCoord: startY, imageWidth: imageWidth, imageHeight: imageHeight)
+                            Circle()
+                                .fill(Color.gray)
+                                .frame(width: 30, height: 30) // 表示する点の大きさ
+                                .position(startCirclePosition) // タップされた場所に合わせて座標を調整
+                        }
+                        
                         // タップされた位置に点を表示
                         if tapLocation != .zero {
+                            let tapCirclePosition = calculatePosition(xCoord: Int(tapLocation.x), yCoord: Int(tapLocation.y), imageWidth: imageWidth, imageHeight: imageHeight)
                             Circle()
                                 .fill(Color.red)
                                 .frame(width: 30, height: 30) // 表示する点の大きさ
-                                .position(x: tapLocation.x * (imageWidth / 80) + 5 * (imageWidth / 80),
-                                          y: (110 - tapLocation.y) * (imageHeight / 120)) // タップされた場所に合わせて座標を調整
+                                .position(tapCirclePosition) // タップされた場所に合わせて座標を調整
                         }
                         
                         // エリア背景（透明なタップ可能エリア）
                         Color.clear
                             .contentShape(Rectangle()) // タップ可能エリアを指定
                             .onTapGesture { location in
-                                // X座標を-5〜75に変換、Y座標を-10〜110に変換
-                                let normalizedX = (location.x / imageWidth) * 80 - 5
-                                let normalizedY = (imageHeight - location.y) / imageHeight * 120 - 10
-                                tapLocation = CGPoint(x: normalizedX, y: normalizedY)
+                                tapLocation = convertTapLocation(location: location, imageWidth: imageWidth, imageHeight: imageHeight)
                             }
                             .frame(width: totalWidth, height: imageHeight) // タップエリアを元のサイズに維持
                     }
                     .padding(.vertical, verticalPadding) // 上下に余白を追加
                 }
                 .aspectRatio(70/100, contentMode: .fit) // 全体のアスペクト比を保つ
-                //
             }
             .navigationTitle("座標を入力")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("完了") {
-                        if(isStartLocation){
+                        if isStartLocation {
                             action.startXcoord = Int(tapLocation.x)
                             action.startYcoord = Int(tapLocation.y)
-                        }else{
+                        } else {
                             action.endXcoord = Int(tapLocation.x)
                             action.endYcoord = Int(tapLocation.y)
                         }
@@ -90,6 +96,20 @@ struct AdvancedFieldPositionView: View {
                 }
             }
         }
+    }
+    
+    // 座標計算を分割して処理
+    private func calculatePosition(xCoord: Int, yCoord: Int, imageWidth: CGFloat, imageHeight: CGFloat) -> CGPoint {
+        let x = CGFloat(xCoord) * (imageWidth / 80) + 5 * (imageWidth / 80)
+        let y = (110 - CGFloat(yCoord)) * (imageHeight / 120)
+        return CGPoint(x: x, y: y)
+    }
+    
+    // タップされた位置を正規化して座標に変換
+    private func convertTapLocation(location: CGPoint, imageWidth: CGFloat, imageHeight: CGFloat) -> CGPoint {
+        let normalizedX = (location.x / imageWidth) * 80 - 5
+        let normalizedY = (imageHeight - location.y) / imageHeight * 120 - 10
+        return CGPoint(x: normalizedX, y: normalizedY)
     }
 }
 
