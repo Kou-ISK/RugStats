@@ -20,14 +20,7 @@ struct AdvancedLabelView: View {
                 ForEach(labelSet, id: \.id) { category in
                     Text(category.categoryName)
                     ForEach(category.labels, id: \.id) { label in
-                        // TODO: isClickedの状態によって見た目が変わるラベルボタンを作成する。
-                        // TODO: 完了ボタン押下時にisClicked == trueのラベルのみを追加する
-                        Button(action: {
-                            // TODO: 削除
-                            action.actionLabels.append(label)
-                        }, label: {
-                            Text(label.label)
-                        })
+                        AdvancedLabelButton(action: $action, label: label)
                     }
                 }
             }
