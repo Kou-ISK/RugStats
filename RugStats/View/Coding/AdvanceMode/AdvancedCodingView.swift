@@ -26,7 +26,6 @@ struct AdvancedCodingView: View {
                 // TODO: 個人スタッツ用のボタンセットを実装
                 HStack{
                     // TODO: コンポーネントを切り出して実装
-                    // TODO: 開始と終了の2回押せるようにする
                     AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorInfo: gameInfo.team1, action: action)
                     AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorInfo: gameInfo.team2, action: action)
                 }
