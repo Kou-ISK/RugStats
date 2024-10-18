@@ -30,10 +30,12 @@ struct CreateLabelCategoryForPresetActionView: View {
                         addCategory()
                     }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
                 }
-                List($action.labelSet, id:\.id) { $labelSet in
-                    NavigationLink(destination: CreateLabelView(category: labelSet), label: {Text(labelSet.categoryName)}).onTapGesture {
-                        print("Tapped on \(labelSet.categoryName)")
-                    }
+                List{
+                    ForEach($action.labelSet, id:\.id) { $labelSet in
+                        NavigationLink(destination: CreateLabelView(category: labelSet), label: {Text(labelSet.categoryName)}).onTapGesture {
+                            print("Tapped on \(labelSet.categoryName)")
+                        }
+                    }.onDelete(perform: deleteCategory)
                 }
             }.onDisappear{
                 do{
@@ -55,6 +57,13 @@ struct CreateLabelCategoryForPresetActionView: View {
         
         // 入力フィールドをリセット
         newCategoryName = ""
+    }
+    
+    private func deleteCategory(offsets: IndexSet) {
+        // 削除対象のインデックスを元にアイテムを削除
+         offsets.forEach { index in
+             action.labelSet.remove(at: index)
+         }
     }
 }
 

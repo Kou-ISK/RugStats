@@ -27,8 +27,10 @@ struct CreateLabelView: View {
                         addLabel()
                     }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
                 }
-                List($category.labels, id:\.id) { $label in
-                    Text(label.label)
+                List{
+                    ForEach($category.labels, id:\.id) { $label in
+                        Text(label.label)
+                    }.onDelete(perform: deleteLabel)
                 }
             }.onDisappear{
                 do{
@@ -50,6 +52,13 @@ struct CreateLabelView: View {
         
         // 入力フィールドをリセット
         newLabelName = ""
+    }
+    
+    private func deleteLabel(offsets: IndexSet) {
+        // 削除対象のインデックスを元にアイテムを削除
+         offsets.forEach { index in
+             category.labels.remove(at: index)
+         }
     }
 }
 

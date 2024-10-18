@@ -21,8 +21,10 @@ struct TeamPresetView: View {
                         TextField("チーム名", text: $team.name).font(.title)
                         ColorPicker("", selection: $currentColor, supportsOpacity: true)
                     }.padding(5)
-                    List($team.players, id:\.id){$player in
-                        TextField("選手名", text: $player.name)
+                    List{
+                        ForEach($team.players, id:\.id){$player in
+                            TextField("選手名", text: $player.name)
+                        }.onDelete(perform: deleteMember)
                     }
                 }
             }.navigationTitle("チーム情報")
@@ -52,6 +54,13 @@ struct TeamPresetView: View {
             let newTeamColor = ColorItem(red: rgb.red, green: rgb.green, blue: rgb.blue, alpha:rgb.alpha)
             team.teamColor = newTeamColor
         }
+    }
+    
+    private func deleteMember(offsets: IndexSet) {
+        // 削除対象のインデックスを元にアイテムを削除
+         offsets.forEach { index in
+             team.players.remove(at: index)
+         }
     }
 }
 

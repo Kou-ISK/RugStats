@@ -11,6 +11,7 @@ struct AdvanceModeSettingView: View {
     @State var actionPresetList: [ActionPresetItem]
     @State var teamList: [TeamItem]
     
+    // TODO: プリセット削除が即時反映されない問題に対処
     var body: some View {
         NavigationStack{
             List{

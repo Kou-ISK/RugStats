@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct ActionPresetListView: View {
+    @Environment(\.modelContext) private var modelContext
+    
     @Binding var actionPresetList: [ActionPresetItem]
     
     var body: some View {
         NavigationStack{
             VStack{
-                List($actionPresetList, id:\.id){$actionPreset in
-                    NavigationLink(destination: {
-                        ActionPresetView(actionPreset: $actionPreset)
-                    }, label: {
-                        Text(actionPreset.presetName)
-                    })
+                List{
+                    ForEach($actionPresetList, id:\.id){ $actionPreset in
+                        NavigationLink(destination: {
+                            ActionPresetView(actionPreset: $actionPreset)
+                        }, label: {
+                            Text(actionPreset.presetName)
+                        })
+                    }.onDelete(perform: deletePreset)
                 }
             }.toolbar(content: {
                 ToolbarItem(placement: .automatic ,content: {
@@ -26,6 +30,20 @@ struct ActionPresetListView: View {
                         Image(systemName: "square.and.pencil")
                     })})
             })
+        }
+    }
+    
+    private func deletePreset(offsets: IndexSet) {
+        // offsetsから削除するアイテムを取得
+        offsets.map { actionPresetList[$0] }.forEach { preset in
+            // modelContextから削除
+            modelContext.delete(preset)
+        }
+        do {
+            // モデルコンテキストの保存
+            try modelContext.save()
+        } catch {
+            print("削除エラー: \(error.localizedDescription)")
         }
     }
 }
