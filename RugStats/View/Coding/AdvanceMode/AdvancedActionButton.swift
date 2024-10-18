@@ -24,9 +24,10 @@ struct AdvancedActionButton: View {
     
     var body: some View {
         Button(action.actionName){
+            isClicked.toggle()
+            
             // 初回クリック時
-            if(!isClicked){
-                isClicked.toggle()
+            if(isClicked){
                 currentAction.actorName = actorInfo.teamName
                 currentAction.actionName = action.actionName
                 // 時間を記録
@@ -40,7 +41,6 @@ struct AdvancedActionButton: View {
                 showFieldPositionView = true
                 showLabelView = true
             }else{
-                isClicked.toggle()
                 // 時間を記録
                 currentAction.endTimeSstamp = Date()
                 currentAction.endGameClock = gameClock
@@ -59,7 +59,7 @@ struct AdvancedActionButton: View {
         }.buttonStyle(.borderedProminent)
             .tint(!isClicked ? Color(CGColor(red: actorInfo.teamColor?.red ?? 0, green: actorInfo.teamColor?.green ?? 0, blue: actorInfo.teamColor?.blue ?? 0, alpha: actorInfo.teamColor?.alpha ?? 100)) : .gray)
             .sheet(isPresented: $showFieldPositionView){
-                AdvancedFieldPositionView(action: $currentAction, isStartLocation: !isClicked)
+                AdvancedFieldPositionView(action: $currentAction, isStartLocation: isClicked)
             }
             .sheet(isPresented: $showLabelView){
                 AdvancedLabelView(action: $currentAction, labelSet: action.labelSet)

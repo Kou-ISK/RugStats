@@ -43,7 +43,6 @@ struct AdvancedFieldPositionView: View {
                             }
                         }
                         
-                        // TODO: 正しく表示されるように修正
                         // 始点の座標データが存在する場合に表示する
                         if let startX = action.startXcoord, let startY = action.startYcoord {
                             let startCirclePosition = calculatePosition(xCoord: startX, yCoord: startY, imageWidth: imageWidth, imageHeight: imageHeight)
@@ -80,7 +79,7 @@ struct AdvancedFieldPositionView: View {
                     Button("完了") {
                         if isStartLocation {
                             action.startXcoord = Int(tapLocation.x)
-                            // TODO: 画像下部をタップするとY座標が負になる問題に対処
+                            // 画像下部をタップしてもY座標が負にならないように修正
                             action.startYcoord = Int(tapLocation.y)
                         } else {
                             action.endXcoord = Int(tapLocation.x)
@@ -102,14 +101,18 @@ struct AdvancedFieldPositionView: View {
     // 座標計算を分割して処理
     private func calculatePosition(xCoord: Int, yCoord: Int, imageWidth: CGFloat, imageHeight: CGFloat) -> CGPoint {
         let x = CGFloat(xCoord) * (imageWidth / 80) + 5 * (imageWidth / 80)
-        let y = (110 - CGFloat(yCoord)) * (imageHeight / 120)
+        let y = (CGFloat(yCoord) + 10) * (imageHeight / 120)
         return CGPoint(x: x, y: y)
     }
     
     // タップされた位置を正規化して座標に変換
     private func convertTapLocation(location: CGPoint, imageWidth: CGFloat, imageHeight: CGFloat) -> CGPoint {
+        // X座標: -5 ~ 75 の範囲に正規化
         let normalizedX = (location.x / imageWidth) * 80 - 5
-        let normalizedY = (imageHeight - location.y) / imageHeight * 120 - 10
+        
+        // Y座標: -10 ~ 110 の範囲に正規化（画面下が小さく、上が大きい）
+        let normalizedY = (location.y / imageHeight) * 120 - 10
+        
         return CGPoint(x: normalizedX, y: normalizedY)
     }
 }
