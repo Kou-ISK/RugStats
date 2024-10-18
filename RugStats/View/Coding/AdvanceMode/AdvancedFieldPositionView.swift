@@ -80,10 +80,11 @@ struct AdvancedFieldPositionView: View {
                     Button("完了") {
                         if isStartLocation {
                             action.startXcoord = Int(tapLocation.x)
-                            action.startYcoord = Int(-tapLocation.y) //下が0、上が100になるように反転
+                            // TODO: 画像下部をタップするとY座標が負になる問題に対処
+                            action.startYcoord = Int(tapLocation.y)
                         } else {
                             action.endXcoord = Int(tapLocation.x)
-                            action.endYcoord = Int(-tapLocation.y) //下が0、上が100になるように反転
+                            action.endYcoord = Int(tapLocation.y)
                         }
                         // SwiftDataに保存
                         do {

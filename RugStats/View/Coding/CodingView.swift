@@ -29,7 +29,7 @@ struct CodingView: View {
         NavigationStack{
             VStack{
                 GameClockView(gameClock: $gameClock, timer: $timer, isRunning: $isRunning)
-                ScoreView(game: $game)
+                ScoreView(game: game)
                 
                 if(isAdvanceMode){
                     AdvancedCodingView(gameInfo: $game, gameClock: $gameClock, actionPresetList: actionPresetList)

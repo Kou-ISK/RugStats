@@ -98,9 +98,6 @@
         }
       }
     },
-    "Action" : {
-
-    },
     "Count" : {
 
     },
@@ -154,6 +151,9 @@
           }
         }
       }
+    },
+    "Label" : {
+
     },
     "Left" : {
       "comment" : "Lane: Left",

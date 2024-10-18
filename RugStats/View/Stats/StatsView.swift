@@ -15,7 +15,7 @@ struct StatsView: View {
     var body: some View {
         VStack {
             // スコア表示
-            ScoreView(game: $game)
+            ScoreView(game: game)
             
             if(isNormalMode){
                 NormalStatsTableView(timeline: $game.timeline)

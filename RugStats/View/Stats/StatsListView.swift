@@ -6,19 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct StatsListView: View {
     @Environment(\.modelContext) private var modelContext
-    @State var gameList: [GameItem]
+    var gameList: [GameItem]
     
     var body: some View {
         NavigationStack {
             Text("ゲーム一覧")
             List {
-                ForEach($gameList) { $game in
+                ForEach(gameList) { game in
                     NavigationLink(destination: StatsView(game: game)) {
                         VStack(alignment: .leading) {
-                            ScoreView(game: $game)
+                            ScoreView(game: game)
                             Text("@\(game.fieldName)")
                             Text("備考: \(game.basicInfo)")
                         }
@@ -35,10 +36,6 @@ struct StatsListView: View {
             // modelContextからゲームを削除
             modelContext.delete(game)
         }
-        
-        // gameListの更新
-        gameList.remove(atOffsets: offsets)
-        
         do {
             // モデルコンテキストの保存
             try modelContext.save()
@@ -49,8 +46,5 @@ struct StatsListView: View {
 }
 
 #Preview {
-    StatsListView(gameList: [
-        GameItem(date: Date(), team1Name: "チームA", team2Name: "チームB"),
-        GameItem(date: Date(), team1Name: "チームC", team2Name: "チームD")
-    ])
+    StatsListView(gameList: [GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2")])
 }

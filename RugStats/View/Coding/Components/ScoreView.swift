@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScoreView: View {
-    @Binding var game: GameItem
+    var game: GameItem
     
     // チームごとのアクションを集計してスコアを計算する関数
     private func calculateScore(for teamName: String) -> Int {
@@ -40,5 +40,5 @@ struct ScoreView: View {
 }
 
 #Preview {
-    ScoreView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦")))
+    ScoreView(game: GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦"))
 }
