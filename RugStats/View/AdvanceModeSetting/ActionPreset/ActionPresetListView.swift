@@ -24,7 +24,7 @@ struct ActionPresetListView: View {
                         })
                     }.onDelete(perform: deletePreset)
                 }
-            }.toolbar(content: {
+            }.navigationTitle("アクションプリセット一覧").toolbar(content: {
                 ToolbarItem(placement: .automatic ,content: {
                     NavigationLink(destination: CreateActionPresetView(actionPresetList: $actionPresetList), label: {
                         Image(systemName: "square.and.pencil")

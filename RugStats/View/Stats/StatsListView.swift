@@ -14,20 +14,22 @@ struct StatsListView: View {
     
     var body: some View {
         NavigationStack {
-            Text("ゲーム一覧")
-            List {
-                ForEach(gameList) { game in
-                    NavigationLink(destination: StatsView(game: game)) {
-                        VStack(alignment: .leading) {
-                            ScoreView(game: game)
-                            Text("@\(game.fieldName)")
-                            Text("備考: \(game.basicInfo)")
+            VStack{
+                Text("ゲーム一覧")
+                List {
+                    ForEach(gameList) { game in
+                        NavigationLink(destination: StatsView(game: game)) {
+                            VStack(alignment: .leading) {
+                                ScoreView(game: game)
+                                Text("@\(game.fieldName)")
+                                Text("備考: \(game.basicInfo)")
+                            }
                         }
                     }
+                    .onDelete(perform: deleteGame)
                 }
-                .onDelete(perform: deleteGame)
             }
-        }
+        }.navigationTitle("チームプリセット一覧")
     }
     
     private func deleteGame(offsets: IndexSet) {
