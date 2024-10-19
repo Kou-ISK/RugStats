@@ -28,11 +28,8 @@ struct AdvancedActionButton: View {
             
             // 初回クリック時
             if(isClicked){
-                currentAction.actorName = actorInfo.teamName
-                currentAction.actionName = action.actionName
-                // 時間を記録
-                currentAction.startTimestamp = Date()
-                currentAction.startGameClock = gameClock
+                // 新規TimelineItemを作成
+                currentAction = TimelineItem(startTimestamp: Date(), startGameClock: gameClock, actorName: actorInfo.teamName, actionName: action.actionName)
                 
                 // SwiftDataに追加
                 modelContext.insert(currentAction)
