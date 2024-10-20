@@ -37,5 +37,5 @@ struct AdvancedLabelButton: View {
 }
 
 #Preview {
-    AdvancedLabelButton(action: .constant(TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")),  label: ActionLabelItem(label: "ラベル"))
+    AdvancedLabelButton(action: .constant(TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")),  label: ActionLabelItem(label: "ラベル", category: ActionLabelCategory(categoryName: "カテゴリ")))
 }

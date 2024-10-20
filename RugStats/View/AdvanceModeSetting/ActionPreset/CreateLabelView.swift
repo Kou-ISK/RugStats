@@ -43,12 +43,12 @@ struct CreateLabelView: View {
         }.navigationTitle(category.categoryName)
     }
     
-    // 新しい選手をチームに追加する関数
+    // 新しいラベルを追加する関数
     private func addLabel() {
         guard !newLabelName.isEmpty else { return }
         
-        // 新しい選手をチームに追加
-        category.labels.append(ActionLabelItem(label: newLabelName))
+        // 新しいラベルをチームに追加
+        category.labels.append(ActionLabelItem(label: newLabelName, category: category))
         
         // 入力フィールドをリセット
         newLabelName = ""

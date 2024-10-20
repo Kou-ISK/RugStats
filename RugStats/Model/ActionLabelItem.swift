@@ -13,7 +13,11 @@ final class ActionLabelItem: Identifiable {
     var id = UUID()
     var label: String
     
-    init(label: String){
+    @Relationship
+    var category: ActionLabelCategory // カテゴリへの参照を追加
+    
+    init(label: String, category: ActionLabelCategory) {
         self.label = label
+        self.category = category
     }
 }

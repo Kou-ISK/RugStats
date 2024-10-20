@@ -57,12 +57,12 @@ struct NormalLabelView: View {
                         title: Text("ゴール成否"),
                         message: Text("キックの結果を選択してください"),
                         primaryButton: .default(Text("成功")) {
-                            targetAction.actionLabels.append(ActionLabelItem(label: NSLocalizedString("成功", comment: "キック: 成功")))
+                            targetAction.actionLabels.append(ActionLabelItem(label: NSLocalizedString("成功", comment: "キック: 成功"), category: ActionLabelCategory(categoryName: "結果")))
                             saveLabel()
                             dismiss()
                         },
                         secondaryButton: .destructive(Text("失敗")) {
-                            targetAction.actionLabels.append(ActionLabelItem(label:NSLocalizedString("失敗", comment: "キック: 失敗")))
+                            targetAction.actionLabels.append(ActionLabelItem(label:NSLocalizedString("失敗", comment: "キック: 失敗"), category: ActionLabelCategory(categoryName: "結果")))
                             saveLabel()
                             dismiss()
                         }
@@ -74,8 +74,8 @@ struct NormalLabelView: View {
     
     private func handlePushLabelButton(zone: String, lane: String){
         // ラベルを付与する
-        targetAction.actionLabels.append(ActionLabelItem(label: zone))
-        targetAction.actionLabels.append(ActionLabelItem(label:lane))
+        targetAction.actionLabels.append(ActionLabelItem(label: zone, category: ActionLabelCategory(categoryName: "ゾーン")))
+        targetAction.actionLabels.append(ActionLabelItem(label:lane, category: ActionLabelCategory(categoryName: "ゾーン")))
         
         // コンバージョンG, PG, DGなら成功/失敗の選択肢を表示
         if targetAction.actionName == NSLocalizedString("コンバージョンG", comment: "Action: Conversion") ||
