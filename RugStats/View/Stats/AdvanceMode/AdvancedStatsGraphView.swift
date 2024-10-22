@@ -26,63 +26,32 @@ struct AdvancedStatsGraphView: View {
     
     var body: some View {
         NavigationStack {
-            
+            // Pickerでアクションを選択
+            Picker("アクションを選択", selection: $selectedAction) {
+                ForEach(actionNames, id: \.self) { action in
+                    Text(action)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle()) // セグメント形式のPickerスタイル
+            .padding()
             // TODO: グラフをコンポーネントに切り出し、整理する
             ScrollView(.vertical) {
-                // 選択されたアクションに基づいてグラフを表示
-                if !selectedAction.isEmpty {
-                    VStack {
-                        // アクターごとのタイムラインを表示
-                        ForEach(groupedByActor.keys.sorted(), id: \.self) { actor in
-                            let timelineItemsForActor = groupedByActor[actor]?.filter({$0.actionName == selectedAction}) ?? []
-                            
-                            VStack {
-                                Text(actor) // 各アクター名を表示
-                                    .font(.title2)
-                                    .padding(.top, 10)
-                                
-                                // アクターごとのアクションラベルをカテゴリでグループ化
-                                let labelsByCategory = Dictionary(grouping: timelineItemsForActor.flatMap { $0.actionLabels }, by: { $0.category.categoryName })
-                                
-                                ForEach(labelsByCategory.keys.sorted(), id: \.self) { category in
-                                    let labelsInCategory = labelsByCategory[category] ?? []
-                                    
-                                    if !labelsInCategory.isEmpty {
-                                        VStack {
-                                            Text(category) // 各カテゴリ名を表示
-                                                .font(.headline)
-                                            
-                                            // カテゴリごとの円グラフ
-                                            Chart(labelsInCategory, id: \.id) { labelItem in
-                                                SectorMark(
-                                                    angle: .value("Count", 1), // 各ラベルごとのセクター
-                                                    innerRadius: .inset(30)
-                                                )
-                                                .foregroundStyle(by: .value("Label", labelItem.label))
-                                            }
-                                            .frame(width: 300, height: 300)
-                                        }
-                                        .padding(.bottom, 20) // 各円グラフの間に余白を追加
-                                    }
-                                }
-                            }
-                            .padding(.bottom, 20) // アクターごとの間に余白を追加
+                // アクター名ごとにループして表示
+                HStack{
+                    ForEach(groupedByActor.keys.sorted(), id: \.self) { actor in
+                        let actorTimelineItems = groupedByActor[actor] ?? []
+                        let chartData = actorTimelineItems.filter { $0.actionName == selectedAction }
+                        
+                        VStack{
+                            Text(actor)
+                            LabelCountPieChart(actor: actor, chartData: chartData)
+                        }
+                        
+                        // TODO: 実装
+                        if(selectedAction == NSLocalizedString("ポゼッション", comment: "ポゼッション")){
+                            PossessionPieChart()
                         }
                     }
-                } else {
-                    Text("アクションを選択してください")
-                        .foregroundColor(.gray)
-                }
-            }.toolbar{
-                ToolbarItem(placement: .automatic) {
-                    // Pickerでアクションを選択
-                    Picker("アクションを選択", selection: $selectedAction) {
-                        ForEach(actionNames, id: \.self) { action in
-                            Text(action)
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle()) // セグメント形式のPickerスタイル
-                    .padding()
                 }
             }
         }
