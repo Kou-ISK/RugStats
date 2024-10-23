@@ -36,8 +36,8 @@ struct AdvancedFieldPositionView: View {
                             .padding(.horizontal, padding) // 左右に余白を追加
                             .opacity(0.4)
                         
-                        VStack{
-                            ZStack{
+                        VStack {
+                            ZStack {
                                 Image(systemName: "arrowshape.up.fill").resizable().frame(width: 300, height: 500).foregroundStyle(.gray).opacity(0.2)
                                 Text("\(action.actorName)の攻撃方向").font(.title).bold().offset(y: 190)
                             }
@@ -45,7 +45,7 @@ struct AdvancedFieldPositionView: View {
                         
                         // 始点の座標データが存在する場合に表示する
                         if let startX = action.startXcoord, let startY = action.startYcoord {
-                            let startCirclePosition = calculatePosition(xCoord: startX, yCoord: startY, imageWidth: imageWidth, imageHeight: imageHeight)
+                            let startCirclePosition = calculatePosition(xCoord: startX, yCoord: 100 - startY, imageWidth: imageWidth, imageHeight: imageHeight)
                             Circle()
                                 .fill(Color.gray)
                                 .frame(width: 30, height: 30) // 表示する点の大きさ
@@ -80,10 +80,10 @@ struct AdvancedFieldPositionView: View {
                         if isStartLocation {
                             action.startXcoord = Int(tapLocation.x)
                             // 画像下部をタップしてもY座標が負にならないように修正
-                            action.startYcoord = Int(tapLocation.y)
+                            action.startYcoord = 100 - Int(tapLocation.y)
                         } else {
                             action.endXcoord = Int(tapLocation.x)
-                            action.endYcoord = Int(tapLocation.y)
+                            action.endYcoord = 100 - Int(tapLocation.y)
                         }
                         // SwiftDataに保存
                         do {
@@ -111,7 +111,15 @@ struct AdvancedFieldPositionView: View {
         let normalizedX = (location.x / imageWidth) * 80 - 5
         
         // Y座標: -10 ~ 110 の範囲に正規化（画面下が小さく、上が大きい）
-        let normalizedY = (location.y / imageHeight) * 120 - 10
+        let normalizedY: CGFloat
+        if location.y < 0 {
+            normalizedY = -10 // 画像より下の位置は -10
+        } else if location.y > imageHeight {
+            normalizedY = 110 // 画像より上の位置は 110
+        } else {
+            // 画像の範囲内での計算
+            normalizedY = (location.y / imageHeight) * 120 - 10
+        }
         
         return CGPoint(x: normalizedX, y: normalizedY)
     }
