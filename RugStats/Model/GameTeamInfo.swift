@@ -36,10 +36,10 @@ final class GameTeamInfo: Identifiable {
     }
     
     // 背番号で選手をセットする関数
-    func setPlayer(_ player: PlayerItem, forNumber number: Int) {
-        guard number >= 1 && number <= GameTeamInfo.maxPlayers else {
+    func addPlayer(player: PlayerItem) {
+        guard players.count > GameTeamInfo.maxPlayers else{
             return
         }
-        players[number - 1] = player
+        players.append(player) // 新規追加
     }
 }
