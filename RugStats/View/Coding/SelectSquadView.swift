@@ -14,10 +14,6 @@ struct SelectSquadView: View {
     
     var body: some View {
         VStack {
-            Text("出場メンバー選択")
-                .font(.headline)
-                .padding()
-            
             // プリセットチームの選手リスト
             List(presetTeam.players, id: \.id) { player in
                 HStack{
