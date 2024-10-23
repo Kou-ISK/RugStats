@@ -33,14 +33,23 @@ struct LabelCountPieChart: View {
                     if totalLabelsInCategory > 0 {
                         Chart {
                             ForEach(labelCounts.keys.sorted(), id: \.self) { label in
+                                let count = labelCounts[label] ?? 0
+                                let percentage = (Double(count) / Double(totalLabelsInCategory)) * 100
+                                
                                 SectorMark(
-                                    angle: .value("Count", labelCounts[label] ?? 0),
-                                    innerRadius: .inset(30)
+                                    angle: .value("Count", count),
+                                    innerRadius: .inset(10),
+                                    outerRadius: 30
                                 )
                                 .foregroundStyle(by: .value("Label", label))
+                                .annotation(position: .overlay) {
+                                     Text("\(String(format: "%.0f", percentage))%")
+                                         .bold()
+                                         .font(.headline) // %のフォントサイズを大きくする
+                                 }
                             }
                         }
-                        .frame(width: 200, height: 200)
+                        .frame(width: 100, height: 100)
                     } else {
                         Text("データがありません")
                     }

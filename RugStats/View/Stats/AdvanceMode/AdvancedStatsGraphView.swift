@@ -37,7 +37,7 @@ struct AdvancedStatsGraphView: View {
             // TODO: グラフをコンポーネントに切り出し、整理する
             ScrollView(.vertical) {
                 // アクター名ごとにループして表示
-                HStack{
+                HStack(alignment: .top){
                     ForEach(groupedByActor.keys.sorted(), id: \.self) { actor in
                         let actorTimelineItems = groupedByActor[actor] ?? []
                         let chartData = actorTimelineItems.filter { $0.actionName == selectedAction }
