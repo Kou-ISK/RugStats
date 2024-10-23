@@ -57,10 +57,6 @@ struct StartCodingView: View {
                 CodingView(game: $newGame, isAdvanceModeAvailable: $isAdvanceModeAvailable, actionPresetList: actionPresetList)
             }
             .buttonStyle(.borderedProminent)
-            // TODO: CodingViewから戻ってきた際にnewGameを空にする
-            .onAppear{
-                newGame = GameItem(date: Date(), team1Name: "", team2Name: "")
-            }
             .disabled(!isFormValid()) // フォームが有効でない場合は非活性にする
         }
     }
