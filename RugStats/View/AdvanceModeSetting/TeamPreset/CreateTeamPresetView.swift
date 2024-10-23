@@ -23,23 +23,27 @@ struct CreateTeamPresetView: View {
     var body: some View {
         NavigationStack{
             VStack{
-                TextField("チーム名", text: $newTeam.name)
-                ColorPicker("チームカラー選択", selection: $currentColor, supportsOpacity: true)
+                HStack{
+                    TextField("チーム名", text: $newTeam.name).padding()
+                    ColorPicker("", selection: $currentColor, supportsOpacity: true)
+                }
                 
                 // TODO: 選手追加、選手一覧表示のUI修正
+                
+                // 現在のチームの選手リスト表示
+                HStack{
+                    // 選手追加用のフィールド
+                    TextField("新規選手名", text: $newPlayerName)
+                        .padding()
+                    
+                    // 選手を追加するボタン
+                    Button(action: {
+                        addPlayer()
+                    }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
+                }
                 Section("選手一覧"){
-                    // 現在のチームの選手リスト表示
-                    HStack{
-                        // 選手追加用のフィールド
-                        TextField("新規選手名", text: $newPlayerName)
-                            .padding()
-                        
-                        // 選手を追加するボタン
-                        Button(action: {
-                            addPlayer()
-                        }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
-                    }
                     List(newTeam.players, id:\.id) { player in
+                        
                         Text(player.name)
                     }
                 }

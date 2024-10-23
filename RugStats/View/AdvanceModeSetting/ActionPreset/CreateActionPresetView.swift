@@ -20,19 +20,20 @@ struct CreateActionPresetView: View {
     var body: some View {
         NavigationStack{
             VStack{
-                TextField("プリセット名", text: $newActionPreset.presetName)
+                TextField("プリセット名", text: $newActionPreset.presetName).padding()
                 // TODO: アクション追加、一覧表示のUI修正
+                
+                HStack{
+                    // アクション追加用のフィールド
+                    TextField("アクション名", text: $newActionName)
+                        .padding()
+                    
+                    // アクションを追加するボタン
+                    Button(action: {
+                        addAction()
+                    }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
+                }
                 Section("アクション一覧"){
-                    HStack{
-                        // アクション追加用のフィールド
-                        TextField("アクション名", text: $newActionName)
-                            .padding()
-                        
-                        // アクションを追加するボタン
-                        Button(action: {
-                            addAction()
-                        }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
-                    }
                     List($newActionPreset.actions, id:\.id) { $action in
                         NavigationLink(destination: CreateLabelCategoryForPresetActionView(action: $action), label: {Text(action.actionName)})
                     }
@@ -47,8 +48,8 @@ struct CreateActionPresetView: View {
                         print(error.localizedDescription)
                     }
                     dismiss()
-                }
-            }
+                }.buttonStyle(.borderedProminent)
+            }.padding().navigationTitle("アクションプリセット作成")
         }
     }
     
