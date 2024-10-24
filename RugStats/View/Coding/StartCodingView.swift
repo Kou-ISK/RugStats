@@ -10,8 +10,8 @@ import SwiftUI
 struct StartCodingView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @State var teamPresetList: [TeamItem]
-    @State var actionPresetList: [ActionPresetItem]
+    var teamPresetList: [TeamItem]
+    var actionPresetList: [ActionPresetItem]
     
     @State private var newGame: GameItem = GameItem(date: Date(), team1Name: "", team2Name: "")
     @State private var showCodingView = false
@@ -25,7 +25,6 @@ struct StartCodingView: View {
                 Section(header: Text("チーム名を入力")) {
                     List{
                         // TODO: ビューの調整
-                        // TODO: チームプリセット作成直後に反映されない問題に対処(teamPresetListに追加されていないのが原因だと思われる)
                         TeamPicker(newTeam: $newGame.team1, teamPresetList: teamPresetList)
                         TeamPicker(newTeam: $newGame.team2, teamPresetList: teamPresetList)
                     }
