@@ -10,27 +10,31 @@ import SwiftData
 
 @Model
 final class GameItem {
-    var timestamp: Date
-    var team1Name: String
-    var team2Name: String
+    var date: Date
     var fieldName: String
     var basicInfo: String
     
-    @Relationship var timeline: [TimelineItem]?
+    var team1: GameTeamInfo
+    var team2: GameTeamInfo
     
-    init(timestamp: Date, team1Name: String, team2Name: String) {
-        self.timestamp = timestamp
-        self.team1Name = team1Name
-        self.team2Name = team2Name
-        self.fieldName = "未入力"
-        self.basicInfo = team1Name + " vs. " + team2Name
+    @Relationship
+    var timeline: [TimelineItem]
+    
+    init(date: Date, team1Name: String, team2Name: String) {
+        self.date = date
+        self.fieldName = ""
+        self.basicInfo = ""
+        self.timeline = []
+        self.team1 = GameTeamInfo(teamName: team1Name)
+        self.team2 = GameTeamInfo(teamName: team2Name)
     }
     
-    init(timestamp: Date, team1Name: String, team2Name: String, fieldName: String, basicInfo: String) {
-        self.timestamp = timestamp
-        self.team1Name = team1Name
-        self.team2Name = team2Name
+    init(date: Date, team1Name: String, team2Name: String, fieldName: String, basicInfo: String) {
+        self.date = date
+        self.team1 = GameTeamInfo(teamName: team1Name)
+        self.team2 = GameTeamInfo(teamName: team2Name)
         self.fieldName = fieldName
         self.basicInfo = basicInfo
+        self.timeline = []
     }
 }
