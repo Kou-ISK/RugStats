@@ -13,7 +13,7 @@ struct ActionPresetLabelView: View {
     
     var body: some View {
         ForEach($action.labelSet, id:\.id){$category in
-            TextField("カテゴリー", text: $category.categoryName)
+            TextField("カテゴリ", text: $category.categoryName)
             List{
                 ForEach($category.labels, id:\.id){$label in
                     TextField("ラベル", text: $label.label)
