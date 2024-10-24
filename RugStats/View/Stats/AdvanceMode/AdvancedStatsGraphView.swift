@@ -48,9 +48,9 @@ struct AdvancedStatsGraphView: View {
                         }
                         
                         // TODO: 実装
-                        if(selectedAction == NSLocalizedString("ポゼッション", comment: "ポゼッション")){
-                            PossessionPieChart()
-                        }
+                        // if(selectedAction == NSLocalizedString("ポゼッション", comment: "ポゼッション")){
+                        //    PossessionPieChart()
+                        // }
                     }
                 }
             }

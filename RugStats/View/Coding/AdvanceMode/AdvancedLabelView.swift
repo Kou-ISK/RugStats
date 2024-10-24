@@ -16,12 +16,16 @@ struct AdvancedLabelView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
+            ScrollView(.vertical) {
                 ForEach(labelSet, id: \.id) { category in
-                    Text(category.categoryName)
-                    ForEach(category.labels, id: \.id) { label in
-                        AdvancedLabelButton(action: $action, label: label)
-                    }
+                    VStack{
+                        Text(category.categoryName).font(.headline)
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]){
+                            ForEach(category.labels, id: \.id) { label in
+                                AdvancedLabelButton(action: $action, label: label)
+                            }
+                        }
+                    }.border(.gray).padding()
                 }
             }
             .navigationTitle("ラベル追加")
