@@ -18,4 +18,16 @@ final class ActionLabelCategory: Identifiable {
         self.categoryName = categoryName
         self.labels = []
     }
+    
+    // categoryNameとラベルを設定するイニシャライザ
+    init(categoryName: String, labels: [String]) {
+        self.categoryName = categoryName
+        
+        // 一時的な配列を使用してselfをキャプチャしないようにする
+        self.labels = []
+        for label in labels {
+            let labelItem = ActionLabelItem(label: label, category: self)
+            self.labels.append(labelItem)
+        }
+    }
 }

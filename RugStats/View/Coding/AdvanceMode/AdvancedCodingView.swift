@@ -46,6 +46,9 @@ struct AdvancedCodingView: View {
                     }
                 }
             }
+        }.onAppear{
+            // TODO: デフォルト値を扱えるようにするより良い方法がないか検討
+            actionPresetList.append(DefaultItem().defaultActionPresets)
         }
     }
 }
