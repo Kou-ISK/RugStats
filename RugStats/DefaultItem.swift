@@ -157,13 +157,16 @@ final class DefaultItem {
                 ]
             ),
             ActionLabelPresetItem(
-                actionName: "Shot at Goal",
+                actionName: "Goal Kick",
                 labelSet: [
                     ActionLabelCategory(categoryName: "results", labels: [
                         "Success",
                         "Missed"
                     ]),
-                    ActionLabelCategory(categoryName: "types", labels: [])
+                    ActionLabelCategory(categoryName: "types", labels: [
+                        "Penalty Goal",
+                        "Drop Goal"
+                    ])
                 ]
             )
         ]

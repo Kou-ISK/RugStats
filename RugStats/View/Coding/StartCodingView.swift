@@ -16,7 +16,7 @@ struct StartCodingView: View {
     @State private var newGame: GameItem = GameItem(date: Date(), team1Name: "", team2Name: "")
     @State private var showCodingView = false
     
-    @State private var isAdvanceModeAvailable: Bool = false
+    @State private var isAdvancedModeAvailable: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -53,7 +53,7 @@ struct StartCodingView: View {
                 Text("分析開始")
             }
             .fullScreenCover(isPresented: $showCodingView) {
-                CodingView(game: $newGame, isAdvanceModeAvailable: $isAdvanceModeAvailable, actionPresetList: actionPresetList)
+                CodingView(game: $newGame, isAdvancedModeAvailable: $isAdvancedModeAvailable, actionPresetList: actionPresetList)
             }
             .buttonStyle(.borderedProminent)
             .disabled(!isFormValid()) // フォームが有効でない場合は非活性にする
@@ -80,7 +80,7 @@ struct StartCodingView: View {
         // アドバンスモードが有効にできるかを判定
         // playersもしくはアクションボタンプリセットが存在する場合
         if(!newGame.team1.players.isEmpty || !newGame.team2.players.isEmpty || !actionPresetList.isEmpty){
-            isAdvanceModeAvailable = true
+            isAdvancedModeAvailable = true
         }
     }
     
