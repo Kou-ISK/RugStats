@@ -9,10 +9,19 @@ import SwiftUI
 
 struct AdvancedStatsView: View {
     // モードを定義
-    enum Mode: String, CaseIterable {
-        case table = "表"
-        case individual = "個人"
-        case graph = "グラフ"
+    enum Mode: CaseIterable {
+        case table
+        case graph
+        
+        // ローカライズされた表示名を提供するプロパティ
+        var displayName: String {
+            switch self {
+            case .table:
+                return NSLocalizedString("Table", comment: "Table View")
+            case .graph:
+                return NSLocalizedString("Chart", comment: "Chart View")
+            }
+        }
     }
     
     @Binding var timeline: [TimelineItem]
@@ -26,13 +35,9 @@ struct AdvancedStatsView: View {
                     // アドバンスモードで表示されるビュー
                     AdvancedStatsTableView(timeline: $timeline)
                     
-                case .individual:
-                    // TODO: 個人モードで表示されるビュー
-                    Text("個人モード")
-                    // TODO: 他の個人モード用のビューを追加
-                    
                 case .graph:
                     // グラフモードで表示されるビュー
+                    // TODO: 個人スタッツを表示する機能を追加
                     AdvancedStatsGraphView(timeline: $timeline)
             }
         }.toolbar {
@@ -40,7 +45,7 @@ struct AdvancedStatsView: View {
                 // Pickerを使ってモードを切り替える
                 Picker("表示モード", selection: $currentMode) {
                     ForEach(Mode.allCases, id: \.self) { mode in
-                        Text(mode.rawValue).tag(mode)
+                        Text(mode.displayName).tag(mode)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle()) // セグメントスタイルのPickerを使用

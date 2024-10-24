@@ -48,7 +48,7 @@ struct AdvancedFieldPositionView: View {
                             let startCirclePosition = calculatePosition(xCoord: startX, yCoord: 100 - startY, imageWidth: imageWidth, imageHeight: imageHeight)
                             Circle()
                                 .fill(Color.gray)
-                                .frame(width: 30, height: 30) // 表示する点の大きさ
+                                .frame(width: 20, height: 20) // 表示する点の大きさ
                                 .position(startCirclePosition) // タップされた場所に合わせて座標を調整
                         }
                         
@@ -57,7 +57,7 @@ struct AdvancedFieldPositionView: View {
                             let tapCirclePosition = calculatePosition(xCoord: Int(tapLocation.x), yCoord: Int(tapLocation.y), imageWidth: imageWidth, imageHeight: imageHeight)
                             Circle()
                                 .fill(Color.red)
-                                .frame(width: 30, height: 30) // 表示する点の大きさ
+                                .frame(width: 20, height: 20) // 表示する点の大きさ
                                 .position(tapCirclePosition) // タップされた場所に合わせて座標を調整
                         }
                         

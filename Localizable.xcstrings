@@ -141,6 +141,23 @@
         }
       }
     },
+    "Chart" : {
+      "comment" : "Chart View",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chart"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "グラフ"
+          }
+        }
+      }
+    },
     "Count" : {
       "localizations" : {
         "en" : {
@@ -332,6 +349,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "右"
+          }
+        }
+      }
+    },
+    "Table" : {
+      "comment" : "Table View",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Table"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "表"
           }
         }
       }
@@ -1043,22 +1077,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "例) 公式戦"
-          }
-        }
-      }
-    },
-    "個人モード" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Individual Mode"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "個人モード"
           }
         }
       }
