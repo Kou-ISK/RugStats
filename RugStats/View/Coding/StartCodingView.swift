@@ -57,6 +57,8 @@ struct StartCodingView: View {
             }
             .buttonStyle(.borderedProminent)
             .disabled(!isFormValid()) // フォームが有効でない場合は非活性にする
+        }.onDisappear {
+            resetNewGame() // 画面遷移後にリセット
         }
     }
     
@@ -80,6 +82,11 @@ struct StartCodingView: View {
         if(!newGame.team1.players.isEmpty || !newGame.team2.players.isEmpty || !actionPresetList.isEmpty){
             isAdvanceModeAvailable = true
         }
+    }
+    
+    // newGameをリセットする関数
+    private func resetNewGame() {
+        newGame = GameItem(date: Date(), team1Name: "", team2Name: "")
     }
 }
 
