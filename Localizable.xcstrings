@@ -223,6 +223,22 @@
     "Hello, World!" : {
       "shouldTranslate" : false
     },
+    "Individual" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Individual"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "個人"
+          }
+        }
+      }
+    },
     "Label" : {
       "localizations" : {
         "en" : {
@@ -366,6 +382,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "表"
+          }
+        }
+      }
+    },
+    "Team" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Team"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "チーム"
           }
         }
       }

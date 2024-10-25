@@ -19,7 +19,8 @@ struct AdvancedActionButton: View {
     
     @State private var currentAction: TimelineItem = TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(), actorName: "", actionName: "")
     
-    var actorInfo: GameTeamInfo
+    var actorName: String
+    var actorColor: ColorItem?
     var action: ActionLabelPresetItem
     
     var body: some View {
@@ -29,7 +30,7 @@ struct AdvancedActionButton: View {
             // 初回クリック時
             if(isClicked){
                 // 新規TimelineItemを作成
-                currentAction = TimelineItem(startTimestamp: Date(), startGameClock: gameClock, actorName: actorInfo.teamName, actionName: action.actionName)
+                currentAction = TimelineItem(startTimestamp: Date(), startGameClock: gameClock, actorName: actorName, actionName: action.actionName)
                 
                 // SwiftDataに追加
                 modelContext.insert(currentAction)
@@ -54,7 +55,7 @@ struct AdvancedActionButton: View {
                 showLabelView = true
             }
         }.buttonStyle(.borderedProminent)
-            .tint(!isClicked ? Color(CGColor(red: actorInfo.teamColor?.red ?? 0, green: actorInfo.teamColor?.green ?? 0, blue: actorInfo.teamColor?.blue ?? 0, alpha: actorInfo.teamColor?.alpha ?? 100)) : .gray)
+            .tint(!isClicked ? Color(CGColor(red: actorColor?.red ?? 0, green: actorColor?.green ?? 0, blue: actorColor?.blue ?? 0, alpha: actorColor?.alpha ?? 100)) : .gray)
             .sheet(isPresented: $showFieldPositionView){
                 AdvancedFieldPositionView(action: $currentAction, isStartLocation: isClicked)
             }
@@ -65,5 +66,5 @@ struct AdvancedActionButton: View {
 }
 
 #Preview {
-    AdvancedActionButton(gameClock: .constant(TimeInterval(100)), timeline: .constant([TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")]), actorInfo: GameTeamInfo(teamName: "チーム1"), action: ActionLabelPresetItem(actionName: "タックル", labelSet: [ActionLabelCategory(categoryName: "成否")]))
+    AdvancedActionButton(gameClock: .constant(TimeInterval(100)), timeline: .constant([TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")]), actorName: "チーム1",actorColor: ColorItem(red: 0, green: 0, blue: 0, alpha: 0),action: ActionLabelPresetItem(actionName: "タックル", labelSet: [ActionLabelCategory(categoryName: "成否")]))
 }
