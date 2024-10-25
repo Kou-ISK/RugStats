@@ -11,12 +11,12 @@ struct CodingView: View {
     @Environment(\.dismiss) private var dismiss // 画面を閉じるための環境変数
     
     @Binding var game: GameItem
-    @Binding var isAdvanceModeAvailable: Bool
+    @Binding var isAdvancedModeAvailable: Bool
     
     var actionPresetList: [ActionPresetItem]
     @State var gameClock: TimeInterval = TimeInterval(0)
     @State private var showBackAlert: Bool = false
-    @State private var isAdvanceMode: Bool = false
+    @State private var isAdvancedMode: Bool = false
     
     @State private var timer: Timer? = nil // ストップウォッチ用のタイマー
     @State private var isRunning: Bool = false // ストップウォッチの状態
@@ -31,7 +31,7 @@ struct CodingView: View {
                 GameClockView(gameClock: $gameClock, timer: $timer, isRunning: $isRunning)
                 ScoreView(game: game)
                 
-                if(isAdvanceMode){
+                if(isAdvancedMode){
                     AdvancedCodingView(gameInfo: $game, gameClock: $gameClock, actionPresetList: actionPresetList)
                 }else{
                     NormalCodingView(gameInfo: $game, gameClock: $gameClock)
@@ -49,9 +49,9 @@ struct CodingView: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing, content: {
-                    Button(isAdvanceMode ? "ノーマル": "アドバンス"){
-                        isAdvanceMode.toggle()
-                    }.disabled(!isAdvanceModeAvailable)
+                    Button(isAdvancedMode ? "ノーマル": "アドバンス"){
+                        isAdvancedMode.toggle()
+                    }.disabled(!isAdvancedModeAvailable)
                 })
             }
             .alert(isPresented: $showBackAlert) {
@@ -69,5 +69,5 @@ struct CodingView: View {
 }
 
 #Preview {
-    CodingView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦")), isAdvanceModeAvailable: .constant(true), actionPresetList: [ActionPresetItem(presetName: "プリセット", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelCategory(categoryName: "ラベル")])])])
+    CodingView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2", fieldName: "XXスタジアム", basicInfo: "公式戦")), isAdvancedModeAvailable: .constant(true), actionPresetList: [ActionPresetItem(presetName: "プリセット", actions: [ActionLabelPresetItem(actionName: "アクション", labelSet: [ActionLabelCategory(categoryName: "ラベル")])])])
 }
