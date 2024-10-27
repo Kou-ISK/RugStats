@@ -11,16 +11,24 @@ import SwiftData
 @main
 struct RugStatsApp: App {
     var sharedModelContainer: ModelContainer = {
+        // スキーマを定義
         let schema = Schema([
             GameItem.self,
             TimelineItem.self,
             TeamItem.self,
-            ActionPresetItem.self
+            ActionPresetItem.self,
+            ActionLabelItem.self,
+            ActionLabelCategory.self
         ])
+
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            // 変更がない場合はマイグレーション計画を指定しない
+            return try ModelContainer(
+                for: schema,
+                configurations: [modelConfiguration]
+            )
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }

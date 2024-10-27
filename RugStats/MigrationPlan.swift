@@ -8,20 +8,20 @@
 import Foundation
 import SwiftData
 
-// スキーマバージョンの初期状態を定義
+// 初期バージョン (V0) を定義
 struct ActionLabelSchemaV0: VersionedSchema {
     static var versionIdentifier: Schema.Version = Schema.Version(0, 0, 0)
     static var models: [any PersistentModel.Type] {
-        [ActionLabelItem.self] // 旧スキーマでのモデル
+        [ActionLabelItem.self] // 最初のスキーマモデル
     }
 }
 
 enum ActionLabelMigrationPlan: SchemaMigrationPlan {
     static var schemas: [any VersionedSchema.Type] {
-        [ActionLabelSchemaV1.self]  // 新しいスキーマを指定
+        [ActionLabelSchemaV0.self, ActionLabelSchemaV1.self]
     }
 
-    // マイグレーションのステージを定義
+    // マイグレーションステージを定義
     static var stages: [MigrationStage] {
         [
             migrateToV1
@@ -29,11 +29,11 @@ enum ActionLabelMigrationPlan: SchemaMigrationPlan {
     }
 
     static let migrateToV1 = MigrationStage.custom(
-        fromVersion: ActionLabelSchemaV0.self,  // 以前のバージョンを指定
+        fromVersion: ActionLabelSchemaV0.self,  // 初期バージョンからの移行を定義
         toVersion: ActionLabelSchemaV1.self,
         willMigrate: nil
     ) { context in
-        // 新しいカテゴリを作成（例: "Default" カテゴリ）
+        // "Default" カテゴリを作成
         let defaultCategory = ActionLabelCategory(categoryName: "Default")
         context.insert(defaultCategory)
 
@@ -41,7 +41,7 @@ enum ActionLabelMigrationPlan: SchemaMigrationPlan {
         let existingLabels = try? context.fetch(FetchDescriptor<ActionLabelItem>())
         
         existingLabels?.forEach { existingLabel in
-            // それぞれのラベルに対して新しい ActionLabelItem を作成し、デフォルトカテゴリに関連付ける
+            // 新しい ActionLabelItem を作成し、カテゴリを関連付け
             let actionLabelItem = ActionLabelItem(label: existingLabel.label, category: defaultCategory)
             context.insert(actionLabelItem)
         }
@@ -50,6 +50,7 @@ enum ActionLabelMigrationPlan: SchemaMigrationPlan {
     }
 }
 
+// 新しいバージョン (V1) を定義
 struct ActionLabelSchemaV1: VersionedSchema {
     static var versionIdentifier: Schema.Version = Schema.Version(1, 0, 0)
     static var models: [any PersistentModel.Type] {
