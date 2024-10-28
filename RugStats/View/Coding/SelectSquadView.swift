@@ -36,6 +36,7 @@ struct SelectSquadView: View {
             .navigationBarTitleDisplayMode(.inline)
     }
     
+    // TODO: 配列に順番通り追加されるように修正する
     private func selectPlayer(_ player: PlayerItem) {
         if let index = team.players.firstIndex(of: player) {
             // 既に選択済みの場合は、選手を選択解除する
@@ -45,6 +46,8 @@ struct SelectSquadView: View {
             guard team.players.count < GameTeamInfo.maxPlayers else { return }
             team.players.append(player)
         }
+        print("選手名: \(player.name)")
+        print("選手リスト: \(team.players.map({$0.name}))")
     }
 }
 
