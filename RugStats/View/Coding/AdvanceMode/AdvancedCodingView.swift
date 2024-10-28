@@ -68,11 +68,12 @@ struct AdvancedCodingView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         
-                        ForEach(Array(selectedTeam.players.enumerated()), id: \.element.id) {index, player in
+                        // TODO: ソートする
+                        ForEach($selectedTeam.players, id:\.id) {$player in
                             HStack {
-                                Text("\(index). \(player.name)")
+                                Text("\(player.orderId + 1). \(player.player.name)")
                                 ForEach(selectedActionPreset.actions, id: \.id) { action in
-                                    AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorName: player.name, actorColor: selectedTeam.teamColor, action: action)
+                                    AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorName: player.player.name, actorColor: selectedTeam.teamColor, action: action)
                                 }
                             }
                         }

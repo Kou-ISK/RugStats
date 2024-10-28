@@ -12,34 +12,29 @@ import SwiftData
 final class GameTeamInfo: Identifiable {
     var teamName: String
     var teamColor: ColorItem?
-    var players: [PlayerItem]
+    var players: [OrderedPlayerItem]  // 順序付きの選手配列
     
     // 背番号は常に1〜25とする
     static let maxPlayers = 25
-    
-    init(teamName: String, players: [PlayerItem]) {
-        self.teamName = teamName
-        self.players = players
-    }
     
     init(teamName: String) {
         self.teamName = teamName
         self.players = []
     }
     
-    // 背番号で選手を取得するための関数（1-25の範囲で入力）
-    func player(forNumber number: Int) -> PlayerItem? {
-        guard number >= 1 && number <= GameTeamInfo.maxPlayers else {
-            return nil
-        }
-        return players[number - 1] // 配列は0ベースなので-1する
+    // 追加順に並べ替えて取得する関数
+    func orderedPlayers() -> [PlayerItem] {
+        return players.sorted(by: { $0.orderId < $1.orderId }).map { $0.player }
     }
     
-    // 背番号で選手をセットする関数
-    func addPlayer(player: PlayerItem) {
-        guard players.count > GameTeamInfo.maxPlayers else{
-            return
+    // 順序を考慮して選手を追加・削除
+    func togglePlayer(_ player: PlayerItem) {
+        if let index = players.firstIndex(where: { $0.player == player }) {
+            players.remove(at: index)
+        } else if players.count < GameTeamInfo.maxPlayers {
+            let nextOrder = (players.map { $0.orderId }.max() ?? -1) + 1
+            let orderedPlayer = OrderedPlayerItem(orderId: nextOrder, player: player)
+            players.append(orderedPlayer)
         }
-        players.append(player) // 新規追加
     }
 }
