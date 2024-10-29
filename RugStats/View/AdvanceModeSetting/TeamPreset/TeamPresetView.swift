@@ -11,7 +11,7 @@ struct TeamPresetView: View {
     @Environment(\.modelContext) private var modelContext
     
     @Binding var team: TeamItem
-    @State private var currentColor: Color = Color(.white)
+    @State private var currentColor: Color = Color(.orange)
     
     var body: some View {
         NavigationStack{
