@@ -31,6 +31,28 @@ struct ContentView: View {
                 .tabItem {
                     Label("アドバンスモード設定", systemImage: "gear")
                 }
+        }.onAppear{
+            addDefaultActionPresetIfNeeded()
+        }
+    }
+    
+    // TODO: actionPresetListにDefaultItemの要素が存在しない場合に追加できるようにする
+    private func addDefaultActionPresetIfNeeded() {
+        // actionPresetListが空の場合
+        if !actionPresetList.isEmpty {
+            let defaultActionPresets = DefaultItem().defaultActionPresets
+            // defaultActionPresets の各要素を modelContext に追加
+            for preset in defaultActionPresets {
+                modelContext.insert(preset)
+            }
+            
+            // データベースに保存
+            do {
+                try modelContext.save()
+                print("DefaultItem was added to actionPresetList.")
+            } catch {
+                print("Failed to save DefaultItem: \(error.localizedDescription)")
+            }
         }
     }
 }
