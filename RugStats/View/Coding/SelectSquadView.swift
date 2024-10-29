@@ -10,10 +10,10 @@ import SwiftUI
 struct SelectSquadView: View {
     @Binding var team: GameTeamInfo
     var presetTeam: TeamItem
-
+    
     var body: some View {
         VStack {
-            List(presetTeam.players, id: \.id) { player in
+            List(presetTeam.players.sorted(by:{$0.name < $1.name}), id: \.id) { player in
                 HStack {
                     Button(action: {
                         team.togglePlayer(player)

@@ -68,8 +68,7 @@ struct AdvancedCodingView: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         
-                        // TODO: ソートする
-                        ForEach($selectedTeam.players, id:\.id) {$player in
+                        ForEach($selectedTeam.players.sorted(by: {$0.orderId.wrappedValue < $1.orderId.wrappedValue}), id:\.id) {$player in
                             HStack {
                                 Text("\(player.orderId + 1). \(player.player.name)")
                                 ForEach(selectedActionPreset.actions, id: \.id) { action in
@@ -79,7 +78,6 @@ struct AdvancedCodingView: View {
                         }
                     }
             }
-            
             
             AdvancedStatsTableView(timeline: $gameInfo.timeline)
         }.toolbar{
