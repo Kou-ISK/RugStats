@@ -32,6 +32,7 @@ struct CreateTeamPresetView: View {
                 
                 // 現在のチームの選手リスト表示
                 HStack{
+                    // TODO: 選手追加用コンポーネントを共通化する
                     // 選手追加用のフィールド
                     TextField("新規選手名", text: $newPlayerName)
                         .padding()

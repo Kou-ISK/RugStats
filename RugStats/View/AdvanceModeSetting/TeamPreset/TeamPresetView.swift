@@ -13,6 +13,8 @@ struct TeamPresetView: View {
     @Binding var team: TeamItem
     @State private var currentColor: Color = Color(.orange)
     
+    @State private var isAddingPlayer: Bool = false
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -21,10 +23,19 @@ struct TeamPresetView: View {
                         TextField("チーム名", text: $team.name).font(.title)
                         ColorPicker("", selection: $currentColor, supportsOpacity: true)
                     }.padding(5)
+                    if(isAddingPlayer){
+                       // TODO: 選手追加用コンポーネントを追加
+                    }
                     List{
                         ForEach($team.players, id:\.id){$player in
                             TextField("選手名", text: $player.name)
                         }.onDelete(perform: deleteMember)
+                    }
+                }
+            }.toolbar{
+                ToolbarItem(placement: .automatic){
+                    Button(addPlayer ? "完了": "追加"){
+                        addPlayer.toggle()
                     }
                 }
             }.navigationTitle("チーム情報")
