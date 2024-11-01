@@ -24,7 +24,7 @@ struct TeamPresetView: View {
                         ColorPicker("", selection: $currentColor, supportsOpacity: true)
                     }.padding(5)
                     if(isAddingPlayer){
-                       // TODO: 選手追加用コンポーネントを追加
+                        AddPlayerField(team: $team)
                     }
                     List{
                         ForEach($team.players, id:\.id){$player in
@@ -34,8 +34,8 @@ struct TeamPresetView: View {
                 }
             }.toolbar{
                 ToolbarItem(placement: .automatic){
-                    Button(addPlayer ? "完了": "追加"){
-                        addPlayer.toggle()
+                    Button(isAddingPlayer ? "完了": "追加"){
+                        isAddingPlayer.toggle()
                     }
                 }
             }.navigationTitle("チーム情報")
@@ -69,9 +69,9 @@ struct TeamPresetView: View {
     
     private func deleteMember(offsets: IndexSet) {
         // 削除対象のインデックスを元にアイテムを削除
-         offsets.forEach { index in
-             team.players.remove(at: index)
-         }
+        offsets.forEach { index in
+            team.players.remove(at: index)
+        }
     }
 }
 
