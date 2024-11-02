@@ -231,9 +231,6 @@
         }
       }
     },
-    "Hello, World!" : {
-      "shouldTranslate" : false
-    },
     "Individual" : {
       "localizations" : {
         "en" : {
@@ -362,6 +359,12 @@
           }
         }
       }
+    },
+    "Possession by Team" : {
+
+    },
+    "Possession Duration" : {
+
     },
     "Right" : {
       "comment" : "Lane: Right",
@@ -995,6 +998,7 @@
     },
     "ポゼッション" : {
       "comment" : "ポゼッション",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
