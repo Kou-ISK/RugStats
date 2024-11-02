@@ -36,23 +36,30 @@ struct ContentView: View {
         }
     }
     
-    // TODO: actionPresetListにDefaultItemの要素が存在しない場合に追加できるようにする
+    // actionPresetListにDefaultItemの要素が存在しない場合に追加
     private func addDefaultActionPresetIfNeeded() {
-        // actionPresetListが空の場合
-        if !actionPresetList.isEmpty {
-            let defaultActionPresets = DefaultItem().defaultActionPresets
-            // defaultActionPresets の各要素を modelContext に追加
-            for preset in defaultActionPresets {
-                modelContext.insert(preset)
-            }
-            
-            // データベースに保存
+        let defaultActionPresets = DefaultItem().defaultActionPresets
+        
+        // actionPresetListにないプリセットをフィルタリング
+        let presetsToAdd = defaultActionPresets.filter { defaultPreset in
+            !actionPresetList.contains(where: { $0.presetName == defaultPreset.presetName })
+        }
+        
+        // 必要なプリセットのみをmodelContextに追加
+        for preset in presetsToAdd {
+            modelContext.insert(preset)
+        }
+        
+        // データベースに保存
+        if !presetsToAdd.isEmpty {
             do {
                 try modelContext.save()
-                print("DefaultItem was added to actionPresetList.")
+                print("\(presetsToAdd.count) default items were added to actionPresetList.")
             } catch {
                 print("Failed to save DefaultItem: \(error.localizedDescription)")
             }
+        } else {
+            print("No new default items were needed.")
         }
     }
 }
