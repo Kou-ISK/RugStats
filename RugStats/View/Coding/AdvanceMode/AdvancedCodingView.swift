@@ -41,20 +41,11 @@ struct AdvancedCodingView: View {
     
     var body: some View {
         NavigationStack{
-            // Pickerを使ってモードを切り替える
-            Picker("表示モード", selection: $currentMode) {
-                ForEach(Mode.allCases, id: \.self) { mode in
-                    Text(mode.displayName).tag(mode)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            
             // 選択されたモードに応じて表示を切り替える
             switch currentMode {
                 case .team:
                     ForEach($selectedActionPreset.actions, id:\.id){$action in
                         HStack{
-                            // TODO: コンポーネントを切り出して実装
                             AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorName: gameInfo.team1.teamName, actorColor:gameInfo.team1.teamColor, action: action)
                             AdvancedActionButton(gameClock: $gameClock, timeline: $gameInfo.timeline, actorName: gameInfo.team2.teamName, action: action)
                         }
@@ -94,9 +85,15 @@ struct AdvancedCodingView: View {
                     }
                 }
             }
-        }.onAppear{
-            // TODO: デフォルト値を扱えるようにするより良い方法がないか検討
-            actionPresetList.append(contentsOf: DefaultItem().defaultActionPresets)
+            ToolbarItem(placement: .automatic){
+                // Pickerを使ってモードを切り替える
+                Picker("表示モード", selection: $currentMode) {
+                    ForEach(Mode.allCases, id: \.self) { mode in
+                        Text(mode.displayName).tag(mode)
+                    }
+                }
+                .pickerStyle(.menu)
+            }
         }
     }
 }
