@@ -66,7 +66,7 @@ struct AdvancedCodingView: View {
                             Text(gameInfo.team1.teamName).tag(gameInfo.team1)
                             Text(gameInfo.team2.teamName).tag(gameInfo.team2)
                         }
-                        .pickerStyle(SegmentedPickerStyle())
+                        .pickerStyle(.menu)
                         
                         ForEach($selectedTeam.players.sorted(by: {$0.orderId.wrappedValue < $1.orderId.wrappedValue}), id:\.id) {$player in
                             HStack {
