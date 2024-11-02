@@ -132,7 +132,8 @@
             "value" : "%1$lld. %2$@"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "22m-Halfway" : {
       "comment" : "Zone: 22m-Halfway",
@@ -1446,7 +1447,20 @@
       }
     },
     "追加" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加"
+          }
+        }
+      }
     },
     "選手一覧" : {
       "localizations" : {
