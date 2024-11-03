@@ -11,7 +11,9 @@ struct ActorPicker: View {
     @Binding var selectedActor: String
     
     var timeline: [TimelineItem]
-    // アクション名のリスト
+    
+    // TODO: 個人名が入ってきた場合に項目が多くなる問題に対処する
+    // アクター名のリスト
     private var actorNames: [String] {
         Array(Set(timeline.map { $0.actorName })).sorted()
     }
