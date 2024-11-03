@@ -76,12 +76,6 @@
         }
       }
     },
-    "%@ by Team" : {
-
-    },
-    "%@ Duration" : {
-
-    },
     "%@: %lld" : {
       "localizations" : {
         "en" : {
@@ -204,7 +198,15 @@
       }
     },
     "Field" : {
-      "comment" : "Field Position View"
+      "comment" : "Field Position View",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "座標"
+          }
+        }
+      }
     },
     "GL-22m" : {
       "comment" : "Zone: GL-22m",
@@ -995,24 +997,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ペナルティ"
-          }
-        }
-      }
-    },
-    "ポゼッション" : {
-      "comment" : "ポゼッション",
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Possession"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ポゼッション"
           }
         }
       }

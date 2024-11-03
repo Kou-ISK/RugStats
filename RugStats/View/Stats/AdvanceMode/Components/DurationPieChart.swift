@@ -35,10 +35,7 @@ struct DurationPieChart: View {
     }
     
     var body: some View {
-        VStack {
-            Text("\(actionName) by Team")
-                .font(.headline)
-            
+        VStack {            
             Chart {
                 // possessionDurationsのキーをArrayに変換してForEachに渡す
                 ForEach(actionDurationsForTeam.sorted(by: { $0.key < $1.key }), id: \.key) { team, duration in
@@ -47,7 +44,7 @@ struct DurationPieChart: View {
                     let percentage = totalDurations > 0 ? (duration / totalDurations) * 100 : 0
                     // 円グラフの各セグメントを追加
                     SectorMark(
-                        angle: .value("\(actionName) Duration", duration as Double),
+                        angle: .value(actionName, duration as Double),
                         innerRadius: .ratio(0.5)
                         // series: .value("Team", team)
                     )
