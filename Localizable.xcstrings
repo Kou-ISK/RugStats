@@ -124,6 +124,17 @@
         }
       }
     },
+    "%lld. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld. %2$@"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
     "22m-Halfway" : {
       "comment" : "Zone: 22m-Halfway",
       "localizations" : {
@@ -186,6 +197,17 @@
         }
       }
     },
+    "Field" : {
+      "comment" : "Field Position View",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "座標"
+          }
+        }
+      }
+    },
     "GL-22m" : {
       "comment" : "Zone: GL-22m",
       "localizations" : {
@@ -219,9 +241,6 @@
           }
         }
       }
-    },
-    "Hello, World!" : {
-      "shouldTranslate" : false
     },
     "Individual" : {
       "localizations" : {
@@ -982,23 +1001,6 @@
         }
       }
     },
-    "ポゼッション" : {
-      "comment" : "ポゼッション",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Possession"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ポゼッション"
-          }
-        }
-      }
-    },
     "メンバー選択" : {
       "localizations" : {
         "en" : {
@@ -1431,6 +1433,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "表示モード"
+          }
+        }
+      }
+    },
+    "追加" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加"
           }
         }
       }

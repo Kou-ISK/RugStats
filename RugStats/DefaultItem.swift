@@ -16,7 +16,7 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "Possession",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Try",
                             "Drop Goal",
                             "Kick Out of Play",
@@ -31,7 +31,7 @@ final class DefaultItem {
                             "Other",
                             "End of Play"
                         ]),
-                        ActionLabelCategory(categoryName: "types", labels: [
+                        ActionLabelCategory(categoryName: "Types", labels: [
                             "50m Restart",
                             "50m Restart Retained",
                             "22m Restart",
@@ -51,7 +51,7 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "Scrum",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Won Outright",
                             "Won FK",
                             "Won PK",
@@ -61,7 +61,7 @@ final class DefaultItem {
                             "Lost PK",
                             "Lost Reversed"
                         ]),
-                        ActionLabelCategory(categoryName: "types", labels: [
+                        ActionLabelCategory(categoryName: "Types", labels: [
                             "Positive",
                             "Neutral",
                             "Negative"
@@ -71,7 +71,7 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "Lineout",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Won",
                             "Won & Maul",
                             "Won Tap",
@@ -83,7 +83,7 @@ final class DefaultItem {
                             "Lost FK",
                             "Lost PK"
                         ]),
-                        ActionLabelCategory(categoryName: "types", labels: [
+                        ActionLabelCategory(categoryName: "Types", labels: [
                             "Front",
                             "Middle",
                             "Back"
@@ -93,7 +93,7 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "Kick",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Touch(Bounce)",
                             "Touch(Full)",
                             "Error",
@@ -107,7 +107,7 @@ final class DefaultItem {
                             "Pressure Error",
                             "Try Kick"
                         ]),
-                        ActionLabelCategory(categoryName: "types", labels: [
+                        ActionLabelCategory(categoryName: "Types", labels: [
                             "Bomb",
                             "Chip",
                             "Cross Pitch",
@@ -121,7 +121,7 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "PK",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Not Releasing",
                             "Not Rolling Away",
                             "Off Feet at Ruck",
@@ -138,7 +138,7 @@ final class DefaultItem {
                             "Lineout",
                             "Other Offence"
                         ]),
-                        ActionLabelCategory(categoryName: "types", labels: [
+                        ActionLabelCategory(categoryName: "Types", labels: [
                             "Offence",
                             "Defence"
                         ])
@@ -147,11 +147,11 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "Try",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Conversion Success",
                             "Conversion Missed"
                         ]),
-                        ActionLabelCategory(categoryName: "types", labels: [
+                        ActionLabelCategory(categoryName: "Types", labels: [
                             "BK",
                             "FW"
                         ])
@@ -160,11 +160,11 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "Goal Kick",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Success",
                             "Missed"
                         ]),
-                        ActionLabelCategory(categoryName: "types", labels: [
+                        ActionLabelCategory(categoryName: "Types", labels: [
                             "Penalty Goal",
                             "Drop Goal"
                         ])
@@ -181,16 +181,16 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "Tackle",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Dominant",
                             "Neutral",
                             "Ineffective",
                             "Missed"
                         ]),
-                        ActionLabelCategory(categoryName: "qualifiers", labels: [
+                        ActionLabelCategory(categoryName: "Qualifiers", labels: [
                             "Assist",
                         ]),
-                        ActionLabelCategory(categoryName: "types", labels: [
+                        ActionLabelCategory(categoryName: "Types", labels: [
                             "Line Tackle",
                             "Edge Tackle",
                             "Guard Tackle",
@@ -203,7 +203,7 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "AT Ruck OOA",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "order", labels: [
+                        ActionLabelCategory(categoryName: "Order", labels: [
                             "1st",
                             "2nd",
                             "3rd+"
@@ -213,12 +213,12 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "DF Ruck OOA",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "order", labels: [
+                        ActionLabelCategory(categoryName: "Order", labels: [
                             "1st",
                             "2nd",
                             "3rd+"
                         ]),
-                        ActionLabelCategory(categoryName: "result", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Turnover Won",
                             "Pen Won"
                         ])
@@ -227,7 +227,7 @@ final class DefaultItem {
                 ActionLabelPresetItem(
                     actionName: "Ball Carry",
                     labelSet: [
-                        ActionLabelCategory(categoryName: "results", labels: [
+                        ActionLabelCategory(categoryName: "Results", labels: [
                             "Tackled Ineffectiv",
                             "Tackled Neutral",
                             "Tackled Dominant",
@@ -237,7 +237,7 @@ final class DefaultItem {
                             "Pass",
                             "Off Load",
                         ]),
-                        ActionLabelCategory(categoryName: "gain line", labels: [
+                        ActionLabelCategory(categoryName: "Gain line", labels: [
                             "Crossed",
                             "Neutral",
                             "Failed"

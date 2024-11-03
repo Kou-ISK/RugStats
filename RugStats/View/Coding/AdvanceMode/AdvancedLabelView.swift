@@ -24,7 +24,7 @@ struct AdvancedLabelView: View {
                             ForEach(category.labels, id: \.id) { label in
                                 AdvancedLabelButton(action: $action, label: label)
                             }
-                        }
+                        }.padding()
                     }.border(.gray).padding()
                 }
             }

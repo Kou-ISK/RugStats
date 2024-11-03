@@ -43,4 +43,13 @@ final class TimelineItem: Identifiable {
         self.actionName = actionName
         self.actionLabels = actionLabels
     }
+    
+    init(startTimestamp: Date, startGameClock: TimeInterval, endGameClock: TimeInterval, actorName: String, actionName: String) {
+        self.startTimestamp = startTimestamp
+        self.startGameClock = startGameClock
+        self.endGameClock = endGameClock
+        self.actorName = actorName
+        self.actionName = actionName
+        self.actionLabels = []
+    }
 }

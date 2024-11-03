@@ -11,11 +11,6 @@ import Charts
 struct AdvancedStatsGraphView: View {
     @Binding var timeline: [TimelineItem]
     
-    // アクション名のリスト
-    var actionNames: [String] {
-        Array(Set(timeline.map { $0.actionName })).sorted()
-    }
-    
     // アクターごとの [TimelineItem] をグループ化
     var groupedByActor: [String: [TimelineItem]] {
         Dictionary(grouping: timeline, by: { $0.actorName })
@@ -27,30 +22,25 @@ struct AdvancedStatsGraphView: View {
     var body: some View {
         NavigationStack {
             // Pickerでアクションを選択
-            Picker("アクションを選択", selection: $selectedAction) {
-                ForEach(actionNames, id: \.self) { action in
-                    Text(action)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle()) // セグメント形式のPickerスタイル
-            .padding()
+            ActionPicker(selectedAction: $selectedAction, timeline: timeline)
             // TODO: グラフをコンポーネントに切り出し、整理する
             ScrollView(.vertical) {
-                // アクター名ごとにループして表示
-                HStack(alignment: .top){
-                    ForEach(groupedByActor.keys.sorted(), id: \.self) { actor in
-                        let actorTimelineItems = groupedByActor[actor] ?? []
-                        let chartData = actorTimelineItems.filter { $0.actionName == selectedAction }
-                        
-                        VStack{
-                            Text(actor)
-                            LabelCountPieChart(actor: actor, chartData: chartData)
+                VStack{
+                    // アクター名ごとにループして表示
+                    HStack(alignment: .top){
+                        ForEach(groupedByActor.keys.sorted(), id: \.self) { actor in
+                            let actorTimelineItems = groupedByActor[actor] ?? []
+                            let chartData = actorTimelineItems.filter { $0.actionName == selectedAction }
+                            
+                            VStack{
+                                Text(actor)
+                                LabelCountPieChart(actor: actor, chartData: chartData)
+                            }
                         }
-                        
-                        // TODO: 実装
-                        // if(selectedAction == NSLocalizedString("ポゼッション", comment: "ポゼッション")){
-                        //    PossessionPieChart()
-                        // }
+                    }
+                    // 指定したアクションのチーム別合計時間を円グラフとして表示する
+                    if(selectedAction == "Possession"){
+                        DurationPieChart(timeline: timeline, actionName: selectedAction)
                     }
                 }
             }

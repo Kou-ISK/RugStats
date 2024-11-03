@@ -11,7 +11,9 @@ struct TeamPresetView: View {
     @Environment(\.modelContext) private var modelContext
     
     @Binding var team: TeamItem
-    @State private var currentColor: Color = Color(.white)
+    @State private var currentColor: Color = Color(.orange)
+    
+    @State private var isAddingPlayer: Bool = false
     
     var body: some View {
         NavigationStack{
@@ -21,10 +23,19 @@ struct TeamPresetView: View {
                         TextField("チーム名", text: $team.name).font(.title)
                         ColorPicker("", selection: $currentColor, supportsOpacity: true)
                     }.padding(5)
+                    if(isAddingPlayer){
+                        AddPlayerField(team: $team)
+                    }
                     List{
                         ForEach($team.players, id:\.id){$player in
                             TextField("選手名", text: $player.name)
                         }.onDelete(perform: deleteMember)
+                    }
+                }
+            }.toolbar{
+                ToolbarItem(placement: .automatic){
+                    Button(isAddingPlayer ? "完了": "追加"){
+                        isAddingPlayer.toggle()
                     }
                 }
             }.navigationTitle("チーム情報")
@@ -58,9 +69,9 @@ struct TeamPresetView: View {
     
     private func deleteMember(offsets: IndexSet) {
         // 削除対象のインデックスを元にアイテムを削除
-         offsets.forEach { index in
-             team.players.remove(at: index)
-         }
+        offsets.forEach { index in
+            team.players.remove(at: index)
+        }
     }
 }
 

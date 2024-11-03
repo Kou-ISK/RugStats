@@ -17,9 +17,6 @@ struct CreateTeamPresetView: View {
     @State private var currentColor: Color = Color(.white)
     @State private var newTeam: TeamItem = TeamItem(name: "")
     
-    // 選手の追加用の状態変数
-    @State private var newPlayerName: String = ""
-    
     var body: some View {
         NavigationStack{
             VStack{
@@ -29,25 +26,15 @@ struct CreateTeamPresetView: View {
                 }
                 
                 // TODO: 選手追加、選手一覧表示のUI修正
-                
-                // 現在のチームの選手リスト表示
-                HStack{
-                    // 選手追加用のフィールド
-                    TextField("新規選手名", text: $newPlayerName)
-                        .padding()
-                    
-                    // 選手を追加するボタン
-                    Button(action: {
-                        addPlayer()
-                    }, label: {Image(systemName: "plus.circle.fill").tint(.green)})
-                }
+                // 選手追加フィールド
+                AddPlayerField(team: $newTeam)
+                // 選手一覧
                 Section("選手一覧"){
                     List(newTeam.players, id:\.id) { player in
                         
                         Text(player.name)
                     }
                 }
-                
                 
                 Button("新規チーム作成"){
                     // RGB 成分を取得
@@ -68,20 +55,7 @@ struct CreateTeamPresetView: View {
             }.padding().navigationTitle("チームプリセット作成")
         }
     }
-    
-    // 新しい選手をチームに追加する関数
-    private func addPlayer() {
-        guard !newPlayerName.isEmpty else { return }
-        let newPlayer: PlayerItem = PlayerItem(name: newPlayerName)
-        
-        // 新しい選手をチームに追加
-        newTeam.players.append(newPlayer)
-        
-        // 入力フィールドをリセット
-        newPlayerName = ""
-    }
 }
-
 
 #Preview {
     CreateTeamPresetView(teamList: .constant([TeamItem(name: "チーム")]))

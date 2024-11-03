@@ -12,6 +12,7 @@ struct AdvancedStatsView: View {
     enum Mode: CaseIterable {
         case table
         case graph
+        case field
         
         // ローカライズされた表示名を提供するプロパティ
         var displayName: String {
@@ -20,6 +21,8 @@ struct AdvancedStatsView: View {
                 return NSLocalizedString("Table", comment: "Table View")
             case .graph:
                 return NSLocalizedString("Chart", comment: "Chart View")
+            case .field:
+                return NSLocalizedString("Field", comment: "Field Position View")
             }
         }
     }
@@ -39,6 +42,8 @@ struct AdvancedStatsView: View {
                     // グラフモードで表示されるビュー
                     // TODO: 個人スタッツを表示する機能を追加
                     AdvancedStatsGraphView(timeline: $timeline)
+                case .field:
+                    AdvancedStatsFieldPositionView(timeline: $timeline)
             }
         }.toolbar {
             ToolbarItem(placement: .topBarTrailing) {

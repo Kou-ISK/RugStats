@@ -56,10 +56,10 @@ struct AdvancedActionButton: View {
             }
         }.buttonStyle(.borderedProminent)
             .tint(!isClicked ? Color(CGColor(red: actorColor?.red ?? 0, green: actorColor?.green ?? 0, blue: actorColor?.blue ?? 0, alpha: actorColor?.alpha ?? 100)) : .gray)
-            .sheet(isPresented: $showFieldPositionView){
+            .fullScreenCover(isPresented: $showFieldPositionView){
                 AdvancedFieldPositionView(action: $currentAction, isStartLocation: isClicked)
             }
-            .sheet(isPresented: $showLabelView){
+            .fullScreenCover(isPresented: $showLabelView){
                 AdvancedLabelView(action: $currentAction, labelSet: action.labelSet)
             }
     }
