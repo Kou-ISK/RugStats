@@ -76,6 +76,12 @@
         }
       }
     },
+    "%@ by Team" : {
+
+    },
+    "%@ Duration" : {
+
+    },
     "%@: %lld" : {
       "localizations" : {
         "en" : {
@@ -359,12 +365,6 @@
           }
         }
       }
-    },
-    "Possession by Team" : {
-
-    },
-    "Possession Duration" : {
-
     },
     "Right" : {
       "comment" : "Lane: Right",
