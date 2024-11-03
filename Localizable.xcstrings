@@ -203,6 +203,9 @@
         }
       }
     },
+    "Field" : {
+      "comment" : "Field Position View"
+    },
     "GL-22m" : {
       "comment" : "Zone: GL-22m",
       "localizations" : {

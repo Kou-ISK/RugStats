@@ -11,11 +11,6 @@ import Charts
 struct AdvancedStatsGraphView: View {
     @Binding var timeline: [TimelineItem]
     
-    // アクション名のリスト
-    var actionNames: [String] {
-        Array(Set(timeline.map { $0.actionName })).sorted()
-    }
-    
     // アクターごとの [TimelineItem] をグループ化
     var groupedByActor: [String: [TimelineItem]] {
         Dictionary(grouping: timeline, by: { $0.actorName })
@@ -27,13 +22,7 @@ struct AdvancedStatsGraphView: View {
     var body: some View {
         NavigationStack {
             // Pickerでアクションを選択
-            Picker("アクションを選択", selection: $selectedAction) {
-                ForEach(actionNames, id: \.self) { action in
-                    Text(action)
-                }
-            }
-            .pickerStyle(SegmentedPickerStyle()) // セグメント形式のPickerスタイル
-            .padding()
+            ActionPicker(selectedAction: $selectedAction, timeline: timeline)
             // TODO: グラフをコンポーネントに切り出し、整理する
             ScrollView(.vertical) {
                 VStack{
