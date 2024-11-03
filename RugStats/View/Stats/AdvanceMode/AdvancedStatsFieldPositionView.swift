@@ -17,8 +17,6 @@ struct AdvancedStatsFieldPositionView: View {
         return timeline.filter({$0.actorName == selectedActor && $0.actionName == selectedAction})
     }
     
-
-    
     var body: some View {
         // Pickerでアクションを選択
         ActionPicker(selectedAction: $selectedAction, timeline: timeline)
@@ -50,6 +48,7 @@ struct AdvancedStatsFieldPositionView: View {
                     
                     // TODO: 始点、終点両方を示すように改修する
                     ForEach(selectedTimeline, id:\.id){action in
+                        // TODO: コンポーネントとして切り出す
                         // 始点の座標データが存在する場合に表示する
                         if let startX = action.startXcoord, let startY = action.startYcoord {
                             let startCirclePosition = calculatePosition(xCoord: startX, yCoord: 100 - startY, imageWidth: imageWidth, imageHeight: imageHeight)
