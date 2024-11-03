@@ -48,8 +48,9 @@ struct AdvancedStatsGraphView: View {
                                 LabelCountPieChart(actor: actor, chartData: chartData)
                             }
                         }
+                        // 指定したアクションのチーム別合計時間を円グラフとして表示する
                         if(selectedAction == "Possession"){
-                            PossessionPieChart(timeline: timeline)
+                            DurationPieChart(timeline: timeline, actionName: selectedAction)
                         }
                     }
                 }

@@ -1,5 +1,5 @@
 //
-//  PossessionPieChart.swift
+//  DurationPieChart.swift
 //  RugStats
 //
 //  Created by 井坂航 on 2024/10/22.
@@ -8,17 +8,17 @@
 import SwiftUI
 import Charts
 
-// TODO: DurationPieChartという名前に変更して汎用化する
-struct PossessionPieChart: View {
+struct DurationPieChart: View {
     var timeline: [TimelineItem]
+    var actionName: String
     
-    // "Possession"アクションを持つタイムライン項目のみをフィルタリング
+    // 渡されたアクション名を持つタイムライン項目のみをフィルタリング
     var filteredTimeline: [TimelineItem] {
-        return timeline.filter { $0.actionName == "Possession" }
+        return timeline.filter { $0.actionName == actionName }
     }
     
     // チームごとの所持時間を計算
-    var possessionDurations: [String: TimeInterval] {
+    var actionDurationsForTeam: [String: TimeInterval] {
         var durations: [String: TimeInterval] = [:]
         
         for item in filteredTimeline {
@@ -31,23 +31,23 @@ struct PossessionPieChart: View {
     
     // 全体の所持時間を計算
     var totalDurations: TimeInterval {
-        return possessionDurations.values.reduce(0, +)
+        return actionDurationsForTeam.values.reduce(0, +)
     }
     
     var body: some View {
         VStack {
-            Text("Possession by Team")
+            Text("\(actionName) by Team")
                 .font(.headline)
             
             Chart {
                 // possessionDurationsのキーをArrayに変換してForEachに渡す
-                ForEach(possessionDurations.sorted(by: { $0.key < $1.key }), id: \.key) { team, duration in
+                ForEach(actionDurationsForTeam.sorted(by: { $0.key < $1.key }), id: \.key) { team, duration in
                     
                     // パーセンテージの計算
                     let percentage = totalDurations > 0 ? (duration / totalDurations) * 100 : 0
                     // 円グラフの各セグメントを追加
                     SectorMark(
-                        angle: .value("Possession Duration", duration as Double),
+                        angle: .value("\(actionName) Duration", duration as Double),
                         innerRadius: .ratio(0.5)
                         // series: .value("Team", team)
                     )
@@ -66,8 +66,8 @@ struct PossessionPieChart: View {
 }
 
 #Preview {
-    PossessionPieChart(timeline: [
+    DurationPieChart(timeline: [
         TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), endGameClock: TimeInterval(150), actorName: "チーム1", actionName: "Possession"),
         TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(160), endGameClock: TimeInterval(180), actorName: "チーム2", actionName: "Possession")
-    ])
+    ], actionName: "Possession")
 }
