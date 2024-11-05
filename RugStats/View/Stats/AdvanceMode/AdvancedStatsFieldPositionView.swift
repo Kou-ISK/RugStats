@@ -46,17 +46,9 @@ struct AdvancedStatsFieldPositionView: View {
                         }
                     }
                     
-                    // TODO: 始点、終点両方を示すように改修する
                     ForEach(selectedTimeline, id:\.id){action in
-                        // TODO: コンポーネントとして切り出す
                         // 始点の座標データが存在する場合に表示する
-                        if let startX = action.startXcoord, let startY = action.startYcoord {
-                            let startCirclePosition = calculatePosition(xCoord: startX, yCoord: 100 - startY, imageWidth: imageWidth, imageHeight: imageHeight)
-                            Circle()
-                                .fill(Color.red)
-                                .frame(width: 20, height: 20) // 表示する点の大きさ
-                                .position(startCirclePosition) // タップされた場所に合わせて座標を調整
-                        }
+                        Arrow(action: action, imageWidth: imageWidth, imageHeight: imageHeight)
                     }
                 }
                 .padding(.vertical, verticalPadding) // 上下に余白を追加
