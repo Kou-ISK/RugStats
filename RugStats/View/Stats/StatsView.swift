@@ -22,7 +22,7 @@ struct StatsView: View {
             if(isNormalMode){
                 NormalStatsTableView(timeline: $game.timeline)
             }else{
-                AdvancedStatsView(timeline: $game.timeline)
+                AdvancedStatsView(game: $game)
             }
         }
         .toolbar {
