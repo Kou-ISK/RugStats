@@ -33,13 +33,11 @@ struct AdvancedStatsGraphView: View {
                         VStack{
                             let team1TimelineItems = groupedByActor[game.team1.teamName] ?? []
                             let team1chartData = team1TimelineItems.filter { $0.actionName == selectedAction }
-                            Text(game.team1.teamName)
                             LabelCountPieChart(actor: game.team1.teamName, chartData: team1chartData)
                         }
                         VStack{
                             let team2TimelineItems = groupedByActor[game.team2.teamName] ?? []
                             let team2chartData = team2TimelineItems.filter { $0.actionName == selectedAction }
-                            Text(game.team2.teamName)
                             LabelCountPieChart(actor: game.team2.teamName, chartData: team2chartData)
                         }
                         
@@ -49,7 +47,6 @@ struct AdvancedStatsGraphView: View {
                     ForEach(groupedByActor.keys.sorted().filter { $0 != game.team1.teamName && $0 != game.team2.teamName}, id: \.self) { player in
                         if let playerData = groupedByActor[player] {
                             VStack {
-                                Text(player)
                                 LabelCountPieChart(actor: player, chartData: playerData)
                             }
                         }
