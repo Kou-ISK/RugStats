@@ -23,7 +23,10 @@ struct ActionPicker: View {
                 Text(action).tag(action)
             }
         }
-        .pickerStyle(SegmentedPickerStyle()) // セグメント形式のPickerスタイル
+        .pickerStyle(.menu) // セグメント形式のPickerスタイル
+        .onAppear{
+            selectedAction = actionNames.first ?? ""
+        }
     }
 }
 

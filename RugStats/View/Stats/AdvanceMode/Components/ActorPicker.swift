@@ -26,6 +26,9 @@ struct ActorPicker: View {
             }
         }
         .pickerStyle(SegmentedPickerStyle()) // セグメント形式のPickerスタイル
+        .onAppear{
+            selectedActor = actorNames.first ?? ""
+        }
     }
 }
 
