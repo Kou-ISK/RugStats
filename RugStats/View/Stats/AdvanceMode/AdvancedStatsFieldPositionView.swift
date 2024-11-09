@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct AdvancedStatsFieldPositionView: View {
-    @Binding var timeline: [TimelineItem]
+    @Binding var game: GameItem
     // 選択されたアクション名
     @State private var selectedAction: String = ""
     @State private var selectedActor: String = ""
     
     var selectedTimeline: [TimelineItem]{
-        return timeline.filter({$0.actorName == selectedActor && $0.actionName == selectedAction})
+        return game.timeline.filter({$0.actorName == selectedActor && $0.actionName == selectedAction})
+    }
+    
+    var teamList: [String]{
+        [game.team1.teamName, game.team2.teamName]
     }
     
     var body: some View {
         // Pickerでアクションを選択
-        ActionPicker(selectedAction: $selectedAction, timeline: timeline)
+        ActionPicker(selectedAction: $selectedAction, timeline: game.timeline)
         // Pickerでアクターを選択
-        ActorPicker(selectedActor: $selectedActor, timeline: timeline)
+        ActorPicker(selectedActor: $selectedActor, timeline: game.timeline, teamList: teamList)
         VStack {
             GeometryReader { geometry in
                 let totalWidth = geometry.size.width // 全体の幅
@@ -66,5 +70,5 @@ struct AdvancedStatsFieldPositionView: View {
 }
 
 #Preview {
-    AdvancedStatsFieldPositionView(timeline: .constant([TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(10), actorName: "チーム1", actionName: "トライ"), TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(10), actorName: "チーム2", actionName: "トライ")]))
+    AdvancedStatsFieldPositionView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2")))
 }

@@ -12,6 +12,8 @@ struct ActorPicker: View {
     
     var timeline: [TimelineItem]
     
+    var teamList: [String]
+    
     // TODO: 個人名が入ってきた場合に項目が多くなる問題に対処する
     // アクター名のリスト
     private var actorNames: [String] {
@@ -33,5 +35,5 @@ struct ActorPicker: View {
 }
 
 #Preview {
-    ActorPicker(selectedActor: .constant("チーム1"), timeline: [TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")])
+    ActorPicker(selectedActor: .constant("チーム1"), timeline: [TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")], teamList: ["チーム1", "チーム2"])
 }

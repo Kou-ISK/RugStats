@@ -43,7 +43,7 @@ struct AdvancedStatsView: View {
                     // TODO: 個人スタッツを表示する機能を追加
                     AdvancedStatsGraphView(game: $game)
                 case .field:
-                    AdvancedStatsFieldPositionView(timeline: $game.timeline)
+                    AdvancedStatsFieldPositionView(game: $game)
             }
         }.toolbar {
             ToolbarItem(placement: .topBarTrailing) {

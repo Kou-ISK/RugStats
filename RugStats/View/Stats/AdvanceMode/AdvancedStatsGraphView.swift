@@ -16,6 +16,10 @@ struct AdvancedStatsGraphView: View {
         Dictionary(grouping: game.timeline, by: { $0.actorName })
     }
     
+    var teamList: [String]{
+        [game.team1.teamName, game.team2.teamName]
+    }
+    
     // 選択されたアクション名
     @State private var selectedAction: String = ""
     
@@ -23,28 +27,20 @@ struct AdvancedStatsGraphView: View {
         NavigationStack {
             // Pickerでアクションを選択
             ActionPicker(selectedAction: $selectedAction, timeline: game.timeline)
-            // TODO: グラフをコンポーネントに切り出し、整理する
             ScrollView(.vertical) {
                 VStack{
                     
                     // チームごとに表示
                     HStack(alignment: .top){
-                        // TODO: チームごとのグラフ作成をシンプルな実装にリファクタする
-                        VStack{
-                            let team1TimelineItems = groupedByActor[game.team1.teamName] ?? []
-                            let team1chartData = team1TimelineItems.filter { $0.actionName == selectedAction }
-                            LabelCountPieChart(actor: game.team1.teamName, chartData: team1chartData)
+                        ForEach(teamList, id:\.self){teamName in
+                            let timelineItems = groupedByActor[teamName] ?? []
+                            let chartData = timelineItems.filter { $0.actionName == selectedAction }
+                            LabelCountPieChart(actor: game.team1.teamName, chartData: chartData)
                         }
-                        VStack{
-                            let team2TimelineItems = groupedByActor[game.team2.teamName] ?? []
-                            let team2chartData = team2TimelineItems.filter { $0.actionName == selectedAction }
-                            LabelCountPieChart(actor: game.team2.teamName, chartData: team2chartData)
-                        }
-                        
                     }
                     
                     // 選手のグラフ
-                    ForEach(groupedByActor.keys.sorted().filter { $0 != game.team1.teamName && $0 != game.team2.teamName}, id: \.self) { player in
+                    ForEach(groupedByActor.keys.sorted().filter { !isTeamName($0)}, id: \.self) { player in
                         if let playerData = groupedByActor[player] {
                             VStack {
                                 LabelCountPieChart(actor: player, chartData: playerData)
@@ -58,6 +54,10 @@ struct AdvancedStatsGraphView: View {
                 }
             }
         }
+    }
+    
+    private func isTeamName(_ name: String) -> Bool {
+        name == game.team1.teamName || name == game.team2.teamName
     }
 }
 
