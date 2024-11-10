@@ -27,6 +27,7 @@ struct RugStatsApp: App {
             // 変更がない場合はマイグレーション計画を指定しない
             return try ModelContainer(
                 for: schema,
+                migrationPlan: ActionLabelMigrationPlan.self,
                 configurations: [modelConfiguration]
             )
         } catch {

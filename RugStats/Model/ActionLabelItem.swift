@@ -21,3 +21,13 @@ final class ActionLabelItem: Identifiable {
         self.category = category
     }
 }
+
+@Model
+final class OldActionLabelItem: Identifiable {
+    var id = UUID()
+    var label: String
+
+    init(label: String){
+        self.label = label
+    }
+}
