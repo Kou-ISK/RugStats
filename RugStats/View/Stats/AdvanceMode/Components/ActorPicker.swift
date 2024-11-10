@@ -38,7 +38,7 @@ struct ActorPicker: View {
     
     var body: some View {
         VStack {
-            Picker("チームまたは選手を選択", selection: $selectedActor) {
+            Picker("", selection: $selectedActor) {
                 // チーム名を表示
                 ForEach(filteredTeamList.keys.sorted(), id: \.self) { teamName in
                     Text(teamName).tag(teamName)
