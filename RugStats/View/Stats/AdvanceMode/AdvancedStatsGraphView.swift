@@ -9,11 +9,15 @@ import SwiftUI
 import Charts
 
 struct AdvancedStatsGraphView: View {
-    @Binding var timeline: [TimelineItem]
+    @Binding var game: GameItem
     
     // アクターごとの [TimelineItem] をグループ化
     var groupedByActor: [String: [TimelineItem]] {
-        Dictionary(grouping: timeline, by: { $0.actorName })
+        Dictionary(grouping: game.timeline, by: { $0.actorName })
+    }
+    
+    var teamList: [String]{
+        [game.team1.teamName, game.team2.teamName]
     }
     
     // 選択されたアクション名
@@ -22,47 +26,41 @@ struct AdvancedStatsGraphView: View {
     var body: some View {
         NavigationStack {
             // Pickerでアクションを選択
-            ActionPicker(selectedAction: $selectedAction, timeline: timeline)
-            // TODO: グラフをコンポーネントに切り出し、整理する
+            ActionPicker(selectedAction: $selectedAction, timeline: game.timeline)
             ScrollView(.vertical) {
                 VStack{
-                    // アクター名ごとにループして表示
+                    
+                    // チームごとに表示
                     HStack(alignment: .top){
-                        ForEach(groupedByActor.keys.sorted(), id: \.self) { actor in
-                            let actorTimelineItems = groupedByActor[actor] ?? []
-                            let chartData = actorTimelineItems.filter { $0.actionName == selectedAction }
-                            
-                            VStack{
-                                Text(actor)
-                                LabelCountPieChart(actor: actor, chartData: chartData)
+                        ForEach(teamList, id:\.self){teamName in
+                            let timelineItems = groupedByActor[teamName] ?? []
+                            let chartData = timelineItems.filter { $0.actionName == selectedAction }
+                            LabelCountPieChart(actor: game.team1.teamName, chartData: chartData)
+                        }
+                    }
+                    
+                    // 選手のグラフ
+                    ForEach(groupedByActor.keys.sorted().filter { !isTeamName($0)}, id: \.self) { player in
+                        if let playerData = groupedByActor[player] {
+                            VStack {
+                                LabelCountPieChart(actor: player, chartData: playerData)
                             }
                         }
                     }
                     // 指定したアクションのチーム別合計時間を円グラフとして表示する
                     if(selectedAction == "Possession"){
-                        DurationPieChart(timeline: timeline, actionName: selectedAction)
+                        DurationPieChart(timeline: game.timeline, actionName: selectedAction)
                     }
                 }
             }
         }
     }
+    
+    private func isTeamName(_ name: String) -> Bool {
+        name == game.team1.teamName || name == game.team2.teamName
+    }
 }
 
 #Preview {
-    AdvancedStatsGraphView(timeline: .constant([
-        TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル", actionLabels: [
-            ActionLabelItem(label: "成功", category: ActionLabelCategory(categoryName: "カテゴリ")),
-            ActionLabelItem(label: "失敗", category: ActionLabelCategory(categoryName: "カテゴリ"))
-        ]),
-        TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(200), actorName: "チーム2", actionName: "キック", actionLabels: [
-            ActionLabelItem(label: "成功", category: ActionLabelCategory(categoryName: "カテゴリ"))
-        ]),
-        TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(210), actorName: "チーム1", actionName: "タックル", actionLabels: [
-            ActionLabelItem(label: "失敗",  category: ActionLabelCategory(categoryName: "カテゴリ"))
-        ]),
-        TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(300), actorName: "チーム1", actionName: "タックル", actionLabels: [
-            ActionLabelItem(label: "成功",  category: ActionLabelCategory(categoryName: "カテゴリ")),
-            ActionLabelItem(label: "失敗",  category: ActionLabelCategory(categoryName: "カテゴリ")) // TODO: 相反するラベルを設定できないように対応するか検討
-        ])
-    ]))
+    AdvancedStatsGraphView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2")))
 }

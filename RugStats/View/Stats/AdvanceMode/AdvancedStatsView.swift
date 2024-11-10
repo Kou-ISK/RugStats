@@ -27,7 +27,7 @@ struct AdvancedStatsView: View {
         }
     }
     
-    @Binding var timeline: [TimelineItem]
+    @Binding var game: GameItem
     @State private var currentMode: Mode = .table // 現在のモードを保持
     
     var body: some View {
@@ -36,14 +36,14 @@ struct AdvancedStatsView: View {
             switch currentMode {
                 case .table:
                     // アドバンスモードで表示されるビュー
-                    AdvancedStatsTableView(timeline: $timeline)
+                    AdvancedStatsTableView(timeline: $game.timeline)
                     
                 case .graph:
                     // グラフモードで表示されるビュー
                     // TODO: 個人スタッツを表示する機能を追加
-                    AdvancedStatsGraphView(timeline: $timeline)
+                    AdvancedStatsGraphView(game: $game)
                 case .field:
-                    AdvancedStatsFieldPositionView(timeline: $timeline)
+                    AdvancedStatsFieldPositionView(game: $game)
             }
         }.toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -60,5 +60,5 @@ struct AdvancedStatsView: View {
 }
 
 #Preview {
-    AdvancedStatsView(timeline: .constant([TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")]))
+    AdvancedStatsView(game: .constant(GameItem(date: Date(), team1Name: "チーム1", team2Name: "チーム2")))
 }

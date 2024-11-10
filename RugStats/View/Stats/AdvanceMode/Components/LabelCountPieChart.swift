@@ -20,41 +20,46 @@ struct LabelCountPieChart: View {
                 counts[labelItem.category.categoryName, default: [:]][labelItem.label, default: 0] += 1
             }
         
-        VStack(spacing: 20) {
-            ForEach(labelsByCategory.keys.sorted(), id: \.self) { category in
-                VStack {
-                    Text(category) // カテゴリ名を表示
-                        .font(.headline)
-                    
-                    // カテゴリごとのラベル内訳円グラフ
-                    let labelCounts = labelsByCategory[category] ?? [:]
-                    let totalLabelsInCategory = labelCounts.values.reduce(0, +)
-                    
-                    if totalLabelsInCategory > 0 {
-                        Chart {
-                            ForEach(labelCounts.keys.sorted(), id: \.self) { label in
-                                let count = labelCounts[label] ?? 0
-                                let percentage = (Double(count) / Double(totalLabelsInCategory)) * 100
-                                
-                                SectorMark(
-                                    angle: .value("Count", count),
-                                    innerRadius: .inset(10),
-                                    outerRadius: 30
-                                )
-                                .foregroundStyle(by: .value("Label", label))
-                                .annotation(position: .overlay) {
-                                     Text("\(String(format: "%.0f", percentage))%")
-                                         .bold()
-                                         .font(.headline) // %のフォントサイズを大きくする
-                                 }
+        if labelsByCategory.isEmpty {
+            // labelsByCategoryが空の場合は表示しない
+            EmptyView()
+        } else {
+            VStack(spacing: 20) {
+                Text(actor).font(.headline).underline()
+                ForEach(labelsByCategory.keys.sorted(), id: \.self) { category in
+                    VStack {
+                        Text(category).font(.subheadline) // カテゴリ名を表示
+                        
+                        // カテゴリごとのラベル内訳円グラフ
+                        let labelCounts = labelsByCategory[category] ?? [:]
+                        let totalLabelsInCategory = labelCounts.values.reduce(0, +)
+                        
+                        if totalLabelsInCategory > 0 {
+                            Chart {
+                                ForEach(labelCounts.keys.sorted(), id: \.self) { label in
+                                    let count = labelCounts[label] ?? 0
+                                    let percentage = (Double(count) / Double(totalLabelsInCategory)) * 100
+                                    
+                                    SectorMark(
+                                        angle: .value("Count", count),
+                                        innerRadius: .inset(10),
+                                        outerRadius: 30
+                                    )
+                                    .foregroundStyle(by: .value("Label", label))
+                                    .annotation(position: .overlay) {
+                                        Text("\(String(format: "%.0f", percentage))%")
+                                            .bold()
+                                            .font(.headline) // %のフォントサイズを大きくする
+                                    }
+                                }
                             }
+                            .frame(width: 150, height: 150)
+                        } else {
+                            Text("データがありません")
                         }
-                        .frame(width: 150, height: 150)
-                    } else {
-                        Text("データがありません")
                     }
                 }
-            }
+            }.padding()
         }
     }
 }
