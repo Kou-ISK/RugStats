@@ -17,8 +17,8 @@ struct AdvancedStatsFieldPositionView: View {
         return game.timeline.filter({$0.actorName == selectedActor && $0.actionName == selectedAction})
     }
     
-    var teamList: [String]{
-        [game.team1.teamName, game.team2.teamName]
+    var teamList: [GameTeamInfo]{
+        [game.team1, game.team2]
     }
     
     var body: some View {
