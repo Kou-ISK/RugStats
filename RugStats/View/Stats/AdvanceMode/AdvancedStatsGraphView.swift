@@ -40,11 +40,10 @@ struct AdvancedStatsGraphView: View {
                     }
                     
                     // 選手のグラフ
-                    ForEach(groupedByActor.keys.sorted().filter { !isTeamName($0)}, id: \.self) { player in
-                        if let playerData = groupedByActor[player] {
-                            VStack {
-                                LabelCountPieChart(actor: player, chartData: playerData)
-                            }
+                    ForEach(groupedByActor.keys.sorted().filter { !isTeamName($0) }, id: \.self) { player in
+                        let playerData = groupedByActor[player]!.filter { $0.actionName == selectedAction }
+                        VStack {
+                            LabelCountPieChart(actor: player, chartData: playerData)
                         }
                     }
                     // 指定したアクションのチーム別合計時間を円グラフとして表示する
