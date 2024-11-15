@@ -22,10 +22,12 @@ struct AdvancedStatsFieldPositionView: View {
     }
     
     var body: some View {
-        // Pickerでアクションを選択
-        ActionPicker(selectedAction: $selectedAction, timeline: game.timeline)
-        // Pickerでアクターを選択
-        ActorPicker(selectedActor: $selectedActor, timeline: game.timeline, teamList: teamList)
+        HStack {
+            // Pickerでアクターを選択
+            ActorPicker(selectedActor: $selectedActor, timeline: game.timeline, teamList: teamList)
+            // Pickerでアクションを選択
+            ActionPicker(selectedAction: $selectedAction, timeline: game.timeline)
+        }
         VStack {
             GeometryReader { geometry in
                 let totalWidth = geometry.size.width // 全体の幅
@@ -44,11 +46,8 @@ struct AdvancedStatsFieldPositionView: View {
                         .padding(.horizontal, padding) // 左右に余白を追加
                         .opacity(0.4)
                     
-                    VStack {
-                        ZStack {
-                            Image(systemName: "arrowshape.up.fill").resizable().frame(width: 300, height: 500).foregroundStyle(.gray).opacity(0.2)
-                        }
-                    }
+                    
+                    Image(systemName: "arrowshape.up.fill").resizable().frame(maxWidth: 300, maxHeight: 500).foregroundStyle(.gray).opacity(0.2).padding()
                     
                     ForEach(selectedTimeline, id:\.id){action in
                         // 始点の座標データが存在する場合に表示する
