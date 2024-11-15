@@ -12,6 +12,7 @@ import SwiftData
 @main
 struct RugStatsApp: App {
     @State var isShowAlert: Bool = false
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     private var appVersionModel = AppVersionModel()
     @State private var cancellables = Set<AnyCancellable>()
