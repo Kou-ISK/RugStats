@@ -194,6 +194,9 @@
       },
       "shouldTranslate" : false
     },
+    "Crash" : {
+
+    },
     "DG" : {
       "comment" : "Action: DG",
       "localizations" : {

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		782858E92CE76304001CF03A /* RugStats GoogleService Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 782858E82CE76304001CF03A /* RugStats GoogleService Info.plist */; };
 		782858EC2CE76338001CF03A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 782858EB2CE76338001CF03A /* FirebaseAnalytics */; };
+		78285B072CE8CA54001CF03A /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 78285B062CE8CA54001CF03A /* FirebaseCrashlytics */; };
 		78718A412CB24F2800B81579 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 78718A402CB24F2800B81579 /* Localizable.xcstrings */; };
 		789F558B2CAD773100320A03 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 789F558A2CAD773100320A03 /* README.md */; };
 		789F558D2CAD77D800320A03 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 789F558C2CAD77D100320A03 /* .gitignore */; };
@@ -32,7 +32,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		782858E82CE76304001CF03A /* RugStats GoogleService Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RugStats GoogleService Info.plist"; sourceTree = "<group>"; };
 		78718A402CB24F2800B81579 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		789F552F2CAD664600320A03 /* RugStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RugStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		789F55412CAD664700320A03 /* RugStatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RugStatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,7 +41,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		78285A372CE7EE73001CF03A /* Exceptions for "RugStats" folder in "RugStats" target */ = {
+		78285B042CE8C26A001CF03A /* Exceptions for "RugStats" folder in "RugStats" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -55,7 +54,7 @@
 		789F55312CAD664600320A03 /* RugStats */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				78285A372CE7EE73001CF03A /* Exceptions for "RugStats" folder in "RugStats" target */,
+				78285B042CE8C26A001CF03A /* Exceptions for "RugStats" folder in "RugStats" target */,
 			);
 			path = RugStats;
 			sourceTree = "<group>";
@@ -78,6 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				782858EC2CE76338001CF03A /* FirebaseAnalytics in Frameworks */,
+				78285B072CE8CA54001CF03A /* FirebaseCrashlytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,16 +98,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		78285B052CE8CA54001CF03A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		789F55262CAD664600320A03 = {
 			isa = PBXGroup;
 			children = (
-				782858E82CE76304001CF03A /* RugStats GoogleService Info.plist */,
 				789F558C2CAD77D100320A03 /* .gitignore */,
 				78718A402CB24F2800B81579 /* Localizable.xcstrings */,
 				789F558A2CAD773100320A03 /* README.md */,
 				789F55312CAD664600320A03 /* RugStats */,
 				789F55442CAD664700320A03 /* RugStatsTests */,
 				789F554E2CAD664700320A03 /* RugStatsUITests */,
+				78285B052CE8CA54001CF03A /* Frameworks */,
 				789F55302CAD664600320A03 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -144,6 +151,7 @@
 			name = RugStats;
 			packageProductDependencies = (
 				782858EB2CE76338001CF03A /* FirebaseAnalytics */,
+				78285B062CE8CA54001CF03A /* FirebaseCrashlytics */,
 			);
 			productName = RugStats;
 			productReference = 789F552F2CAD664600320A03 /* RugStats.app */;
@@ -248,7 +256,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				782858E92CE76304001CF03A /* RugStats GoogleService Info.plist in Resources */,
 				789F558D2CAD77D800320A03 /* .gitignore in Resources */,
 				78718A412CB24F2800B81579 /* Localizable.xcstrings in Resources */,
 				789F558B2CAD773100320A03 /* README.md in Resources */,
@@ -274,17 +281,17 @@
 /* Begin PBXShellScriptBuildPhase section */
 		78285A352CE7EE5D001CF03A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
 				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
 				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
 			);
 			outputFileListPaths = (
 			);
@@ -652,6 +659,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 782858EA2CE76338001CF03A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
+		};
+		78285B062CE8CA54001CF03A /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 782858EA2CE76338001CF03A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
