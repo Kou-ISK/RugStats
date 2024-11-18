@@ -164,7 +164,20 @@
       }
     },
     "App Storeを開く" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open App Store"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Storeを開く"
+          }
+        }
+      }
     },
     "Chart" : {
       "comment" : "Chart View",
@@ -193,9 +206,6 @@
         }
       },
       "shouldTranslate" : false
-    },
-    "Crash" : {
-
     },
     "DG" : {
       "comment" : "Action: DG",
@@ -551,10 +561,36 @@
       }
     },
     "アップデートを行なってください" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please update"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アップデートを行なってください"
+          }
+        }
+      }
     },
     "あとで行う" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "あとで行う"
+          }
+        }
+      }
     },
     "アドバンス" : {
       "localizations" : {
@@ -1349,7 +1385,20 @@
       }
     },
     "新しいバージョンがあります" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New version is available"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいバージョンがあります"
+          }
+        }
+      }
     },
     "新規チーム作成" : {
       "localizations" : {
