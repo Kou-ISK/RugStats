@@ -49,14 +49,19 @@ struct StartCodingView: View {
                     checkIsAdvancedModeAvailable() // アドバンスモードが有効に出来るか判定
                     showCodingView = true // フォームが有効な場合に遷移フラグを立てる
                 }
-            }) {
+            }, label: {
                 Text("分析開始")
-            }
+                    .bold()
+                    .foregroundStyle(.white)
+                    .padding(8)
+                    .background(.blue)
+                    .cornerRadius(8)
+            })
             .fullScreenCover(isPresented: $showCodingView) {
                 CodingView(game: $newGame, isAdvancedModeAvailable: $isAdvancedModeAvailable, actionPresetList: actionPresetList)
             }
-            .buttonStyle(.borderedProminent)
             .disabled(!isFormValid()) // フォームが有効でない場合は非活性にする
+            .padding(32)
         }.onDisappear {
             resetNewGame() // 画面遷移後にリセット
         }

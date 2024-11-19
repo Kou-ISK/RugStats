@@ -17,7 +17,7 @@ struct SelectSquadView: View {
                 HStack {
                     Button(action: {
                         team.togglePlayer(player)
-                    }) {
+                    }, label: {
                         if team.orderedPlayers().contains(player) {
                             let playerIndex = team.orderedPlayers().firstIndex(of: player)! + 1
                             ZStack {
@@ -28,7 +28,7 @@ struct SelectSquadView: View {
                         } else {
                             Circle().stroke(.blue).frame(width: 25, height: 25)
                         }
-                    }
+                    })
                     Text(player.name)
                 }
             }
