@@ -4,5 +4,9 @@
 <dict>
 	<key>NSApplicationCrashOnExceptions</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>processing</string>
+	</array>
 </dict>
 </plist>
