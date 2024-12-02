@@ -56,10 +56,10 @@ struct AdvancedActionButton: View {
             }
         }, label: {
             Text(action.actionName)
+                .foregroundColor(calculateTextColor(for: actorColor))
                 .bold()
                 .padding(8)
-                .background(!isClicked ? Color(CGColor(red: actorColor?.red ?? 0, green: actorColor?.green ?? 0, blue: actorColor?.blue ?? 0, alpha: actorColor?.alpha ?? 100)) : .gray)
-                .blendMode(.difference)
+                .background(!isClicked ? Color(CGColor(red: actorColor?.red ?? 0.5, green: actorColor?.green ?? 0.5, blue: actorColor?.blue ?? 0.5, alpha: actorColor?.alpha ?? 100)) : .gray)
                 .cornerRadius(8)
         })
         .fullScreenCover(isPresented: $showFieldPositionView){
@@ -68,6 +68,15 @@ struct AdvancedActionButton: View {
         .fullScreenCover(isPresented: $showLabelView){
             AdvancedLabelView(action: $currentAction, labelSet: action.labelSet)
         }
+    }
+    
+    // 背景色に基づいてテキスト色を白または黒に設定
+    private func calculateTextColor(for colorItem: ColorItem?) -> Color {
+        guard let colorItem = colorItem else { return .black } // デフォルトは黒
+        let brightness = (0.299 * colorItem.red) +
+                         (0.587 * colorItem.green) +
+                         (0.114 * colorItem.blue)
+        return brightness > 0.5 ? .black : .white
     }
 }
 
@@ -78,7 +87,7 @@ struct AdvancedActionButton: View {
             [TimelineItem(startTimestamp: Date(), startGameClock: TimeInterval(100), actorName: "チーム1", actionName: "タックル")]
         ),
         actorName: "チーム1",
-        actorColor: ColorItem(red: 50, green: 50, blue: 50, alpha: 10),
+        actorColor: ColorItem(red: 0.2, green: 0.4, blue: 0.6, alpha: 0.8),
         action: ActionLabelPresetItem(
             actionName: "タックル",
             labelSet: [ActionLabelCategory(categoryName: "成否")
